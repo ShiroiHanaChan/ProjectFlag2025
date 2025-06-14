@@ -11,18 +11,28 @@
 *   - Check target collisions
 * */
 
+
+
 /* CONFIG CONFIG CONFIG CONFIG */
 
 const canvas = document.querySelector('#blockBreaker');
 const ctx = canvas.getContext('2d');
 
-const canvasHeight = canvas.height;
-const canvasWidth = canvas.width;
+// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+const canvasSize = 450;
+canvas.width = canvasSize;
+canvas.height = canvasSize * 1.25;
+canvas.style.width = '450px';
+canvas.style.height = '562,5px';
+// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+
+const canvasHeight = canvas.clientHeight;
+const canvasWidth = canvas.clientWidth;
 
 const BLOCKS_WIDE = canvasWidth * 0.05; // % of canvas and equals 1 square
 const BLOCKS_TALL = canvasHeight * 0.04; // %
 
-let targets = [];
+let gameEntities = [];
 
 console.log(canvasHeight);
 console.log(canvasWidth);
@@ -61,7 +71,7 @@ console.log(canvas);
 
 class Paddle extends Entity {
     static WIDTH = 3 * BLOCKS_WIDE;
-    static HEIGHT = 1 * BLOCKS_TALL;
+    static HEIGHT = .5 * BLOCKS_TALL;
     static OFFSET = 1 * BLOCKS_TALL;
 
     constructor(x, y) {
@@ -95,18 +105,41 @@ class Ball extends Entity {
 
 /* * * * * */
 
+/* Functions */
 
-let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2 * BLOCKS_TALL);
+function wallCollision() {
+
+}
+
+function gfxRenderer(gameEntities) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+    gameEntities.forEach(entity => {
+        entity.render(ctx);
+    });
+}
+
+/* * * * * * */
+
+// Init
+
+let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 1.75 * BLOCKS_TALL);
 let ball = new Ball();
 
-function gameLoop() {
-    console.log('Game starting...');
-    console.log('Ball', ball);
-    console.log('Paddle', paddle);
-    const gameTick = 30; // ms
-    ball.render(ctx);
-    paddle.render(ctx);
-    ball.update();
+gameEntities.push(paddle);
+gameEntities.push(ball);
+console.log(gameEntities);
 
+canvas.addEventListener('mousemove', (eventObj) => {
+    paddle.x = eventObj.x - Paddle.WIDTH / 2 * 1.5;
+}, false)
+
+console.log(canvas)
+
+function gameLoop() {
+    const gameTick = 30; // ms
+    gfxRenderer(gameEntities);
+    ball.update();
+    setTimeout(gameLoop, gameTick);
 }
 gameLoop();
