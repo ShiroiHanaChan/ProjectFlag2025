@@ -85,7 +85,7 @@ console.log(canvas);
 class Paddle extends Entity {
     static WIDTH = 3 * BLOCKS_WIDE;
     static HEIGHT = .5 * BLOCKS_TALL;
-    static OFFSET = 1 * BLOCKS_TALL;
+    static OFFSET = BLOCKS_TALL;
 
     constructor(x, y) {
         super(x, y, Paddle.WIDTH, Paddle.HEIGHT);
@@ -116,6 +116,14 @@ class Ball extends Entity {
     // Paddle collision temp method
 }
 
+class Target extends Entity {
+    static SIZEX = 1.8 * BLOCKS_WIDE;
+    static SIZEY = .9 * BLOCKS_TALL;
+    constructor(x, y) {
+        super(x, y, Target.SIZEX, Target.SIZEY);
+    }
+}
+
 /* * * * * */
 
 /* Functions */
@@ -127,16 +135,23 @@ function mapBuilder(array) {
     console.log(array[0][1]);
     console.log(array[0][2]);
     console.log(array[0][3]);
-    for (let i = 0; i < array.length; i++) {
-        let COL = BLOCKS_TALL;
 
+    let COL = BLOCKS_TALL;
+    for (let i = 0; i < array.length; i++) {
+        console.log('i:', i);
         for (let j = 0; j < array[i].length ; j++) {
             // Row iterator to build targets
+            console.log('j:', j);
             if (array[i][j] === 'x') {
-                console.log('Hi');
+                // Create new target, rendering will be handled by another function
+                let ROW = BLOCKS_WIDE * 2 * j + (2 * BLOCKS_WIDE);
+                let target = new Target(ROW, COL);
+                console.log('COL:', COL);
+                console.log('ROW:', ROW);
+                gameEntities.push(target);
+                ROW += 2 * BLOCKS_WIDE;
             }
         }
-
         COL += BLOCKS_TALL;
     }
 }
@@ -168,13 +183,21 @@ canvas.addEventListener('mousemove', (eventObj) => {
     paddle.x = eventObj.x - Paddle.WIDTH / 2 * 1.5;
 }, false)
 
+canvas.addEventListener('click', (eventObj) => {
+    console.log('--------------------');
+    console.log('Debug X:', eventObj.x);
+    console.log('Debug Y:', eventObj.y);
+}, false)
+
 console.log(canvas)
 
 function gameLoop() {
     const gameTick = 30; // ms
-    mapBuilder(levelOne);
     gfxRenderer(gameEntities);
     ball.update();
-    //setTimeout(gameLoop, gameTick);
+    setTimeout(gameLoop, gameTick);
 }
+
+mapBuilder(levelOne);
+console.log(gameEntities);
 gameLoop();
