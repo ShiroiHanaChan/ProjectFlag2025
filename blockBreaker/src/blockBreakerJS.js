@@ -11,7 +11,20 @@
 *   - Check target collisions
 * */
 
+/* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
+const levelOne = [
+    /* Row */
+    '__xxxxxx__', /* Col */
+    '__x____x__',
+    '__x____x__',
+    '__x____x__',
+    '__x____x__',
+    '__x____x__',
+    '__x____x__',
+    '__x____x__',
+    '__xxxxxx__',
+];
 
 /* CONFIG CONFIG CONFIG CONFIG */
 
@@ -107,12 +120,33 @@ class Ball extends Entity {
 
 /* Functions */
 
+function mapBuilder(array) {
+    // Get starting height as 2nd block
+    console.log(array);
+    console.log(array[0][0]);
+    console.log(array[0][1]);
+    console.log(array[0][2]);
+    console.log(array[0][3]);
+    for (let i = 0; i < array.length; i++) {
+        let COL = BLOCKS_TALL;
+
+        for (let j = 0; j < array[i].length ; j++) {
+            // Row iterator to build targets
+            if (array[i][j] === 'x') {
+                console.log('Hi');
+            }
+        }
+
+        COL += BLOCKS_TALL;
+    }
+}
+
 function wallCollision() {
 
 }
 
 function gfxRenderer(gameEntities) {
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'transparent';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight)
     gameEntities.forEach(entity => {
         entity.render(ctx);
@@ -138,8 +172,9 @@ console.log(canvas)
 
 function gameLoop() {
     const gameTick = 30; // ms
+    mapBuilder(levelOne);
     gfxRenderer(gameEntities);
     ball.update();
-    setTimeout(gameLoop, gameTick);
+    //setTimeout(gameLoop, gameTick);
 }
 gameLoop();
