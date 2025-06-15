@@ -18,9 +18,9 @@ const levelOne = [
     '__xxxxxx__', /* Col */
     '__x____x__',
     '__x____x__',
+    '__x_xx_x__',
     '__x____x__',
-    '__x____x__',
-    '__x____x__',
+    '__x_xx_x__',
     '__x____x__',
     '__x____x__',
     '__xxxxxx__',
@@ -95,8 +95,8 @@ class Paddle extends Entity {
 
 // Initial ball position and self updating method
 class Ball extends Entity {
-    static SIZEX = BLOCKS_WIDE * .4;
-    static SIZEY = BLOCKS_TALL * .4;
+    static SIZEX = BLOCKS_WIDE * .1;
+    static SIZEY = BLOCKS_TALL * .1;
     constructor() {
         super(0, 0, Ball.SIZEX, Ball.SIZEY);
         this.init();
@@ -104,14 +104,21 @@ class Ball extends Entity {
     // Init
     init() {
         this.x = canvasWidth / 2;
-        this.y = 8 * BLOCKS_TALL;
+        this.y = 20 * BLOCKS_TALL;
         this.dx = BLOCKS_WIDE * .1;
-        this.dy = BLOCKS_TALL * .15;
+        this.dy = BLOCKS_TALL * -.15;
     }
     // Ball position updater
     update() {
         this.x += this.dx;
         this.y += this.dy;
+    }
+    // Wall collision handler
+    wallCollision() {
+        if (ball.x > canvasWidth || ball.x < 0)
+            ball.dx = -ball.dx;
+        if (ball.y > canvasHeight || ball.y < 0)
+            ball.dy = -ball.dy;
     }
     // Paddle collision temp method
 }
@@ -144,7 +151,7 @@ function mapBuilder(array) {
             console.log('j:', j);
             if (array[i][j] === 'x') {
                 // Create new target, rendering will be handled by another function
-                let ROW = BLOCKS_WIDE * 2 * j + (2 * BLOCKS_WIDE);
+                let ROW = BLOCKS_WIDE * 2 * j;
                 let target = new Target(ROW, COL);
                 console.log('COL:', COL);
                 console.log('ROW:', ROW);
@@ -156,12 +163,21 @@ function mapBuilder(array) {
     }
 }
 
-function wallCollision() {
-
+// This callback function will iterate all entities and check for a potential collision on every game tick and return a boolean value
+function collisionDetection(a, b) {
+    return (
+        b.top < a.bottom &&
+        b.bottom > a.top &&
+        b.left < a.right &&
+        b.right > a.left
+    )
 }
+
+
 
 function gfxRenderer(gameEntities) {
     ctx.fillStyle = 'transparent';
+    /*ctx.fillStyle = 'rgba(0,0,0,0.3)';*/
     ctx.fillRect(0, 0, canvasWidth, canvasHeight)
     gameEntities.forEach(entity => {
         entity.render(ctx);
@@ -172,7 +188,7 @@ function gfxRenderer(gameEntities) {
 
 // Init
 
-let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 1.75 * BLOCKS_TALL);
+let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2.75 * BLOCKS_TALL);
 let ball = new Ball();
 
 gameEntities.push(paddle);
@@ -195,6 +211,7 @@ function gameLoop() {
     const gameTick = 30; // ms
     gfxRenderer(gameEntities);
     ball.update();
+    ball.wallCollision();
     setTimeout(gameLoop, gameTick);
 }
 
