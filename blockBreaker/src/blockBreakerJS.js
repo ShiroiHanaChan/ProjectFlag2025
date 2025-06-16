@@ -15,15 +15,15 @@
 
 const levelOne = [
     /* Row */
-    '__xxxxxx__', /* Col */
+    '___x__x___', /* Col */
+    '___x__x___',
+    '___x__x___',
+    '__________',
+    '_x______x_',
+    '_x__xx__x_',
+    '_x_x__x_x_',
     '__x____x__',
-    '__x____x__',
-    '__x_xx_x__',
-    '__x____x__',
-    '__x_xx_x__',
-    '__x____x__',
-    '__x____x__',
-    '__xxxxxx__',
+    '__________',
 ];
 
 /* CONFIG CONFIG CONFIG CONFIG */
@@ -164,7 +164,14 @@ function mapBuilder(array) {
 }
 
 // This callback function will iterate all entities and check for a potential collision on every game tick and return a boolean value
+// a = Ball, b = spread of all other entities
 function collisionDetection(a, b) {
+
+    console.log(b.top < a.bottom &&
+                b.bottom > a.top &&
+                b.left < a.right &&
+                b.right > a.left)
+
     return (
         b.top < a.bottom &&
         b.bottom > a.top &&
@@ -191,8 +198,8 @@ function gfxRenderer(gameEntities) {
 let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2.75 * BLOCKS_TALL);
 let ball = new Ball();
 
-gameEntities.push(paddle);
 gameEntities.push(ball);
+gameEntities.push(paddle);
 console.log(gameEntities);
 
 canvas.addEventListener('mousemove', (eventObj) => {
@@ -212,6 +219,8 @@ function gameLoop() {
     gfxRenderer(gameEntities);
     ball.update();
     ball.wallCollision();
+    //collisionDetection(ball, [, ...gameEntities] = b);
+    collisionDetection(ball, [...gameEntities.slice(1)]);
     setTimeout(gameLoop, gameTick);
 }
 
