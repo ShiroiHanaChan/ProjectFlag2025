@@ -1,16 +1,3 @@
-/*
-* TODO:
-*  Draw:
-*   - Canvas ✅
-*   - Gfx Renderer
-*   - OOP interfaces for objects
-*   - Ball acceleration function
-*   - Collision detector
-*   - Function that detects all collisions
-*   - Paddle and adjuster
-*   - Check target collisions
-* */
-
 /* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
 const levelOne = [
@@ -32,6 +19,7 @@ const canvas = document.querySelector('#blockBreaker');
 const ctx = canvas.getContext('2d');
 
 // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+// TODO: Redo canvas properties
 const canvasSize = 450;
 canvas.width = canvasSize;
 canvas.height = canvasSize * 1.25;
@@ -81,20 +69,31 @@ let gameEntities = [];
 class Paddle extends Entity {
     static WIDTH = 3 * BLOCKS_WIDE;
     static HEIGHT = .5 * BLOCKS_TALL;
-    static OFFSET = BLOCKS_TALL;
 
     constructor(x, y) {
         super(x, y, Paddle.WIDTH, Paddle.HEIGHT);
+    }
+
+    bounceAngle(ball) {
+        ball.dy = -ball.dy;
+        // TODO: fix this so it uses ball.dx
+        ball.dx = Ball.DeltaX * this.distanceFromCenter(ball) * 0.1;
+    }
+
+    distanceFromCenter(obj) {
+        return ((obj.x + Ball.WIDTH) - (this.x + Paddle.WIDTH / 2));
     }
 
 }
 
 // Initial ball position and self updating method
 class Ball extends Entity {
-    static SIZEX = BLOCKS_WIDE * .1;
-    static SIZEY = BLOCKS_TALL * .1;
+    static WIDTH = BLOCKS_WIDE * .3;
+    static HEIGHT = BLOCKS_TALL * .3;
+    // TODO: remove DeltaX and find fix to use exclusively this.dx
+    static DeltaX = BLOCKS_WIDE * .1;
     constructor() {
-        super(0, 0, Ball.SIZEX, Ball.SIZEY);
+        super(0, 0, Ball.WIDTH, Ball.HEIGHT);
         this.init();
     }
     // Init
@@ -102,7 +101,7 @@ class Ball extends Entity {
         this.x = canvasWidth / 2;
         this.y = 20 * BLOCKS_TALL;
         this.dx = BLOCKS_WIDE * .1;
-        this.dy = BLOCKS_TALL * -.15;
+        this.dy = BLOCKS_TALL * -.25;
     }
     // Ball position updater
     update() {
@@ -120,10 +119,10 @@ class Ball extends Entity {
 }
 
 class Target extends Entity {
-    static SIZEX = 1.8 * BLOCKS_WIDE;
-    static SIZEY = .9 * BLOCKS_TALL;
+    static WIDTH = 1.8 * BLOCKS_WIDE;
+    static HEIGHT = .9 * BLOCKS_TALL;
     constructor(x, y) {
-        super(x, y, Target.SIZEX, Target.SIZEY);
+        super(x, y, Target.WIDTH, Target.HEIGHT);
     }
     selfDestruct() {
         gameEntities = gameEntities.filter(Entity => Entity !== this);
@@ -136,24 +135,14 @@ class Target extends Entity {
 
 function mapBuilder(array) {
     // Get starting height as 2nd block
-    console.log(array);
-    console.log(array[0][0]);
-    console.log(array[0][1]);
-    console.log(array[0][2]);
-    console.log(array[0][3]);
-
     let COL = BLOCKS_TALL;
     for (let i = 0; i < array.length; i++) {
-        console.log('i:', i);
         for (let j = 0; j < array[i].length ; j++) {
             // Row iterator to build targets
-            console.log('j:', j);
             if (array[i][j] === 'x') {
                 // Create new target, rendering will be handled by another function
                 let ROW = BLOCKS_WIDE * 2 * j;
                 let target = new Target(ROW, COL);
-                console.log('COL:', COL);
-                console.log('ROW:', ROW);
                 gameEntities.push(target);
                 ROW += 2 * BLOCKS_WIDE;
             }
@@ -215,14 +204,16 @@ function gameLoop() {
 
     gameEntities.slice(2).forEach(entity => {
         if (entity instanceof Target && collisionDetection(ball, [entity])) {
-            console.log(entity)
             entity.selfDestruct();
-            console.log(gameEntities);
         }
     });
+
+    if (collisionDetection(ball, [paddle]))
+        paddle.bounceAngle(ball);
 
     setTimeout(gameLoop, gameTick);
 }
 
+console.log(paddle)
 mapBuilder(levelOne);
 gameLoop();
