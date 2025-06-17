@@ -47,10 +47,6 @@ const BLOCKS_TALL = canvasHeight * 0.04; // %
 
 let gameEntities = [];
 
-console.log(canvasHeight);
-console.log(canvasWidth);
-console.log(canvas);
-
 /* CONFIG CONFIG CONFIG CONFIG */
 
 /* Classes */
@@ -129,6 +125,9 @@ class Target extends Entity {
     constructor(x, y) {
         super(x, y, Target.SIZEX, Target.SIZEY);
     }
+    selfDestruct() {
+        gameEntities = gameEntities.filter(Entity => Entity !== this);
+    }
 }
 
 /* * * * * */
@@ -166,24 +165,17 @@ function mapBuilder(array) {
 // This callback function will iterate all entities and check for a potential collision on every game tick and return a boolean value
 // a = Ball, b = spread of all other entities
 function collisionDetection(a, b) {
-
-    console.log(b.top < a.bottom &&
-                b.bottom > a.top &&
-                b.left < a.right &&
-                b.right > a.left)
-
-    return (
-        b.top < a.bottom &&
-        b.bottom > a.top &&
-        b.left < a.right &&
-        b.right > a.left
-    )
+    return b.some(obj => (
+        obj.hitbox().top < a.hitbox().bottom &&
+        obj.hitbox().bottom > a.hitbox().top &&
+        obj.hitbox().left < a.hitbox().right &&
+        obj.hitbox().right > a.hitbox().left
+    ));
 }
 
 
-
 function gfxRenderer(gameEntities) {
-    ctx.fillStyle = 'transparent';
+    ctx.fillStyle = 'black';
     /*ctx.fillStyle = 'rgba(0,0,0,0.3)';*/
     ctx.fillRect(0, 0, canvasWidth, canvasHeight)
     gameEntities.forEach(entity => {
@@ -200,7 +192,6 @@ let ball = new Ball();
 
 gameEntities.push(ball);
 gameEntities.push(paddle);
-console.log(gameEntities);
 
 canvas.addEventListener('mousemove', (eventObj) => {
     paddle.x = eventObj.x - Paddle.WIDTH / 2 * 1.5;
@@ -220,10 +211,18 @@ function gameLoop() {
     ball.update();
     ball.wallCollision();
     //collisionDetection(ball, [, ...gameEntities] = b);
-    collisionDetection(ball, [...gameEntities.slice(1)]);
+    /*collisionDetection(ball, [...gameEntities.slice(1)]);*/
+
+    gameEntities.slice(2).forEach(entity => {
+        if (entity instanceof Target && collisionDetection(ball, [entity])) {
+            console.log(entity)
+            entity.selfDestruct();
+            console.log(gameEntities);
+        }
+    });
+
     setTimeout(gameLoop, gameTick);
 }
 
 mapBuilder(levelOne);
-console.log(gameEntities);
 gameLoop();
