@@ -15,13 +15,13 @@ const levelOne = [
 
 const levelTwo = [
     /* Row */
-    '_________x', /* Col */
-    '________x_',
-    '__________',
-    '__________',
+    '_______x__', /* Col */
     '_________x',
-    '________x_',
+    '_x________',
     '__________',
+    '____x_____',
+    '_________x',
+    '__x_______',
     '__________',
     '__________',
 ];
@@ -112,9 +112,9 @@ class Ball extends Entity {
     // Init
     init() {
         this.x = canvasWidth / 2;
-        this.y = 20 * BLOCKS_TALL;
+        this.y = 22 * BLOCKS_TALL;
         this.dx = BLOCKS_WIDE * .1;
-        this.dy = BLOCKS_TALL * -.25;
+        this.dy = BLOCKS_TALL * -.45;
     }
     // Ball position updater
     update() {
@@ -128,12 +128,30 @@ class Ball extends Entity {
         if (ball.y > canvasHeight || ball.y < 0)
             ball.dy = -ball.dy;
     }
-    // Paddle collision temp method
+    // Target collision bounce
+    targetHitBounce(side) {
+        switch (side) {
+            case 'Top':
+                ball.dy = -Math.abs(ball.dy);
+                break;
+            case 'Bottom':
+                ball.dy = Math.abs(ball.dy);
+                break;
+            case 'Left':
+                ball.dx = -Math.abs(ball.dx);
+                break;
+            case 'Right':
+                ball.dx = Math.abs(ball.dx);
+                break;
+            default:
+                console.log('Error occurred with targetHitBounce()');
+        }
+    }
 }
 
 class Target extends Entity {
     static WIDTH = 1.8 * BLOCKS_WIDE;
-    static HEIGHT = 2.9 * BLOCKS_TALL;
+    static HEIGHT = .9 * BLOCKS_TALL;
     constructor(x, y) {
         super(x, y, Target.WIDTH, Target.HEIGHT);
     }
@@ -141,11 +159,6 @@ class Target extends Entity {
     selfDestruct() {
         gameEntities = gameEntities.filter(Entity => Entity !== this);
     }
-
-    targetBounce(entity) {
-        this.shortestHypotenuse(entity, ball);
-    }
-
 }
 
 /* * * * * */
@@ -182,22 +195,25 @@ function collisionDetection(a, b) {
 }
 
 // Use ball as parameter for 'a', any other object for 'b'
-// TODO: Consider TypeScript for stronger type security
+/*TODO: - Consider TypeScript for stronger type security
+        - Consider subtracting by this.dx and this.dy for more accurate hitbox tagging*/
+
 /*
-Breakdown of this awesome big brain function: '+' signifies positive and '-' negative
+Breakdown of this awesome big brain callback function: '+' signifies positive and '-' negative
     dx+ && dy+ travelling Up and Right
     if b.hitbox().top < a.hitbox().bottom && b.hitbox().bottom > a.hitbox().top it's a side hit
 */
 function collisionDirection(a, b) {
     //const sideHit = a.hitbox().top > b.hitbox().top && a.hitbox().top < b.hitbox().bottom;
+
     const sideHit =
         (a.hitbox().top > b.hitbox().top && a.hitbox().top < b.hitbox().bottom) &&
         (a.hitbox().bottom > b.hitbox().top && a.hitbox().bottom < b.hitbox().bottom);
-    console.log(sideHit);
+
     if (sideHit) {
-        console.log(a.dx > 0 ? 'Left' : 'Right');
+        return a.dx > 0 ? 'Left' : 'Right';
     } else {
-        console.log(a.dy > 0 ? 'Top' : 'Bottom');
+        return a.dy > 0 ? 'Top' : 'Bottom';
     }
 }
 
@@ -244,7 +260,7 @@ function gameLoop() {
     gameEntities.slice(2).forEach(entity => {
         if (entity instanceof Target && collisionDetection(ball, [entity])) {
             entity.selfDestruct();
-            collisionDirection(ball, entity);
+            ball.targetHitBounce(collisionDirection(ball, entity));
         }
     });
 
@@ -254,7 +270,5 @@ function gameLoop() {
     setTimeout(gameLoop, gameTick);
 }
 
-console.log('Hitbox:', ball.hitbox());
-console.log(ball);
-mapBuilder(levelTwo);
+mapBuilder(levelOne);
 gameLoop();
