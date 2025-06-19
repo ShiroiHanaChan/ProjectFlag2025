@@ -2,14 +2,27 @@
 
 const levelOne = [
     /* Row */
-    '___x__x___', /* Col */
+    'x________x', /* Col */
+    'xx______xx',
+    'x________x',
+    'x__x__x__x',
     '___x__x___',
-    '___x__x___',
-    '__________',
     '_x______x_',
     '_x__xx__x_',
     '_x_x__x_x_',
     '__x____x__',
+];
+
+const levelTwo = [
+    /* Row */
+    '_________x', /* Col */
+    '________x_',
+    '__________',
+    '__________',
+    '_________x',
+    '________x_',
+    '__________',
+    '__________',
     '__________',
 ];
 
@@ -24,7 +37,7 @@ const canvasSize = 450;
 canvas.width = canvasSize;
 canvas.height = canvasSize * 1.25;
 canvas.style.width = '450px';
-canvas.style.height = '562,5px';
+canvas.style.height = '562.5px';
 // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
 
 const canvasHeight = canvas.clientHeight;
@@ -73,7 +86,7 @@ class Paddle extends Entity {
     constructor(x, y) {
         super(x, y, Paddle.WIDTH, Paddle.HEIGHT);
     }
-
+    // TODO: Redo speed function so it's consistent between dx/dy angles with absolute value
     bounceAngle(ball) {
         ball.dy = -ball.dy;
         // TODO: fix this so it uses ball.dx
@@ -120,13 +133,19 @@ class Ball extends Entity {
 
 class Target extends Entity {
     static WIDTH = 1.8 * BLOCKS_WIDE;
-    static HEIGHT = .9 * BLOCKS_TALL;
+    static HEIGHT = 2.9 * BLOCKS_TALL;
     constructor(x, y) {
         super(x, y, Target.WIDTH, Target.HEIGHT);
     }
+
     selfDestruct() {
         gameEntities = gameEntities.filter(Entity => Entity !== this);
     }
+
+    targetBounce(entity) {
+        this.shortestHypotenuse(entity, ball);
+    }
+
 }
 
 /* * * * * */
@@ -162,6 +181,26 @@ function collisionDetection(a, b) {
     ));
 }
 
+// Use ball as parameter for 'a', any other object for 'b'
+// TODO: Consider TypeScript for stronger type security
+/*
+Breakdown of this awesome big brain function: '+' signifies positive and '-' negative
+    dx+ && dy+ travelling Up and Right
+    if b.hitbox().top < a.hitbox().bottom && b.hitbox().bottom > a.hitbox().top it's a side hit
+*/
+function collisionDirection(a, b) {
+    //const sideHit = a.hitbox().top > b.hitbox().top && a.hitbox().top < b.hitbox().bottom;
+    const sideHit =
+        (a.hitbox().top > b.hitbox().top && a.hitbox().top < b.hitbox().bottom) &&
+        (a.hitbox().bottom > b.hitbox().top && a.hitbox().bottom < b.hitbox().bottom);
+    console.log(sideHit);
+    if (sideHit) {
+        console.log(a.dx > 0 ? 'Left' : 'Right');
+    } else {
+        console.log(a.dy > 0 ? 'Top' : 'Bottom');
+    }
+}
+
 
 function gfxRenderer(gameEntities) {
     ctx.fillStyle = 'black';
@@ -183,7 +222,7 @@ gameEntities.push(ball);
 gameEntities.push(paddle);
 
 canvas.addEventListener('mousemove', (eventObj) => {
-    paddle.x = eventObj.x - Paddle.WIDTH / 2 * 1.5;
+    paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
 }, false)
 
 canvas.addEventListener('click', (eventObj) => {
@@ -205,6 +244,7 @@ function gameLoop() {
     gameEntities.slice(2).forEach(entity => {
         if (entity instanceof Target && collisionDetection(ball, [entity])) {
             entity.selfDestruct();
+            collisionDirection(ball, entity);
         }
     });
 
@@ -214,6 +254,7 @@ function gameLoop() {
     setTimeout(gameLoop, gameTick);
 }
 
-console.log(paddle)
-mapBuilder(levelOne);
+console.log('Hitbox:', ball.hitbox());
+console.log(ball);
+mapBuilder(levelTwo);
 gameLoop();
