@@ -1,3 +1,10 @@
+/*
+* BUG REPORT
+* TODO:
+*  - Somehow the ball managed to escape the canvas when hit in an odd angle
+*
+*/
+
 /* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
 const levelOne = [
@@ -52,6 +59,22 @@ let gameEntities = [];
 
 /* Classes */
 
+// TODO: Build codeRunner (game) and gameUI classes
+
+class codeRunner {
+    static GAME_TICK = 30; //ms
+
+}
+
+class gameUI {
+
+}
+
+// Vroom vroom vroom
+class lawnmowerStarter {
+
+}
+
 // Entity super class, shares common properties and methods
 // Each entity must contain it's very own position property and rendering and hitbox methods
 
@@ -101,10 +124,13 @@ class Paddle extends Entity {
 
 // Initial ball position and self updating method
 class Ball extends Entity {
+
     static WIDTH = BLOCKS_WIDE * .3;
     static HEIGHT = BLOCKS_TALL * .3;
+
     // TODO: remove DeltaX and find fix to use exclusively this.dx
     static DeltaX = BLOCKS_WIDE * .1;
+
     constructor() {
         super(0, 0, Ball.WIDTH, Ball.HEIGHT);
         this.init();
@@ -249,6 +275,7 @@ canvas.addEventListener('click', (eventObj) => {
 
 console.log(canvas)
 
+// TODO: Move to codeRunner class
 function gameLoop() {
     const gameTick = 30; // ms
     gfxRenderer(gameEntities);
@@ -270,5 +297,10 @@ function gameLoop() {
     setTimeout(gameLoop, gameTick);
 }
 
+function gameMenuLauncher () {
+
+}
+
+gameMenuLauncher();
 mapBuilder(levelOne);
 gameLoop();

@@ -1,0 +1,55 @@
+@use 'scssMixins' as *;
+
+.form-contact {
+  @include display-grid($grid-columns: 1fr);
+  @container (width > 75ch) {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+footer form {
+  @include display-grid($grid-columns: 1fr);
+  padding: var(--spacing-200);
+
+  & input {
+    /* For checkbox and input border */
+    accent-color: var(--text-accent-primary);
+    color: inherit;
+  }
+
+  & input:not([type="checkbox"]) {
+    border: 1px solid transparent;
+    background-color: var(--jet);
+    border-radius: var(--radius-full);
+    padding: var(--spacing-150);
+    margin-top: var(--spacing-075);
+    width: 100%;
+    &:focus {
+      outline: none;
+      border: 1px solid var(--saffron);
+    }
+  }
+
+  & input[type="checkbox"]:hover {
+    cursor: pointer;
+  }
+
+  @container (width > 30ch) {
+    
+  }
+  button {
+    justify-self: end;
+  }
+
+  > div:has([type="checkbox"]) {
+    @include display-flex($justify-content: space-between);
+    > input {
+      height: 100%;
+    }
+  }
+}
+
+label {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}

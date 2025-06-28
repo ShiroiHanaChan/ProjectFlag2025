@@ -1,0 +1,59 @@
+/* Coolors Exported Palette - https://coolors.co/cfdbd5-e8eddf-f5cb5c-242423-333533 */
+:root {
+  --platinum: hsla(150, 14%, 84%, 1);
+  --alabaster: hsla(81, 28%, 90%, 1);
+  --saffron: hsla(44, 88%, 66%, 1);
+  --eerie-black: hsla(60, 1%, 14%, 1);
+  --jet: hsla(120, 2%, 20%, 1);
+  --danger: hsla(359, 88%, 55%, 1);
+}
+
+/* CSS HEX */
+/*
+--platinum: #cfdbd5ff;
+--alabaster: #e8eddfff;
+--saffron: #f5cb5cff;
+--eerie-black: #242423ff;
+--jet: #333533ff;
+
+!* CSS HSL *!
+--platinum: hsla(150, 14%, 84%, 1);
+--alabaster: hsla(81, 28%, 90%, 1);
+--saffron: hsla(44, 88%, 66%, 1);
+--eerie-black: hsla(60, 1%, 14%, 1);
+--jet: hsla(120, 2%, 20%, 1);
+*/
+/* SCSS HEX */
+/* SCSS HSL */
+/* SCSS RGB */
+/* SCSS Gradient */
+/* Tool: https://coolors.co/ */
+:root {
+  /* Text */
+  --text-neutral-primary: hsl(0, 0%, 100%);
+  --text-neutral-secondary: var(--platinum);
+  --text-accent-primary: var(--saffron);
+  --text-danger-primary: var(--danger);
+  /* Backgrounds */
+  --bg-neutral-primary: var(--eerie-black);
+  --bg-neutral-secondary: var(--jet);
+  --border-neutral-primary: var(--alabaster);
+  /* Gradients */
+  --gradient-top: $gradient-top;
+  --gradient-bottom: $gradient-bottom;
+  --gradient-right: $gradient-right;
+  --gradient-left: $gradient-left;
+  --gradient-top-right: $gradient-top-right;
+  --gradient-bottom-right: $gradient-bottom-right;
+  --gradient-top-left: $gradient-top-left;
+  --gradient-bottom-left: $gradient-bottom-left;
+  --gradient-radial: $gradient-radial;
+  /* Liquid Glass */
+  --bg-glass-primary: var(--platinum);
+  --bg-glass-secondary: var(--alabaster);
+  --bg-glass-backdrop: var(--jet);
+  --border-glass-primary: hsl(0, 0%, 30%);
+  --border-glass-secondary: hsl(0, 0%, 15%);
+}
+
+/*# sourceMappingURL=prodPallete.css.map */

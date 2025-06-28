@@ -1,0 +1,59 @@
+/* Coolors Exported Palette - https://coolors.co/cfdbd5-e8eddf-f5cb5c-242423-333533 */
+
+:root {
+  --platinum: hsla(150, 14%, 84%, 1);
+  --alabaster: hsla(81, 28%, 90%, 1);
+  --saffron: hsla(44, 88%, 66%, 1);
+  --eerie-black: hsla(60, 1%, 14%, 1);
+  --jet: hsla(120, 2%, 20%, 1);
+  --danger: hsla(359, 88%, 55%, 1);
+}
+
+/* CSS HEX */
+/*
+--platinum: #cfdbd5ff;
+--alabaster: #e8eddfff;
+--saffron: #f5cb5cff;
+--eerie-black: #242423ff;
+--jet: #333533ff;
+
+!* CSS HSL *!
+--platinum: hsla(150, 14%, 84%, 1);
+--alabaster: hsla(81, 28%, 90%, 1);
+--saffron: hsla(44, 88%, 66%, 1);
+--eerie-black: hsla(60, 1%, 14%, 1);
+--jet: hsla(120, 2%, 20%, 1);
+*/
+
+
+/* SCSS HEX */
+$platinum: #cfdbd5ff;
+$alabaster: #e8eddfff;
+$saffron: #f5cb5cff;
+$eerie-black: #242423ff;
+$jet: #333533ff;
+
+/* SCSS HSL */
+$platinum: hsla(150, 14%, 84%, 1);
+$alabaster: hsla(81, 28%, 90%, 1);
+$saffron: hsla(44, 88%, 66%, 1);
+$eerie-black: hsla(60, 1%, 14%, 1);
+$jet: hsla(120, 2%, 20%, 1);
+
+/* SCSS RGB */
+$platinum: rgba(207, 219, 213, 1);
+$alabaster: rgba(232, 237, 223, 1);
+$saffron: rgba(245, 203, 92, 1);
+$eerie-black: rgba(36, 36, 35, 1);
+$jet: rgba(51, 53, 51, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-right: linear-gradient(90deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-bottom: linear-gradient(180deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-left: linear-gradient(270deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-top-right: linear-gradient(45deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-bottom-right: linear-gradient(135deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-top-left: linear-gradient(225deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-bottom-left: linear-gradient(315deg, #cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);
+$gradient-radial: radial-gradient(#cfdbd5ff, #e8eddfff, #f5cb5cff, #242423ff, #333533ff);

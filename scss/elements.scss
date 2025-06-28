@@ -1,0 +1,12 @@
+@import "/assets/prodPallete/prodPallete.css";
+
+button {
+  border-radius: var(--radius-full);
+  padding: var(--spacing-150);
+  background-color: var(--jet);
+  border: 1px solid transparent;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid var(--saffron);
+  }
+}

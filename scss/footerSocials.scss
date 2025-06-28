@@ -1,0 +1,21 @@
+@use 'scssMixins' as *;
+
+footer .footer-social-links {
+  @include display-flex();
+  margin-bottom: var(--spacing-200);
+  & figure {
+    @include display-flex();
+  }
+  & a:hover {
+    color: var(--text-accent-primary);
+    cursor: pointer;
+  }
+  & svg {
+    height: 1rem;
+    fill: var(--text-neutral-primary);
+    &:hover {
+      fill: var(--text-accent-primary);
+      cursor: pointer;
+    }
+  }
+}

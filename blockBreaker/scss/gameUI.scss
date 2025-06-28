@@ -1,0 +1,16 @@
+.block-breaker {
+  position: absolute;
+}
+
+.game-UI {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #ae79e8;
+  position: relative;
+  top: 0;
+  & > * {
+    margin: auto;
+
+  }
+}

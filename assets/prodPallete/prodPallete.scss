@@ -1,0 +1,41 @@
+@import "../palettes/palette-4.scss";
+/* Tool: https://coolors.co/ */
+
+:root {
+    /* Text */
+    --text-neutral-primary: hsl(0, 0%, 100%);
+    --text-neutral-secondary: var(--platinum);
+
+    --text-accent-primary: var(--saffron);
+    --text-danger-primary: var(--danger);
+
+    /* Backgrounds */
+    --bg-neutral-primary: var(--eerie-black);
+    --bg-neutral-secondary: var(--jet);
+
+    --border-neutral-primary: var(--alabaster);
+
+    /* Gradients */
+    --gradient-top: $gradient-top;
+    --gradient-bottom: $gradient-bottom;
+
+    --gradient-right: $gradient-right;
+    --gradient-left: $gradient-left;
+
+    --gradient-top-right: $gradient-top-right;
+    --gradient-bottom-right: $gradient-bottom-right;
+
+    --gradient-top-left: $gradient-top-left;
+    --gradient-bottom-left: $gradient-bottom-left;
+
+    --gradient-radial: $gradient-radial;
+
+    /* Liquid Glass */
+    --bg-glass-primary: var(--platinum);
+    --bg-glass-secondary: var(--alabaster);
+
+    --bg-glass-backdrop: var(--jet);
+
+    --border-glass-primary: hsl(0, 0%, 30%);
+    --border-glass-secondary: hsl(0, 0%, 15%);
+}
