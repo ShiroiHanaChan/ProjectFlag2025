@@ -1,9 +1,13 @@
 @import "reset.css";
+@import "prodPallete.css";
+@import "fonts.css";
 @import "layout.css";
 @import "effects.css";
 @import "form.css";
 @import "elements.css";
-@import "/assets/prodPallete/prodPallete.css";
 @import "prodStylesheet.css";
 @import "colorScheme.css";
 @import "footerSocials.css";
+@import "gameUI.css";
+@import "canvas.css";
+@import "appReact.css";

@@ -6,7 +6,7 @@ function Leaderboard({lbScores: {entries}}) {
 
     return (
         <>
-            <ul>
+            <ul className={'leaderboard-ul'}>
                 {
                     [...sortedEntries.slice(0, 8)].map(entry =>
                         <ScoreCard

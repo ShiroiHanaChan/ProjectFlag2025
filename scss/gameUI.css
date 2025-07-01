@@ -1,0 +1,26 @@
+/* Fonts */
+.block-breaker {
+  position: absolute;
+}
+
+.game-ui {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: baseline;
+  gap: 20px;
+  border: 1px solid var(--saffron);
+  width: 450px;
+  height: 562.5px;
+  position: relative;
+  top: 0;
+}
+.game-ui > * {
+  margin: 0;
+  border: 1px solid var(--saffron);
+  padding: 0.5em;
+}
+.game-ui img {
+  height: 200px;
+}
+
+/*# sourceMappingURL=gameUI.css.map */

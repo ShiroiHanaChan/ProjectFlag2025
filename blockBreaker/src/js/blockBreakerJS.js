@@ -5,6 +5,15 @@
 *
 */
 
+
+
+console.log('Loading...')
+
+/* INIT INIT INIT INIT INIT INIT INIT INIT INIT INIT */
+/* INIT INIT INIT INIT INIT INIT INIT INIT INIT INIT */
+
+const GAME_STATES = [''];
+
 /* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
 const levelOne = [
@@ -61,18 +70,39 @@ let gameEntities = [];
 
 // TODO: Build codeRunner (game) and gameUI classes
 
-class codeRunner {
-    static GAME_TICK = 30; //ms
+class GAME {
+    // Declare entities
+    constructor() {
+        this.paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2.75 * BLOCKS_TALL);
+        this.ball = new Ball();
+    }
 
-}
+    // Methods
+    init() {
+        console.log(this.paddle);
+        console.log(this.ball);
 
-class gameUI {
+        gameEntities.push(this.paddle);
+        gameEntities.push(this.ball);
+    }
 
-}
+    gameLoop () {
+        gfxRenderer(gameEntities);
+        this.ball.update();
+        this.ball.wallCollision(this.ball);
+        gameEntities.slice(0, -2).forEach(entity => {
+            if (entity instanceof Target && collisionDetection(this.ball, [entity])) {
+                entity.selfDestruct();
+                this.ball.targetHitBounce(collisionDirection(this.ball, entity));
+            }
+        });
 
-// Vroom vroom vroom
-class lawnmowerStarter {
+        if (collisionDetection(this.ball, [this.paddle]))
+            this.paddle.bounceAngle(this.ball);
 
+        /*setTimeout(gameLoop, gameTick);*/
+        requestAnimationFrame(() => this.gameLoop());
+    }
 }
 
 // Entity super class, shares common properties and methods
@@ -111,13 +141,20 @@ class Paddle extends Entity {
     }
     // TODO: Redo speed function so it's consistent between dx/dy angles with absolute value
     bounceAngle(ball) {
-        ball.dy = -ball.dy;
-        // TODO: fix this so it uses ball.dx
-        ball.dx = Ball.DeltaX * this.distanceFromCenter(ball) * 0.1;
+        // TODO: fix this so it uses ball.dx ✅
+        // Ultra weak sauce formula
+        //ball.dx = Ball.DeltaX * this.distanceFromCenter(ball) * 0.1;
+        // b = c × cos(θ) -> dy
+        // a = c × sin(θ) -> dx
+        ball.dy = 0;
+        ball.dx = 0;
+        const speed = BLOCKS_TALL * .25; // FPS
+        ball.dy = -(speed * Math.cos((Math.PI / 2) * this.distanceFromCenter(ball)));
+        ball.dx = speed * Math.sin((Math.PI / 2) * this.distanceFromCenter(ball));
     }
 
     distanceFromCenter(obj) {
-        return ((obj.x + Ball.WIDTH) - (this.x + Paddle.WIDTH / 2));
+        return (((obj.x + Ball.WIDTH / 2) - (this.x + Paddle.WIDTH / 2)) / Paddle.WIDTH);
     }
 
 }
@@ -128,8 +165,8 @@ class Ball extends Entity {
     static WIDTH = BLOCKS_WIDE * .3;
     static HEIGHT = BLOCKS_TALL * .3;
 
-    // TODO: remove DeltaX and find fix to use exclusively this.dx
-    static DeltaX = BLOCKS_WIDE * .1;
+    // TODO: remove DeltaX and find fix to use exclusively this.dx ✅
+    // static DeltaX = BLOCKS_WIDE * .1;
 
     constructor() {
         super(0, 0, Ball.WIDTH, Ball.HEIGHT);
@@ -139,8 +176,8 @@ class Ball extends Entity {
     init() {
         this.x = canvasWidth / 2;
         this.y = 22 * BLOCKS_TALL;
-        this.dx = BLOCKS_WIDE * .1;
-        this.dy = BLOCKS_TALL * -.45;
+        this.dx = BLOCKS_WIDE * .05;
+        this.dy = BLOCKS_TALL * -.225;
     }
     // Ball position updater
     update() {
@@ -148,7 +185,7 @@ class Ball extends Entity {
         this.y += this.dy;
     }
     // Wall collision handler
-    wallCollision() {
+    wallCollision(ball) {
         if (ball.x > canvasWidth || ball.x < 0)
             ball.dx = -ball.dx;
         if (ball.y > canvasHeight || ball.y < 0)
@@ -158,16 +195,16 @@ class Ball extends Entity {
     targetHitBounce(side) {
         switch (side) {
             case 'Top':
-                ball.dy = -Math.abs(ball.dy);
+                this.dy = -Math.abs(this.dy);
                 break;
             case 'Bottom':
-                ball.dy = Math.abs(ball.dy);
+                this.dy = Math.abs(this.dy);
                 break;
             case 'Left':
-                ball.dx = -Math.abs(ball.dx);
+                this.dx = -Math.abs(this.dx);
                 break;
             case 'Right':
-                ball.dx = Math.abs(ball.dx);
+                this.dx = Math.abs(this.dx);
                 break;
             default:
                 console.log('Error occurred with targetHitBounce()');
@@ -211,12 +248,13 @@ function mapBuilder(array) {
 
 // This callback function will iterate all entities and check for a potential collision on every game tick and return a boolean value
 // a = Ball, b = spread of all other entities
+// Calculates next game frame
 function collisionDetection(a, b) {
     return b.some(obj => (
-        obj.hitbox().top < a.hitbox().bottom &&
-        obj.hitbox().bottom > a.hitbox().top &&
-        obj.hitbox().left < a.hitbox().right &&
-        obj.hitbox().right > a.hitbox().left
+        obj.hitbox().top < a.hitbox().bottom + a.dy &&
+        obj.hitbox().bottom > a.hitbox().top + a.dy &&
+        obj.hitbox().left < a.hitbox().right + a.dx &&
+        obj.hitbox().right > a.hitbox().left + a.dx
     ));
 }
 
@@ -255,52 +293,20 @@ function gfxRenderer(gameEntities) {
 
 /* * * * * * */
 
-// Init
+console.log(canvas);
 
-let paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2.75 * BLOCKS_TALL);
-let ball = new Ball();
-
-gameEntities.push(ball);
-gameEntities.push(paddle);
+// Game mode switch case
+mapBuilder(levelOne);
+const Game = new GAME();
+Game.init();
+Game.gameLoop();
 
 canvas.addEventListener('mousemove', (eventObj) => {
-    paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
+    Game.paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
 }, false)
 
 canvas.addEventListener('click', (eventObj) => {
     console.log('--------------------');
     console.log('Debug X:', eventObj.x);
     console.log('Debug Y:', eventObj.y);
-}, false)
-
-console.log(canvas)
-
-// TODO: Move to codeRunner class
-function gameLoop() {
-    const gameTick = 30; // ms
-    gfxRenderer(gameEntities);
-    ball.update();
-    ball.wallCollision();
-    //collisionDetection(ball, [, ...gameEntities] = b);
-    /*collisionDetection(ball, [...gameEntities.slice(1)]);*/
-
-    gameEntities.slice(2).forEach(entity => {
-        if (entity instanceof Target && collisionDetection(ball, [entity])) {
-            entity.selfDestruct();
-            ball.targetHitBounce(collisionDirection(ball, entity));
-        }
-    });
-
-    if (collisionDetection(ball, [paddle]))
-        paddle.bounceAngle(ball);
-
-    setTimeout(gameLoop, gameTick);
-}
-
-function gameMenuLauncher () {
-
-}
-
-gameMenuLauncher();
-mapBuilder(levelOne);
-gameLoop();
+}, false);

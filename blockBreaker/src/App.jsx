@@ -1,7 +1,8 @@
-import './App.css'
+import './App.scss'
 import {useCallback, useEffect, useState} from "react";
 import {dataURL, Entry, Score, verifyDuplicates} from "./config.js";
 import Leaderboard from "./components/Leaderboard.jsx";
+import BlockMenu from "./components/BlockMenu.jsx";
 
 /*
 * TODO:
@@ -61,6 +62,7 @@ function App() {
                     <Leaderboard
                         lbScores={scores}
                     />
+                    <BlockMenu/>
                 </article>
             </>
         )

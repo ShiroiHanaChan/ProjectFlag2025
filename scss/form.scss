@@ -53,3 +53,11 @@ label {
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
 }
+
+.experienced-grid {
+  @include display-grid();
+  > svg {
+    height: 20px;
+    fill: white;
+  }
+}

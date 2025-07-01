@@ -1,0 +1,54 @@
+img {
+  height: 200px;
+}
+
+.leaderboard-ul {
+  list-style: none;
+  border: 1px solid lightblue;
+  border-radius: 1.5rem;
+  width: fit-content;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  gap: 0.5rem;
+}
+
+.leaderboard-ul > li:nth-child(2n):not(:last-child) {
+  padding-bottom: 0.75rem;
+}
+.leaderboard-ul > li:nth-child(2n):not(:last-child)::before {
+  content: "-";
+  margin-right: 0.5rem;
+}
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #FFF;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
+  }
+  25% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 2px;
+  }
+  50% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 2px, -38px 0 0 -2px;
+  }
+  75% {
+    box-shadow: 14px 0 0 2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
+  }
+  100% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 2px, -14px 0 0 -2px, -38px 0 0 -2px;
+  }
+}
+
+/*# sourceMappingURL=appReact.css.map */

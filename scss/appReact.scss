@@ -1,15 +1,8 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+img {
+  height: 200px;
 }
 
-/*TODO: - Export these CSS*/
-
-/* ACTUAL CSS */
-
-ul:not([class]) {
+.leaderboard-ul {
   list-style: none;
   border: 1px solid lightblue;
   border-radius: 1.5rem;
@@ -20,7 +13,7 @@ ul:not([class]) {
   gap: .5rem;
 }
 
-ul > li:nth-child(2n):not(:last-child) {
+.leaderboard-ul > li:nth-child(2n):not(:last-child) {
   padding-bottom: .75rem;
   &::before {
     content: '-';
@@ -57,41 +50,3 @@ ul > li:nth-child(2n):not(:last-child) {
     box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
   }
 }
-
-/* ACTUAL CSS */
-
-/*.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}*/
