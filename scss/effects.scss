@@ -3,8 +3,8 @@
   border-radius: 1rem;
   position: relative;
 
-  background: hsl(from var(--bg-glass-backdrop) h s l / 0.25);
-  backdrop-filter: blur(2px);
+  background: hsl(from hsl(0, 0%, 35%) h s l / 0.25);
+  backdrop-filter: blur(6px);
 
   margin-block: var(--spacing-100);
 }
@@ -17,8 +17,8 @@
   border-radius: inherit;
   border: var(--border-width) solid transparent;
   background: linear-gradient(var(--border-glass-primary), var(--border-glass-secondary)) border-box;
-  mask: linear-gradient(red, blue) border-box,
-  linear-gradient(red, blue) padding-box;
+  mask: linear-gradient(white, black) border-box,
+  linear-gradient(white, black) padding-box;
   mask-composite: subtract;
 }
 

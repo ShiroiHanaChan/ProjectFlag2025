@@ -1,22 +1,37 @@
 @use 'scssMixins' as *;
 
-.block-breaker {
-  position: absolute;
+.game-component {
+  @include display-flex();
 }
 
 .game-ui {
-  @include display-grid($grid-columns: 1fr);
-  border: 1px solid var(--saffron);
+  text-align: center;
   width: 450px;
   height: 562.5px;
   position: relative;
   top: 0;
+  margin: 0;
+  font-weight: 700;
+  padding: var(--spacing-100);
+  & > p {
+    border: 1px solid var(--text-neutral-primary);
+    border-radius: var(--radius-200);
+    margin: var(--spacing-150);
+    background-color: var(--);
+    &:last-child {
+      background-color: var(--);
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: var(--text-neutral-secondary);
+    }
+  }
   & > * {
-    margin: 0;
-    border: 1px solid var(--saffron);
-    padding: .5em;
+    @include display-flex();
+
   }
   & img {
     height: 200px;
+    margin: auto;
   }
 }

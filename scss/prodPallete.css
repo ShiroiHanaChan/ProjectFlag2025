@@ -4,7 +4,7 @@
   --alabaster: hsla(81, 28%, 90%, 1);
   --saffron: hsla(44, 88%, 66%, 1);
   --eerie-black: hsla(60, 1%, 14%, 1);
-  --jet: hsla(120, 2%, 20%, 1);
+  --jet: hsl(120, 2%, 20%, 1);
   --danger: hsla(359, 88%, 55%, 1);
 }
 
@@ -27,17 +27,67 @@
 /* SCSS HSL */
 /* SCSS RGB */
 /* SCSS Gradient */
+/* Coolors Exported Palette - https://coolors.co/963484-3066be-60afff-28c2ff-2af5ff */
+:root {
+  --plum: hsla(311, 49%, 40%, 1);
+  --true-blue: hsla(217, 60%, 47%, 1);
+  --argentinian-blue: hsla(210, 100%, 69%, 1);
+  --deep-sky-blue: hsla(197, 100%, 58%, 1);
+  --electric-blue: hsl(186, 100%, 58%);
+  --aqua: hsla(183, 100%, 58%, 1);
+  --danger: hsla(359, 88%, 55%, 1);
+}
+
+/* CSS HEX
+--plum: #963484ff;
+--true-blue: #3066beff;
+--argentinian-blue: #60afffff;
+--deep-sky-blue: #28c2ffff;
+--aqua: #2af5ffff;*/
+/* CSS HSL */
+/* SCSS HEX
+$plum: #963484ff;
+$true-blue: #3066beff;
+$argentinian-blue: #60afffff;
+$deep-sky-blue: #28c2ffff;
+$aqua: #2af5ffff;*/
+/* SCSS HSL
+$plum: hsla(311, 49%, 40%, 1);
+$true-blue: hsla(217, 60%, 47%, 1);
+$argentinian-blue: hsla(210, 100%, 69%, 1);
+$deep-sky-blue: hsla(197, 100%, 58%, 1);
+$aqua: hsla(183, 100%, 58%, 1);*/
+/* SCSS RGB
+$plum: rgba(150, 52, 132, 1);
+$true-blue: rgba(48, 102, 190, 1);
+$argentinian-blue: rgba(96, 175, 255, 1);
+$deep-sky-blue: rgba(40, 194, 255, 1);
+$aqua: rgba(42, 245, 255, 1);*/
+/* SCSS Gradient
+$gradient-top: linear-gradient(0deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-right: linear-gradient(90deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-bottom: linear-gradient(180deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-left: linear-gradient(270deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-top-right: linear-gradient(45deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-bottom-right: linear-gradient(135deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-top-left: linear-gradient(225deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-bottom-left: linear-gradient(315deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
+$gradient-radial: radial-gradient(#963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);*/
 /* Tool: https://coolors.co/ */
+html {
+  color-scheme: light dark;
+}
+
 :root {
   /* Text */
-  --text-neutral-primary: hsl(0, 0%, 100%);
-  --text-neutral-secondary: var(--platinum);
-  --text-accent-primary: var(--saffron);
+  --text-neutral-primary: var(--jet);
+  --text-neutral-secondary: var(--eerie-black);
+  --text-accent-primary: var(--true-blue);
   --text-danger-primary: var(--danger);
   /* Backgrounds */
-  --bg-neutral-primary: var(--eerie-black);
-  --bg-neutral-secondary: var(--jet);
-  --border-neutral-primary: var(--alabaster);
+  --bg-neutral-primary: var(--aqua);
+  --bg-neutral-secondary: var(--deep-sky-blue);
+  --border-neutral-primary: var(--eerie-black);
   /* Gradients */
   --gradient-top: $gradient-top;
   --gradient-bottom: $gradient-bottom;
@@ -49,6 +99,69 @@
   --gradient-bottom-left: $gradient-bottom-left;
   --gradient-radial: $gradient-radial;
   /* Liquid Glass */
+  --bg-glass-primary: var(--platinum);
+  --bg-glass-secondary: var(--alabaster);
+  --bg-glass-backdrop: var(--jet);
+  --border-glass-primary: hsl(0, 0%, 30%);
+  --border-glass-secondary: hsl(0, 0%, 15%);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Text */
+    --text-neutral-primary: hsl(0, 0%, 100%);
+    --text-neutral-secondary: var(--platinum);
+    --text-accent-primary: var(--saffron);
+    --text-danger-primary: var(--danger);
+    /* Backgrounds */
+    --bg-neutral-primary: var(--eerie-black);
+    --bg-neutral-secondary: var(--jet);
+    --border-neutral-primary: var(--alabaster);
+    /* Gradients */
+    --gradient-top: $gradient-top;
+    --gradient-bottom: $gradient-bottom;
+    --gradient-right: $gradient-right;
+    --gradient-left: $gradient-left;
+    --gradient-top-right: $gradient-top-right;
+    --gradient-bottom-right: $gradient-bottom-right;
+    --gradient-top-left: $gradient-top-left;
+    --gradient-bottom-left: $gradient-bottom-left;
+    --gradient-radial: $gradient-radial;
+    /* Liquid Glass */
+    --bg-glass-primary: var(--platinum);
+    --bg-glass-secondary: var(--alabaster);
+    --bg-glass-backdrop: var(--jet);
+    --border-glass-primary: hsl(0, 0%, 30%);
+    --border-glass-secondary: hsl(0, 0%, 15%);
+  }
+}
+
+:root:has(#theme [value=light]:checked) {
+  color-scheme: light;
+  --text-neutral-primary: var(--jet);
+  --text-neutral-secondary: var(--eerie-black);
+  --text-accent-primary: var(--true-blue);
+  --text-danger-primary: var(--danger);
+  /* Backgrounds */
+  --bg-neutral-primary: var(--aqua);
+  --bg-neutral-secondary: var(--deep-sky-blue);
+  --border-neutral-primary: var(--eerie-black);
+  --bg-glass-primary: var(--platinum);
+  --bg-glass-secondary: var(--alabaster);
+  --bg-glass-backdrop: var(--jet);
+  --border-glass-primary: hsl(0, 0%, 30%);
+  --border-glass-secondary: hsl(0, 0%, 15%);
+}
+
+:root:has(#theme [value=dark]:checked) {
+  color-scheme: dark;
+  --text-neutral-primary: hsl(0, 0%, 100%);
+  --text-neutral-secondary: var(--platinum);
+  --text-accent-primary: var(--saffron);
+  --text-danger-primary: var(--danger);
+  /* Backgrounds */
+  --bg-neutral-primary: var(--eerie-black);
+  --bg-neutral-secondary: var(--jet);
+  --border-neutral-primary: var(--alabaster);
   --bg-glass-primary: var(--platinum);
   --bg-glass-secondary: var(--alabaster);
   --bg-glass-backdrop: var(--jet);

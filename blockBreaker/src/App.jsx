@@ -3,6 +3,7 @@ import {useCallback, useEffect, useState} from "react";
 import {dataURL, Entry, Score, verifyDuplicates} from "./config.js";
 import Leaderboard from "./components/Leaderboard.jsx";
 import BlockMenu from "./components/BlockMenu.jsx";
+import Canvas from "./components/Canvas.jsx";
 
 /*
 * TODO:
@@ -57,12 +58,11 @@ function App() {
     if (scores !== null) {
         return (
             <>
-                <h2>High Scores!!</h2>
-                <article>
+                <article className="game-component">
+                    <Canvas/>
                     <Leaderboard
                         lbScores={scores}
                     />
-                    <BlockMenu/>
                 </article>
             </>
         )

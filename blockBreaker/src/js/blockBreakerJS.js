@@ -5,14 +5,90 @@
 *
 */
 
-
-
-console.log('Loading...')
-
-/* INIT INIT INIT INIT INIT INIT INIT INIT INIT INIT */
 /* INIT INIT INIT INIT INIT INIT INIT INIT INIT INIT */
 
-const GAME_STATES = [''];
+// constructor needs to receive level -> constructor(canvas, level), placeholder is temporary
+
+import {sC} from "../config.js";
+
+export class gameVroomVroom {
+    constructor(canvas) {
+        // Build canvas
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext('2d');
+        // TODO: - Determine best canvasSize dynamically
+        this.canvasSize = 450;
+        // Important game logic fr
+        this.canvasWidth = canvas.clientWidth;
+        this.canvasHeight = canvas.clientHeight;
+        // % of canvas and equals 1 square
+        this.BLOCKS_WIDE = this.canvasWidth * 0.05;
+        this.BLOCKS_TALL = this.canvasWidth * 0.04;
+        // Tracks all spawned game entities
+        this.lives = 3;
+        this.gameEntities = [];
+    }
+    launcher() {
+        this.canvas.width = this.canvasSize;
+        this.canvas.height = this.canvasSize * 1.25;
+        Entity.setProperties(this);
+        mapBuilder(levelOne, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
+        this.launchEventListeners();
+        this.codeRunner();
+    }
+    launchEventListeners() {
+        this.canvas.addEventListener('mousemove', (eventObj) => {
+            this.Game.paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
+        }, false);
+    }
+    codeRunner() {
+        this.Game = new GAME(this);
+        this.Game.init();
+        this.Game.gameLoop();
+    }
+}
+
+/* INIT INIT INIT INIT INIT INIT INIT INIT INIT INIT */
+
+/* GFX HANDLER GFX HANDLER GFX HANDLER GFX HANDLER */
+
+class gfxRenderer {
+    constructor() {
+        this.spritesheet = new Image();
+        this.spritesheet.src = '/spriteSheet.png';
+        this.sC = sC;
+    }
+
+    // Render canvas and entities
+    render(gameClass) {
+
+        console.info('gfx', this.sC);
+
+        gameClass.ctx.clearRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);
+
+        // Fallback for canvas gfx rendering
+        /*gameClass.ctx.fillStyle = 'black';
+        gameClass.ctx.fillRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);*/
+
+        // Entity renderer
+        Entity.ref.gameEntities.forEach(entity => {
+            // Switch compares values directly, not expressions, use if statement for type checking
+            if (entity instanceof Target) {
+                entity.render(gameClass.ctx, this.spritesheet, this.sC[entity.color]);
+            } else if (entity instanceof Ball) {
+                entity.render(gameClass.ctx, this.spritesheet, this.sC[this.sC.length -2]);
+            } else if (entity instanceof Paddle) {
+                entity.render(gameClass.ctx, this.spritesheet, this.sC[this.sC.length -1]);
+            } else {
+                console.log('Error in gfxRenderer')
+            }
+        });
+        // Canvas rendering -> temp: entity.render(gameClass.ctx);
+
+    }
+}
+
+/* GFX HANDLER GFX HANDLER GFX HANDLER GFX HANDLER */
 
 /* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
@@ -42,57 +118,50 @@ const levelTwo = [
     '__________',
 ];
 
-/* CONFIG CONFIG CONFIG CONFIG */
-
-const canvas = document.querySelector('#blockBreaker');
-const ctx = canvas.getContext('2d');
-
-// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
-// TODO: Redo canvas properties
-const canvasSize = 450;
-canvas.width = canvasSize;
-canvas.height = canvasSize * 1.25;
-canvas.style.width = '450px';
-canvas.style.height = '562.5px';
-// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
-
-const canvasHeight = canvas.clientHeight;
-const canvasWidth = canvas.clientWidth;
-
-const BLOCKS_WIDE = canvasWidth * 0.05; // % of canvas and equals 1 square
-const BLOCKS_TALL = canvasHeight * 0.04; // %
-
-let gameEntities = [];
-
-/* CONFIG CONFIG CONFIG CONFIG */
-
 /* Classes */
 
 // TODO: Build codeRunner (game) and gameUI classes
 
 class GAME {
     // Declare entities
-    constructor() {
-        this.paddle = new Paddle(canvasWidth / 2 - BLOCKS_WIDE * 1.5, canvasHeight - 2.75 * BLOCKS_TALL);
+    constructor(gameVroomVroom) {
+        // gameVroomVroom reference
+        this.ref = gameVroomVroom;
+        // Init
+        this.canvasWidth = this.ref.canvasWidth;
+        this.canvasHeight = this.ref.canvasHeight;
+        this.BLOCKS_WIDE = this.ref.BLOCKS_WIDE;
+        this.BLOCKS_TALL = this.ref.BLOCKS_TALL;
+        this.ctx = this.ref.ctx;
+        this.gameEntities = this.ref.gameEntities;
+        // Spawn entities
+        this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 2.75 * this.BLOCKS_TALL);
         this.ball = new Ball();
+        this.lives = this.ref.lives;
     }
-
+    deductLives() {
+        this.lives--;
+        setTimeout('', 1000);
+        this.ball.init();
+    }
     // Methods
     init() {
-        console.log(this.paddle);
-        console.log(this.ball);
+        console.log('Paddle:', this.paddle);
+        console.log('Ball:', this.ball);
 
-        gameEntities.push(this.paddle);
-        gameEntities.push(this.ball);
+        this.gameEntities.push(this.paddle);
+        this.gameEntities.push(this.ball);
     }
-
-    gameLoop () {
-        gfxRenderer(gameEntities);
+    gameLoop() {
+        //gfxRenderer(gameEntities);
+        (new gfxRenderer).render(this)
         this.ball.update();
         this.ball.wallCollision(this.ball);
-        gameEntities.slice(0, -2).forEach(entity => {
+        if (this.ball.y > this.canvasHeight)
+            this.deductLives();
+        Entity.ref.gameEntities.slice(0, -2).forEach(entity => {
             if (entity instanceof Target && collisionDetection(this.ball, [entity])) {
-                entity.selfDestruct();
+                entity.selfDestruct(this.gameEntities);
                 this.ball.targetHitBounce(collisionDirection(this.ball, entity));
             }
         });
@@ -101,7 +170,12 @@ class GAME {
             this.paddle.bounceAngle(this.ball);
 
         /*setTimeout(gameLoop, gameTick);*/
-        requestAnimationFrame(() => this.gameLoop());
+        // TODO: Remove (this.ball.y < canvasHeight) and implement 3 lives system ✅
+        if (this.gameEntities.some(instance => instance instanceof Target) && (this.lives > 0)) {
+            requestAnimationFrame(() => this.gameLoop());
+        } else {
+            console.log('It is over!!')
+        }
     }
 }
 
@@ -116,10 +190,31 @@ class GAME {
         this.width = width;
         this.height = height;
     }
+    static setProperties(reference) {
+        Entity.ref = reference;
+    }
+    static get BLOCKS_WIDE() {
+        return Entity.ref?.BLOCKS_WIDE;
+    }
+    static get BLOCKS_TALL() {
+        return Entity.ref?.BLOCKS_TALL;
+    }
+    static get canvasWidth() {
+        return Entity.ref?.canvasWidth;
+    }
+    static get canvasHeight() {
+        return Entity.ref?.canvasHeight;
+    }
     // Gfx Renderer
-    render(ctx) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+    // TODO: - Overhaul, redo such as to accept coordinates from the spritesheet to build itself
+    render(ctx, img, arr) {
+        // Fallback entity renderer
+        // drawImage settings
+        // img -> src x y w h
+        // cnv -> x y w h
+        console.info('Arr', arr);
+        console.info('Arr x', arr.x);
+        ctx.drawImage(img, arr.x, arr.y, arr.width, arr.height, this.x, this.y, this.width, this.height)
     }
     // Returns a hitbox based on dimensions of our created object
     hitbox() {
@@ -133,8 +228,15 @@ class GAME {
 }
 
 class Paddle extends Entity {
-    static WIDTH = 3 * BLOCKS_WIDE;
-    static HEIGHT = .5 * BLOCKS_TALL;
+    // static WIDTH = 3 * Entity.BLOCKS_WIDE;
+    // static HEIGHT = .5 * Entity.BLOCKS_TALL;
+
+    static get WIDTH() {
+        return Entity?.BLOCKS_WIDE * 3;
+    }
+    static get HEIGHT() {
+        return Entity?.BLOCKS_TALL * .5;
+    }
 
     constructor(x, y) {
         super(x, y, Paddle.WIDTH, Paddle.HEIGHT);
@@ -148,7 +250,7 @@ class Paddle extends Entity {
         // a = c × sin(θ) -> dx
         ball.dy = 0;
         ball.dx = 0;
-        const speed = BLOCKS_TALL * .25; // FPS
+        const speed = Paddle.BLOCKS_TALL * .25; // FPS
         ball.dy = -(speed * Math.cos((Math.PI / 2) * this.distanceFromCenter(ball)));
         ball.dx = speed * Math.sin((Math.PI / 2) * this.distanceFromCenter(ball));
     }
@@ -162,8 +264,15 @@ class Paddle extends Entity {
 // Initial ball position and self updating method
 class Ball extends Entity {
 
-    static WIDTH = BLOCKS_WIDE * .3;
-    static HEIGHT = BLOCKS_TALL * .3;
+    // static WIDTH = Entity.BLOCKS_WIDE * .3;
+    // static HEIGHT = Entity.BLOCKS_TALL * .3;
+
+    static get WIDTH() {
+        return Entity?.BLOCKS_WIDE * .4;
+    }
+    static get HEIGHT() {
+        return Entity?.BLOCKS_TALL * .4;
+    }
 
     // TODO: remove DeltaX and find fix to use exclusively this.dx ✅
     // static DeltaX = BLOCKS_WIDE * .1;
@@ -174,10 +283,10 @@ class Ball extends Entity {
     }
     // Init
     init() {
-        this.x = canvasWidth / 2;
-        this.y = 22 * BLOCKS_TALL;
-        this.dx = BLOCKS_WIDE * .05;
-        this.dy = BLOCKS_TALL * -.225;
+        this.x = Ball.canvasWidth / 2;
+        this.y = 22 * Ball.BLOCKS_TALL;
+        this.dx = Ball.BLOCKS_WIDE * .05;
+        this.dy = Ball.BLOCKS_TALL * -.225;
     }
     // Ball position updater
     update() {
@@ -186,9 +295,9 @@ class Ball extends Entity {
     }
     // Wall collision handler
     wallCollision(ball) {
-        if (ball.x > canvasWidth || ball.x < 0)
+        if (ball.x > Entity.canvasWidth || ball.x < 0)
             ball.dx = -ball.dx;
-        if (ball.y > canvasHeight || ball.y < 0)
+        if (ball.y > Entity.canvasHeight || ball.y < 0)
             ball.dy = -ball.dy;
     }
     // Target collision bounce
@@ -213,14 +322,24 @@ class Ball extends Entity {
 }
 
 class Target extends Entity {
-    static WIDTH = 1.8 * BLOCKS_WIDE;
-    static HEIGHT = .9 * BLOCKS_TALL;
+    // static WIDTH = 2 * Entity.BLOCKS_WIDE;
+    // static HEIGHT = 1 * Entity.BLOCKS_TALL;
+
+    static get WIDTH() {
+        return Entity?.BLOCKS_WIDE * 2;
+    }
+    static get HEIGHT() {
+        return Entity?.BLOCKS_TALL;
+    }
+
     constructor(x, y) {
         super(x, y, Target.WIDTH, Target.HEIGHT);
+        this.color = Math.floor(Math.random() * 6);
     }
 
     selfDestruct() {
-        gameEntities = gameEntities.filter(Entity => Entity !== this);
+        console.log(Entity.ref.gameEntities);
+        Entity.ref.gameEntities = Entity.ref.gameEntities.filter(Entity => Entity !== this);
     }
 }
 
@@ -228,7 +347,7 @@ class Target extends Entity {
 
 /* Functions */
 
-function mapBuilder(array) {
+function mapBuilder(array, BLOCKS_WIDE, BLOCKS_TALL, gameEntities) {
     // Get starting height as 2nd block
     let COL = BLOCKS_TALL;
     for (let i = 0; i < array.length; i++) {
@@ -259,8 +378,6 @@ function collisionDetection(a, b) {
 }
 
 // Use ball as parameter for 'a', any other object for 'b'
-/*TODO: - Consider TypeScript for stronger type security
-        - Consider subtracting by this.dx and this.dy for more accurate hitbox tagging*/
 
 /*
 Breakdown of this awesome big brain callback function: '+' signifies positive and '-' negative
@@ -281,32 +398,4 @@ function collisionDirection(a, b) {
     }
 }
 
-
-function gfxRenderer(gameEntities) {
-    ctx.fillStyle = 'black';
-    /*ctx.fillStyle = 'rgba(0,0,0,0.3)';*/
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight)
-    gameEntities.forEach(entity => {
-        entity.render(ctx);
-    });
-}
-
 /* * * * * * */
-
-console.log(canvas);
-
-// Game mode switch case
-mapBuilder(levelOne);
-const Game = new GAME();
-Game.init();
-Game.gameLoop();
-
-canvas.addEventListener('mousemove', (eventObj) => {
-    Game.paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
-}, false)
-
-canvas.addEventListener('click', (eventObj) => {
-    console.log('--------------------');
-    console.log('Debug X:', eventObj.x);
-    console.log('Debug Y:', eventObj.y);
-}, false);

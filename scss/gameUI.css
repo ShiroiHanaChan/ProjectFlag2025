@@ -1,26 +1,45 @@
 /* Fonts */
-.block-breaker {
-  position: absolute;
+.game-component {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 20px;
 }
 
 .game-ui {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: baseline;
-  gap: 20px;
-  border: 1px solid var(--saffron);
+  text-align: center;
   width: 450px;
   height: 562.5px;
   position: relative;
   top: 0;
+  margin: 0;
+  font-weight: 700;
+  padding: var(--spacing-100);
+}
+.game-ui > p {
+  border: 1px solid var(--text-neutral-primary);
+  border-radius: var(--radius-200);
+  margin: var(--spacing-150);
+  background-color: var(--);
+}
+.game-ui > p:last-child {
+  background-color: var(--);
+}
+.game-ui > p:hover {
+  cursor: pointer;
+  background-color: var(--text-neutral-secondary);
 }
 .game-ui > * {
-  margin: 0;
-  border: 1px solid var(--saffron);
-  padding: 0.5em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 20px;
 }
 .game-ui img {
   height: 200px;
+  margin: auto;
 }
 
 /*# sourceMappingURL=gameUI.css.map */

@@ -19,14 +19,14 @@ footer form {
 
   & input:not([type="checkbox"]) {
     border: 1px solid transparent;
-    background-color: var(--jet);
-    border-radius: var(--radius-full);
+    background-color: var(--bg-neutral-secondary);
+    border-radius: var(--radius-200);
     padding: var(--spacing-150);
     margin-top: var(--spacing-075);
     width: 100%;
     &:focus {
       outline: none;
-      border: 1px solid var(--saffron);
+      border: 1px solid var(--text-accent-primary);
     }
   }
 
@@ -54,10 +54,17 @@ label {
   text-box-edge: cap alphabetic;
 }
 
-.experienced-grid {
-  @include display-grid();
-  > svg {
-    height: 20px;
+.experienced-grid article {
+  border: 1px solid lightblue;
+  @include display-grid(
+    $grid-columns: repeat(2, 1fr),
+    $gap: 5px
+  );
+  > .form-group {
+
+    margin: auto;
+    border: 1px solid lightpink;
+    height: 80px;
     fill: white;
   }
 }

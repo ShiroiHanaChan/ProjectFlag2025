@@ -7,7 +7,8 @@
     <title>Block Breaker</title>
     <link rel="stylesheet" href="../scss/scssFile.css">
   </head>
-  <body>
+  <body class="content-grid">
+
     <article>
       <p>Score: 23855</p>
       <form action="">
@@ -15,17 +16,24 @@
         <input type="text" name="name" id="scoreName" placeholder="Input 3 characters!" />
         <button type="submit">Bombs Away!!</button>
       </form>
+      <div id="root"></div>
     </article>
-    <div id="root"></div>
-    <section>
+
+    <!--<section class="">
+
+      <article class="game-status">
+        <p>SCORE: </p>
+        <p>LIVES: </p>
+      </article>
+
       <canvas
               id="blockBreaker"
               class="block-breaker"
       ></canvas>
-    </section>
+    </section>-->
 
-    <script src="/src/js/blockBreakerJS.js"></script>
     <script type="module" src="/src/main.jsx"></script>
+    <!--<script src="/src/js/blockBreakerJS.js"></script>-->
 
   </body>
 </html>

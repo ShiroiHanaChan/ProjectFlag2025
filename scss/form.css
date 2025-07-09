@@ -25,15 +25,15 @@ footer form input {
 }
 footer form input:not([type=checkbox]) {
   border: 1px solid transparent;
-  background-color: var(--jet);
-  border-radius: var(--radius-full);
+  background-color: var(--bg-neutral-secondary);
+  border-radius: var(--radius-200);
   padding: var(--spacing-150);
   margin-top: var(--spacing-075);
   width: 100%;
 }
 footer form input:not([type=checkbox]):focus {
   outline: none;
-  border: 1px solid var(--saffron);
+  border: 1px solid var(--text-accent-primary);
 }
 footer form input[type=checkbox]:hover {
   cursor: pointer;
@@ -58,14 +58,17 @@ label {
   text-box-edge: cap alphabetic;
 }
 
-.experienced-grid {
+.experienced-grid article {
+  border: 1px solid lightblue;
   display: grid;
-  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   align-items: baseline;
-  gap: 20px;
+  gap: 5px;
 }
-.experienced-grid > svg {
-  height: 20px;
+.experienced-grid article > .form-group {
+  margin: auto;
+  border: 1px solid lightpink;
+  height: 80px;
   fill: white;
 }
 
