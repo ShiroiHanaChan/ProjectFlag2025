@@ -20,7 +20,7 @@ footer form {
 }
 footer form input {
   /* For checkbox and input border */
-  accent-color: var(--text-accent-primary);
+  accent-color: var(--brand);
   color: inherit;
 }
 footer form input:not([type=checkbox]) {
@@ -33,7 +33,7 @@ footer form input:not([type=checkbox]) {
 }
 footer form input:not([type=checkbox]):focus {
   outline: none;
-  border: 1px solid var(--text-accent-primary);
+  border: 1px solid var(--brand);
 }
 footer form input[type=checkbox]:hover {
   cursor: pointer;
@@ -59,17 +59,38 @@ label {
 }
 
 .experienced-grid article {
-  border: 1px solid lightblue;
+  margin-block: var(--spacing-100);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   align-items: baseline;
-  gap: 5px;
+  gap: 0.25em;
+  justify-items: center;
 }
+@container (width > 50ch) {}
 .experienced-grid article > .form-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 0.5em;
+  flex-direction: column;
+  grid-column: span 2;
+}
+@container (width > 50ch) {
+  .experienced-grid article > .form-group {
+    grid-column: span 1;
+  }
+}
+.experienced-grid article > .form-group > p {
   margin: auto;
-  border: 1px solid lightpink;
-  height: 80px;
-  fill: white;
+}
+.experienced-grid article > .form-group > svg {
+  height: 4.5em;
+  fill: var(--text-neutral-primary);
+}
+.experienced-grid article > .form-group:last-child:nth-child(odd) {
+  background-color: lightblue;
+  grid-column: -4/-2;
 }
 
 /*# sourceMappingURL=form.css.map */

@@ -1,8 +1,8 @@
 import React from 'react';
 import ScoreCard from "./ScoreCard.jsx";
 
-function Leaderboard({lbScores: {entries}}) {
-    const sortedEntries = entries.sort((a, b) => b.score - a.score);
+function Leaderboard({lbScores}) {
+    const sortedEntries = [...lbScores].sort((a, b) => b.score - a.score);
 
     return (
         <>
@@ -19,5 +19,7 @@ function Leaderboard({lbScores: {entries}}) {
         </>
     );
 }
+
+/*{lbScores: {entries}}*/
 
 export default Leaderboard;

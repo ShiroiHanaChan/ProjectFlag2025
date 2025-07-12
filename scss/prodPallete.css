@@ -1,172 +1,202 @@
-/* Coolors Exported Palette - https://coolors.co/cfdbd5-e8eddf-f5cb5c-242423-333533 */
-:root {
-  --platinum: hsla(150, 14%, 84%, 1);
-  --alabaster: hsla(81, 28%, 90%, 1);
-  --saffron: hsla(44, 88%, 66%, 1);
-  --eerie-black: hsla(60, 1%, 14%, 1);
-  --jet: hsl(120, 2%, 20%, 1);
-  --danger: hsla(359, 88%, 55%, 1);
-}
-
-/* CSS HEX */
-/*
---platinum: #cfdbd5ff;
---alabaster: #e8eddfff;
---saffron: #f5cb5cff;
---eerie-black: #242423ff;
---jet: #333533ff;
-
-!* CSS HSL *!
---platinum: hsla(150, 14%, 84%, 1);
---alabaster: hsla(81, 28%, 90%, 1);
---saffron: hsla(44, 88%, 66%, 1);
---eerie-black: hsla(60, 1%, 14%, 1);
---jet: hsla(120, 2%, 20%, 1);
-*/
-/* SCSS HEX */
-/* SCSS HSL */
-/* SCSS RGB */
-/* SCSS Gradient */
-/* Coolors Exported Palette - https://coolors.co/963484-3066be-60afff-28c2ff-2af5ff */
-:root {
-  --plum: hsla(311, 49%, 40%, 1);
-  --true-blue: hsla(217, 60%, 47%, 1);
-  --argentinian-blue: hsla(210, 100%, 69%, 1);
-  --deep-sky-blue: hsla(197, 100%, 58%, 1);
-  --electric-blue: hsl(186, 100%, 58%);
-  --aqua: hsla(183, 100%, 58%, 1);
-  --danger: hsla(359, 88%, 55%, 1);
-}
-
-/* CSS HEX
---plum: #963484ff;
---true-blue: #3066beff;
---argentinian-blue: #60afffff;
---deep-sky-blue: #28c2ffff;
---aqua: #2af5ffff;*/
-/* CSS HSL */
-/* SCSS HEX
-$plum: #963484ff;
-$true-blue: #3066beff;
-$argentinian-blue: #60afffff;
-$deep-sky-blue: #28c2ffff;
-$aqua: #2af5ffff;*/
-/* SCSS HSL
-$plum: hsla(311, 49%, 40%, 1);
-$true-blue: hsla(217, 60%, 47%, 1);
-$argentinian-blue: hsla(210, 100%, 69%, 1);
-$deep-sky-blue: hsla(197, 100%, 58%, 1);
-$aqua: hsla(183, 100%, 58%, 1);*/
-/* SCSS RGB
-$plum: rgba(150, 52, 132, 1);
-$true-blue: rgba(48, 102, 190, 1);
-$argentinian-blue: rgba(96, 175, 255, 1);
-$deep-sky-blue: rgba(40, 194, 255, 1);
-$aqua: rgba(42, 245, 255, 1);*/
-/* SCSS Gradient
-$gradient-top: linear-gradient(0deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-right: linear-gradient(90deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-bottom: linear-gradient(180deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-left: linear-gradient(270deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-top-right: linear-gradient(45deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-bottom-right: linear-gradient(135deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-top-left: linear-gradient(225deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-bottom-left: linear-gradient(315deg, #963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);
-$gradient-radial: radial-gradient(#963484ff, #3066beff, #60afffff, #28c2ffff, #2af5ffff);*/
+@import "palettes/mainPalette.css";
 /* Tool: https://coolors.co/ */
 html {
   color-scheme: light dark;
 }
 
 :root {
+  /* Light */
+  --primary-100: var(--seasalt);
+  --primary-200: var(--antiflash-white);
+  --primary-300: var(--platinum);
+  --primary-400: var(--french-gray);
+  --primary-500: var(--french-gray-2);
+  --primary-600: var(--slate-gray);
+  --primary-700: var(--outer-space);
+  --primary-800: var(--onyx);
+  --primary-900: var(--eerie-black);
+  --brand: var(--rose-pompadour);
+  --sucess: var(--emerald);
+  --warning: var(--icterine);
+  --danger: var(--red-munsell);
   /* Text */
-  --text-neutral-primary: var(--jet);
-  --text-neutral-secondary: var(--eerie-black);
-  --text-accent-primary: var(--true-blue);
-  --text-danger-primary: var(--danger);
+  --text-neutral-primary: var(--eerie-black);
+  --text-neutral-secondary: var(--onyx);
+  --text-accent-primary: var(--rose-pompadour);
+  --text-danger-primary: var(--red-munsell);
   /* Backgrounds */
-  --bg-neutral-primary: var(--aqua);
-  --bg-neutral-secondary: var(--deep-sky-blue);
+  --bg-neutral-primary: var(--seasalt);
+  --bg-neutral-secondary: var(--french-gray);
   --border-neutral-primary: var(--eerie-black);
   /* Gradients */
-  --gradient-top: $gradient-top;
-  --gradient-bottom: $gradient-bottom;
-  --gradient-right: $gradient-right;
-  --gradient-left: $gradient-left;
-  --gradient-top-right: $gradient-top-right;
-  --gradient-bottom-right: $gradient-bottom-right;
-  --gradient-top-left: $gradient-top-left;
-  --gradient-bottom-left: $gradient-bottom-left;
-  --gradient-radial: $gradient-radial;
+  --grad-top: --gradient-top;
+  --grad-bottom: --gradient-bottom;
+  --grad-right: --gradient-right;
+  --grad-left: --gradient-left;
+  --grad-top-right: --gradient-top-right;
+  --grad-bottom-right: --gradient-bottom-right;
+  --grad-top-left: --gradient-top-left;
+  --grad-bottom-left: --gradient-bottom-left;
+  --grad-radial: --gradient-radial;
   /* Liquid Glass */
-  --bg-glass-primary: var(--platinum);
-  --bg-glass-secondary: var(--alabaster);
-  --bg-glass-backdrop: var(--jet);
-  --border-glass-primary: hsl(0, 0%, 30%);
-  --border-glass-secondary: hsl(0, 0%, 15%);
+  --bg-glass-primary: var(--slate-gray);
+  --bg-glass-secondary: var(--outer-space);
+  --bg-glass-backdrop: var(--antiflash-white);
+  --border-glass-primary: var(--outer-space);
+  --border-glass-secondary: var(--slate-gray);
+}
+:root body {
+  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-light-bg.svg");
+}
+:root .card {
+  box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(255, 255, 255, 0.15) 0px -36px 30px 0px inset, rgba(255, 255, 255, 0.1) 0px -79px 40px 0px inset, rgba(255, 255, 255, 0.06) 0px 2px 1px, rgba(255, 255, 255, 0.09) 0px 4px 2px, rgba(255, 255, 255, 0.09) 0px 8px 4px, rgba(255, 255, 255, 0.09) 0px 16px 8px, rgba(255, 255, 255, 0.09) 0px 32px 16px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Dark */
+    --primary-100: var(--eerie-black);
+    --primary-200: var(--onyx);
+    --primary-300: var(--outer-space);
+    --primary-400: var(--slate-gray);
+    --primary-500: var(--french-gray-2);
+    --primary-600: var(--french-gray);
+    --primary-700: var(--platinum);
+    --primary-800: var(--antiflash-white);
+    --primary-900: var(--seasalt);
+    --brand: var(--rose-pompadour);
+    --sucess: var(--emerald);
+    --warning: var(--icterine);
+    --danger: var(--red-munsell);
     /* Text */
-    --text-neutral-primary: hsl(0, 0%, 100%);
-    --text-neutral-secondary: var(--platinum);
-    --text-accent-primary: var(--saffron);
-    --text-danger-primary: var(--danger);
+    --text-neutral-primary: var(--seasalt);
+    --text-neutral-secondary: var(--french-gray);
+    --text-accent-primary: var(--rose-pompadour);
+    --text-danger-primary: var(--red-munsell);
     /* Backgrounds */
     --bg-neutral-primary: var(--eerie-black);
-    --bg-neutral-secondary: var(--jet);
-    --border-neutral-primary: var(--alabaster);
+    --bg-neutral-secondary: var(--onyx);
+    --border-neutral-primary: var(--seasalt);
     /* Gradients */
-    --gradient-top: $gradient-top;
-    --gradient-bottom: $gradient-bottom;
-    --gradient-right: $gradient-right;
-    --gradient-left: $gradient-left;
-    --gradient-top-right: $gradient-top-right;
-    --gradient-bottom-right: $gradient-bottom-right;
-    --gradient-top-left: $gradient-top-left;
-    --gradient-bottom-left: $gradient-bottom-left;
-    --gradient-radial: $gradient-radial;
+    --grad-top: --gradient-top;
+    --grad-bottom: --gradient-bottom;
+    --grad-right: --gradient-right;
+    --grad-left: --gradient-left;
+    --grad-top-right: --gradient-top-right;
+    --grad-bottom-right: --gradient-bottom-right;
+    --grad-top-left: --gradient-top-left;
+    --grad-bottom-left: --gradient-bottom-left;
+    --grad-radial: --gradient-radial;
     /* Liquid Glass */
-    --bg-glass-primary: var(--platinum);
-    --bg-glass-secondary: var(--alabaster);
-    --bg-glass-backdrop: var(--jet);
-    --border-glass-primary: hsl(0, 0%, 30%);
-    --border-glass-secondary: hsl(0, 0%, 15%);
+    --bg-glass-primary: var(--outer-space);
+    --bg-glass-secondary: var(--onyx);
+    --bg-glass-backdrop: var(--eerie-black);
+    --border-glass-primary: var(--slate-gray);
+    --border-glass-secondary: var(--outer-space);
+  }
+  :root body {
+    background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-dark-bg.svg");
+  }
+  :root .card {
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   }
 }
 
 :root:has(#theme [value=light]:checked) {
   color-scheme: light;
-  --text-neutral-primary: var(--jet);
-  --text-neutral-secondary: var(--eerie-black);
-  --text-accent-primary: var(--true-blue);
-  --text-danger-primary: var(--danger);
+  /* Light */
+  --primary-100: var(--seasalt);
+  --primary-200: var(--antiflash-white);
+  --primary-300: var(--platinum);
+  --primary-400: var(--french-gray);
+  --primary-500: var(--french-gray-2);
+  --primary-600: var(--slate-gray);
+  --primary-700: var(--outer-space);
+  --primary-800: var(--onyx);
+  --primary-900: var(--eerie-black);
+  --brand: var(--rose-pompadour);
+  --sucess: var(--emerald);
+  --warning: var(--icterine);
+  --danger: var(--red-munsell);
+  /* Text */
+  --text-neutral-primary: var(--eerie-black);
+  --text-neutral-secondary: var(--onyx);
+  --text-accent-primary: var(--rose-pompadour);
+  --text-danger-primary: var(--red-munsell);
   /* Backgrounds */
-  --bg-neutral-primary: var(--aqua);
-  --bg-neutral-secondary: var(--deep-sky-blue);
+  --bg-neutral-primary: var(--seasalt);
+  --bg-neutral-secondary: var(--french-gray);
   --border-neutral-primary: var(--eerie-black);
-  --bg-glass-primary: var(--platinum);
-  --bg-glass-secondary: var(--alabaster);
-  --bg-glass-backdrop: var(--jet);
-  --border-glass-primary: hsl(0, 0%, 30%);
-  --border-glass-secondary: hsl(0, 0%, 15%);
+  /* Gradients */
+  --grad-top: --gradient-top;
+  --grad-bottom: --gradient-bottom;
+  --grad-right: --gradient-right;
+  --grad-left: --gradient-left;
+  --grad-top-right: --gradient-top-right;
+  --grad-bottom-right: --gradient-bottom-right;
+  --grad-top-left: --gradient-top-left;
+  --grad-bottom-left: --gradient-bottom-left;
+  --grad-radial: --gradient-radial;
+  /* Liquid Glass */
+  --bg-glass-primary: var(--slate-gray);
+  --bg-glass-secondary: var(--outer-space);
+  --bg-glass-backdrop: var(--antiflash-white);
+  --border-glass-primary: var(--outer-space);
+  --border-glass-secondary: var(--slate-gray);
+}
+:root:has(#theme [value=light]:checked) body {
+  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-light-bg.svg");
+}
+:root:has(#theme [value=light]:checked) .card {
+  box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(255, 255, 255, 0.15) 0px -36px 30px 0px inset, rgba(255, 255, 255, 0.1) 0px -79px 40px 0px inset, rgba(255, 255, 255, 0.06) 0px 2px 1px, rgba(255, 255, 255, 0.09) 0px 4px 2px, rgba(255, 255, 255, 0.09) 0px 8px 4px, rgba(255, 255, 255, 0.09) 0px 16px 8px, rgba(255, 255, 255, 0.09) 0px 32px 16px;
 }
 
 :root:has(#theme [value=dark]:checked) {
   color-scheme: dark;
-  --text-neutral-primary: hsl(0, 0%, 100%);
-  --text-neutral-secondary: var(--platinum);
-  --text-accent-primary: var(--saffron);
-  --text-danger-primary: var(--danger);
+  /* Dark */
+  --primary-100: var(--eerie-black);
+  --primary-200: var(--onyx);
+  --primary-300: var(--outer-space);
+  --primary-400: var(--slate-gray);
+  --primary-500: var(--french-gray-2);
+  --primary-600: var(--french-gray);
+  --primary-700: var(--platinum);
+  --primary-800: var(--antiflash-white);
+  --primary-900: var(--seasalt);
+  --brand: var(--rose-pompadour);
+  --sucess: var(--emerald);
+  --warning: var(--icterine);
+  --danger: var(--red-munsell);
+  /* Text */
+  --text-neutral-primary: var(--seasalt);
+  --text-neutral-secondary: var(--french-gray);
+  --text-accent-primary: var(--rose-pompadour);
+  --text-danger-primary: var(--red-munsell);
   /* Backgrounds */
   --bg-neutral-primary: var(--eerie-black);
-  --bg-neutral-secondary: var(--jet);
-  --border-neutral-primary: var(--alabaster);
-  --bg-glass-primary: var(--platinum);
-  --bg-glass-secondary: var(--alabaster);
-  --bg-glass-backdrop: var(--jet);
-  --border-glass-primary: hsl(0, 0%, 30%);
-  --border-glass-secondary: hsl(0, 0%, 15%);
+  --bg-neutral-secondary: var(--onyx);
+  --border-neutral-primary: var(--seasalt);
+  /* Gradients */
+  --grad-top: --gradient-top;
+  --grad-bottom: --gradient-bottom;
+  --grad-right: --gradient-right;
+  --grad-left: --gradient-left;
+  --grad-top-right: --gradient-top-right;
+  --grad-bottom-right: --gradient-bottom-right;
+  --grad-top-left: --gradient-top-left;
+  --grad-bottom-left: --gradient-bottom-left;
+  --grad-radial: --gradient-radial;
+  /* Liquid Glass */
+  --bg-glass-primary: var(--outer-space);
+  --bg-glass-secondary: var(--onyx);
+  --bg-glass-backdrop: var(--eerie-black);
+  --border-glass-primary: var(--slate-gray);
+  --border-glass-secondary: var(--outer-space);
+}
+:root:has(#theme [value=dark]:checked) body {
+  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-dark-bg.svg");
+}
+:root:has(#theme [value=dark]:checked) .card {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 /*# sourceMappingURL=prodPallete.css.map */

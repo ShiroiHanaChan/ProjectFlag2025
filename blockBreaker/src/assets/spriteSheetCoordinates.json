@@ -1,0 +1,60 @@
+{
+  "sprites": [
+    {
+      "name": "block_red",
+      "x": 247,
+      "y": 133,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "block_orange",
+      "x": 64,
+      "y": 0,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "block_green",
+      "x": 128,
+      "y": 0,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "block_blue_dark",
+      "x": 0,
+      "y": 32,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "block_blue",
+      "x": 64,
+      "y": 32,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "block_teal",
+      "x": 128,
+      "y": 32,
+      "width": 64,
+      "height": 32
+    },
+    {
+      "name": "ball",
+      "x": 64,
+      "y": 64,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "name": "paddle",
+      "x": 16,
+      "y": 80,
+      "width": 96,
+      "height": 32
+    }
+  ]
+}

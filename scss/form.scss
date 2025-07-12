@@ -13,7 +13,7 @@ footer form {
 
   & input {
     /* For checkbox and input border */
-    accent-color: var(--text-accent-primary);
+    accent-color: var(--brand);
     color: inherit;
   }
 
@@ -26,7 +26,7 @@ footer form {
     width: 100%;
     &:focus {
       outline: none;
-      border: 1px solid var(--text-accent-primary);
+      border: 1px solid var(--brand);
     }
   }
 
@@ -55,16 +55,33 @@ label {
 }
 
 .experienced-grid article {
-  border: 1px solid lightblue;
+  margin-block: var(--spacing-100);
   @include display-grid(
-    $grid-columns: repeat(2, 1fr),
-    $gap: 5px
+    $grid-columns: repeat(6, 1fr),
+    $gap: .25em
   );
-  > .form-group {
+  justify-items: center;
+  @container (width > 50ch) {
 
-    margin: auto;
-    border: 1px solid lightpink;
-    height: 80px;
-    fill: white;
+  }
+  > .form-group {
+    @include display-flex($gap: .5em);
+    flex-direction: column;
+    grid-column: span 2;
+    @container (width > 50ch) {
+      grid-column: span 1;
+
+    }
+    > p {
+      margin: auto;
+    }
+    > svg {
+      height: 4.5em;
+      fill: var(--text-neutral-primary);
+    }
+    &:last-child:nth-child(odd) {
+      background-color: lightblue;
+      grid-column: -4 / -2;
+    }
   }
 }

@@ -62,8 +62,6 @@ class gfxRenderer {
     // Render canvas and entities
     render(gameClass) {
 
-        console.info('gfx', this.sC);
-
         gameClass.ctx.clearRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);
 
         // Fallback for canvas gfx rendering
@@ -212,8 +210,6 @@ class GAME {
         // drawImage settings
         // img -> src x y w h
         // cnv -> x y w h
-        console.info('Arr', arr);
-        console.info('Arr x', arr.x);
         ctx.drawImage(img, arr.x, arr.y, arr.width, arr.height, this.x, this.y, this.width, this.height)
     }
     // Returns a hitbox based on dimensions of our created object
