@@ -25,7 +25,6 @@ function App() {
 
     // TODO: Fix event handler to prevent event duplication on renders, causing major lag ✅
 
-    const [scores, setScores] = useState(null);
     const scoreName = document.querySelector('#scoreName');
 
     /*console.log('reduxState.blockStore:', reduxState.blockStore);
@@ -36,7 +35,6 @@ function App() {
         eventObj.preventDefault();
         // Tests if scores has changed, if the name input is 3 characters long and letters and if there's no duplicates present
         if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value, Score, reduxState.blockStore.scores) ) {
-            console.info('0');
             const updateEntries = [...reduxState.blockStore.scores, new Entry(scoreName.value, Score)];
             updateEntries.lastUpdated = Date.now();
             dispatch(submitScore(updateEntries))
@@ -94,10 +92,10 @@ function App() {
         return (
             <>
                 <article className="game-component">
-                        {/*<Canvas/>*/}
-                        <Leaderboard
+                        <Canvas/>
+                        {/*<Leaderboard
                             lbScores={reduxState.blockStore.scores}
-                        />
+                        />*/}
                 </article>
             </>
         )

@@ -29,10 +29,11 @@ export class gameVroomVroom {
         this.gameEntities = [];
     }
     launcher() {
+        // Mounts canvas and build the arena
         this.canvas.width = this.canvasSize;
         this.canvas.height = this.canvasSize * 1.25;
         Entity.setProperties(this);
-        mapBuilder(levelOne, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
+        mapBuilder(levelTwo, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
         this.launchEventListeners();
         this.codeRunner();
     }
@@ -42,9 +43,11 @@ export class gameVroomVroom {
         }, false);
     }
     codeRunner() {
+        // Launches new instance, initializes paddle and ball, and runs the loop
         this.Game = new GAME(this);
         this.Game.init();
-        this.Game.gameLoop();
+        // No longer needed, gameLoop will be initialized by the React component
+        /*this.Game.gameLoop();*/
     }
 }
 
@@ -56,11 +59,12 @@ class gfxRenderer {
     constructor() {
         this.spritesheet = new Image();
         this.spritesheet.src = '/spriteSheet.png';
+        // sC = sprite coordinates
         this.sC = sC;
     }
 
     // Render canvas and entities
-    render(gameClass) {
+    render(gameClass, gameState) {
 
         gameClass.ctx.clearRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);
 
@@ -71,7 +75,7 @@ class gfxRenderer {
         // Entity renderer
         Entity.ref.gameEntities.forEach(entity => {
             // Switch compares values directly, not expressions, use if statement for type checking
-            if (entity instanceof Target) {
+            if (entity instanceof Target && gameState === 'play') {
                 entity.render(gameClass.ctx, this.spritesheet, this.sC[entity.color]);
             } else if (entity instanceof Ball) {
                 entity.render(gameClass.ctx, this.spritesheet, this.sC[this.sC.length -2]);
@@ -106,12 +110,12 @@ const levelOne = [
 const levelTwo = [
     /* Row */
     '_______x__', /* Col */
-    '_________x',
-    '_x________',
     '__________',
-    '____x_____',
-    '_________x',
-    '__x_______',
+    '__________',
+    '__________',
+    '__________',
+    '__________',
+    '__________',
     '__________',
     '__________',
 ];
@@ -136,6 +140,30 @@ class GAME {
         this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 2.75 * this.BLOCKS_TALL);
         this.ball = new Ball();
         this.lives = this.ref.lives;
+        // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
+        /*this.gameMode = '';*/
+    }
+    // Helper method for cleaner game mode setting
+    setGameMode(mode) {
+        // Declare mode received from outside sources
+        console.info('Setting...', mode);
+        switch (mode) {
+            case 'new':
+                this.gameMode = 'new';
+                console.info('New instance has been propped!');
+                break;
+            case 'play':
+                this.gameMode = 'play';
+                this.gameLoop();
+                break;
+            case 'pause':
+                this.gameMode = 'pause';
+                break;
+            case 'over':
+                this.gameMode = 'over';
+                break;
+        }
+        console.info('Set mode:', this.gameMode);
     }
     deductLives() {
         this.lives--;
@@ -152,7 +180,7 @@ class GAME {
     }
     gameLoop() {
         //gfxRenderer(gameEntities);
-        (new gfxRenderer).render(this)
+        console.debug('Debug game mode:', this.gameMode);
         this.ball.update();
         this.ball.wallCollision(this.ball);
         if (this.ball.y > this.canvasHeight)
@@ -169,7 +197,9 @@ class GAME {
 
         /*setTimeout(gameLoop, gameTick);*/
         // TODO: Remove (this.ball.y < canvasHeight) and implement 3 lives system ✅
-        if (this.gameEntities.some(instance => instance instanceof Target) && (this.lives > 0)) {
+        // this.gameEntities.some(instance => instance instanceof Target)
+        if (this.gameMode === 'play' && (this.lives > 0)) {
+            (new gfxRenderer).render(this, this.gameMode);
             requestAnimationFrame(() => this.gameLoop());
         } else {
             console.log('It is over!!')
