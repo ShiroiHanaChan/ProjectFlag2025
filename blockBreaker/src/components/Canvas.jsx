@@ -1,36 +1,47 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {gameVroomVroom} from "../js/blockBreakerJS.js";
 import BlockMenu from "./BlockMenu.jsx";
+import GameOver from "./GameOver.jsx";
 // import {Tester} from "../js/tester.js";
 
 
 function Canvas() {
 
-    const [mode, setMode] = useState('new');
+    const [mode, setMode] = useState('new')
+
+    const handleMode = (mode) => {
+        gameRef.current.Game.setGameMode(mode);
+        setMode(mode);
+    }
+
+    const buildCanvas = () => {
+        gameRef.current = new gameVroomVroom(canvasRef.current, setMode);
+        gameRef.current.launcher();
+        if (gameRef.current.Game)
+            gameRef.current.Game.setGameMode(mode);
+    };
 
     // Create canvas, and bootstrap the game
 
     const canvasRef = useRef(null);
-    const gameRef = useRef(null)
+    const gameRef = useRef(null);
+
+
 
     useEffect(() => {
         // Bootstrapper for Block Breaker!
-        if (canvasRef.current) {
-            gameRef.current = new gameVroomVroom(canvasRef.current);
-            gameRef.current.launcher();
-            gameRef.current.Game.setGameMode(mode);
-            // new Tester(canvasRef.current).launcher();
-        }
+        if (canvasRef.current)
+            buildCanvas();
     }, []);
 
-    // Pause menu event
 
 
     return (
         <>
+            <div>
             <article className="game-status">
                 <button onClick={() => {
-                    if (gameRef.current) {
+                    if (gameRef.current && gameRef.current.Game) {
                         gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';
                         switch (gameRef.current.Game.gameMode) {
                             case 'play':
@@ -42,15 +53,21 @@ function Canvas() {
                                 setMode('pause');
                                 break;
                         }
-                        console.info('JS:', gameRef.current.Game.gameMode);
-                        console.info('React:', mode);
                     }
-                }}></button>
+                }}>+</button>
+                <button onClick={() => {
+                    gameRef.current.Game.setGameMode('over');
+                }}>-</button>
             </article>
+
             <section className="breaker-section">
                 <canvas className="block-breaker liquify" ref={canvasRef} width={0} height={0}></canvas>
-                {gameRef.current && mode === 'pause' ? <BlockMenu key="menu" /> : null}
+
+                {gameRef.current && gameRef.current.Game && (mode === 'pause' || mode === 'new') ? <BlockMenu key="menu" mode={gameRef.current.Game.gameMode} function={handleMode} /> : null}
+
+                {gameRef.current && gameRef.current.Game && mode === 'over' ? <GameOver key="gameOver" mode={gameRef.current.Game.gameMode} function={handleMode} /> : null}
             </section>
+            </div>
         </>
     );
 }

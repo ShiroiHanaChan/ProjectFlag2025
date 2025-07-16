@@ -1,18 +1,17 @@
-import { StrictMode, React } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import NavApp from "./navApp.jsx";
 import store from "./redux/store.js";
 import {Provider} from "react-redux";
 
-const reactNav = createRoot(document.getElementById('reactNav'));
+{/*const reactNav = createRoot(document.getElementById('reactNav'));
 reactNav.render(
     <StrictMode>
         <Provider store={store}>
             <NavApp />
         </Provider>
     </StrictMode>,
-)
+)*/}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

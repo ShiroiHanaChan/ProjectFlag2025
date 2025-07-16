@@ -1,7 +1,10 @@
 @use 'scssMixins' as *;
 
 .game-component {
-  @include display-flex();
+  @include display-grid($align-items: center);
+  > ul {
+    justify-self: center;
+  }
 }
 
 .game-ui {

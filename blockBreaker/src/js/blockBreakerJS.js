@@ -12,7 +12,7 @@
 import {sC} from "../config.js";
 
 export class gameVroomVroom {
-    constructor(canvas) {
+    constructor(canvas, signalEnd) {
         // Build canvas
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
@@ -27,14 +27,14 @@ export class gameVroomVroom {
         // Tracks all spawned game entities
         this.lives = 3;
         this.gameEntities = [];
+        this.signalEnd = signalEnd
     }
     launcher() {
         // Mounts canvas and build the arena
         this.canvas.width = this.canvasSize;
         this.canvas.height = this.canvasSize * 1.25;
         Entity.setProperties(this);
-        mapBuilder(levelTwo, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
-        this.launchEventListeners();
+        mapBuilder(levelOne, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
         this.codeRunner();
     }
     launchEventListeners() {
@@ -44,7 +44,8 @@ export class gameVroomVroom {
     }
     codeRunner() {
         // Launches new instance, initializes paddle and ball, and runs the loop
-        this.Game = new GAME(this);
+        this.Game = new GAME(this, this.signalEnd);
+        this.launchEventListeners();
         this.Game.init();
         // No longer needed, gameLoop will be initialized by the React component
         /*this.Game.gameLoop();*/
@@ -126,7 +127,7 @@ const levelTwo = [
 
 class GAME {
     // Declare entities
-    constructor(gameVroomVroom) {
+    constructor(gameVroomVroom, signalEnd) {
         // gameVroomVroom reference
         this.ref = gameVroomVroom;
         // Init
@@ -140,6 +141,7 @@ class GAME {
         this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 2.75 * this.BLOCKS_TALL);
         this.ball = new Ball();
         this.lives = this.ref.lives;
+        this.signalEnd = signalEnd;
         // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
         /*this.gameMode = '';*/
     }
@@ -163,6 +165,8 @@ class GAME {
                 this.gameMode = 'over';
                 break;
         }
+        if (this.signalEnd)
+            this.signalEnd(mode)
         console.info('Set mode:', this.gameMode);
     }
     deductLives() {
@@ -202,7 +206,9 @@ class GAME {
             (new gfxRenderer).render(this, this.gameMode);
             requestAnimationFrame(() => this.gameLoop());
         } else {
-            console.log('It is over!!')
+            console.log('It is over!!');
+            // Signal that the game has ended
+            this.setGameMode('over');
         }
     }
 }
@@ -294,10 +300,10 @@ class Ball extends Entity {
     // static HEIGHT = Entity.BLOCKS_TALL * .3;
 
     static get WIDTH() {
-        return Entity?.BLOCKS_WIDE * .4;
+        return Entity?.BLOCKS_WIDE * .35;
     }
     static get HEIGHT() {
-        return Entity?.BLOCKS_TALL * .4;
+        return Entity?.BLOCKS_TALL * .35;
     }
 
     // TODO: remove DeltaX and find fix to use exclusively this.dx ✅

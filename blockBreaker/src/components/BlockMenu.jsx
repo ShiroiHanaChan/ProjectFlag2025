@@ -1,16 +1,19 @@
 import React from 'react';
 import "./../../../scss/scssFile.css"
+import {menuStates} from "./menuConfig.js";
 
-function BlockMenu() {
+function BlockMenu(props) {
+
     return (
         <>
             <section className="game-ui visible liquify content-grid">
-                    <img src="/src/assets/gameArt/logo.png" alt=""/>
-                    {/*<p>Leaderboard</p>*/}
-                    {/*<p>Instructions</p>*/}
-                    <p>Quit</p>
-                    <p>Retry</p>
-                    <p>Continue</p>
+                <img src={"/src/assets/gameArt/logo.png"} alt=""/>
+                {menuStates[props.mode].map(
+                        entry => <p key={entry.id}
+                        onClick={entry.jsx || (entry.action ? () => props.function(entry.action) : undefined)}
+                        >{entry.txt}</p>
+                    )
+                }
             </section>
         </>
     );

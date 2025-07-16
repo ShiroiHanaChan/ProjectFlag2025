@@ -9,33 +9,24 @@
   </head>
   <body class="content-grid">
 
-  <div id="reactNav"></div>
+  <header class="content-grid">
+    <div id="reactNav"></div>
+  </header>
 
-    <article>
-      <p>Score: 23855</p>
-      <form action="">
-        <label for="scoreName">Name:</label>
-        <input type="text" name="name" id="scoreName" placeholder="Input 3 characters!" />
-        <button type="submit">Bombs Away!!</button>
-      </form>
-      <div id="root"></div>
-    </article>
+  <main class="content-grid">
 
-    <!--<section class="">
+    <label>Theme:
+      <select data-theme-picker name="themepicker" id="theme">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
 
-      <article class="game-status">
-        <p>SCORE: </p>
-        <p>LIVES: </p>
-      </article>
+    <div id="root"></div>
 
-      <canvas
-              id="blockBreaker"
-              class="block-breaker"
-      ></canvas>
-    </section>-->
+  </main>
 
     <script type="module" src="/src/main.jsx"></script>
-    <!--<script src="/src/js/blockBreakerJS.js"></script>-->
-
   </body>
 </html>
