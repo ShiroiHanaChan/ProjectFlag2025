@@ -1,5 +1,4 @@
 ---
----
 deployment:
   tasks:
     - export DEPLOYPATH=/home/$USER/public_html/
