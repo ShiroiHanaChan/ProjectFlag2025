@@ -7,7 +7,7 @@ deployment:
     - npm run build
     - /bin/cp -R dist/* $DEPLOYPATH
     - cd ..
-    - /bin/cp index.html $DEPLOYPATH/index.html
+    - /bin/cp blockBreaker/index.html $DEPLOYPATH/index.html
     - /bin/cp -R assets $DEPLOYPATH
     - /bin/cp -R scss $DEPLOYPATH
     - /bin/cp -R weatherAPI $DEPLOYPATH
