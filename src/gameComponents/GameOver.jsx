@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import "./../../../scss/scssFile.css"
+import "../scss/scssFile.css"
 import {useDispatch, useSelector} from "react-redux";
 import {Entry, Score, verifyDuplicates} from "../config.js";
 import {submitScore} from "../redux/blockSlice.js";

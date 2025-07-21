@@ -1,5 +1,5 @@
 import React from 'react';
-import "./../../../scss/scssFile.css"
+import "../scss/scssFile.css"
 import {menuStates} from "./menuConfig.js";
 
 function BlockMenu(props) {

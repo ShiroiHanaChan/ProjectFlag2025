@@ -1,13 +1,8 @@
-import './App.scss'
 import {useDispatch, useSelector} from "react-redux";
-import Leaderboard from "./components/Leaderboard.jsx";
-import Canvas from "./components/Canvas.jsx";
+import Leaderboard from "./gameComponents/Leaderboard.jsx";
+import Canvas from "./gameComponents/Canvas.jsx";
 import {useEffect} from "react";
 import {leaderboardDataFetch} from "./redux/blockSlice.js";
-import HeroSection from "./sections/HeroSection.jsx";
-import Footer from "./sections/Footer.jsx";
-import WaveSectionTop from "./waveComponents/WaveSectionTop.jsx";
-import WaveSectionBottom from "./waveComponents/WaveSectionBottom.jsx";
 
 /*
 * TODO:

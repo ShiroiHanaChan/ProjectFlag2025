@@ -1,0 +1,8 @@
+.hero-section {
+  @media screen and (width >= 1035px) {
+  background-image: url("/public/pfp.JPG");
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: contain;
+  }
+}
