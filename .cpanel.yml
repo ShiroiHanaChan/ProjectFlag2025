@@ -6,6 +6,7 @@ deployment:
     - npm install
     - npm run build
     - /bin/cp -R dist/* $DEPLOYPATH
+    - /bin/cp dist/index.html $DEPLOYPATH/index.html  # Ensure index.html is at root
     - cd ..
     - /bin/cp -R assets $DEPLOYPATH
     - /bin/cp -R scss $DEPLOYPATH
