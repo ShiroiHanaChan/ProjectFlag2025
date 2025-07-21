@@ -1,7 +1,7 @@
 /*
 * BUG REPORT
 * TODO:
-*  - Somehow the ball managed to escape the canvas when hit in an odd angle
+*  - Somehow the ball managed to escape the canvas when hit in an odd angle ✅-> resolved by adding ball width to wall detection calc
 *
 */
 
@@ -12,39 +12,60 @@
 import {sC} from "../config.js";
 
 export class gameVroomVroom {
-    constructor(canvas, signalEnd) {
+    constructor(canvas, signalEnd, signalPoints, signalHearts) {
         // Build canvas
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        // TODO: - Determine best canvasSize dynamically
-        this.canvasSize = 450;
-        // Important game logic fr
-        this.canvasWidth = canvas.clientWidth;
-        this.canvasHeight = canvas.clientHeight;
-        // % of canvas and equals 1 square
-        this.BLOCKS_WIDE = this.canvasWidth * 0.05;
-        this.BLOCKS_TALL = this.canvasWidth * 0.04;
+        /* canvasSizeCalibrator */
         // Tracks all spawned game entities
         this.lives = 3;
         this.gameEntities = [];
-        this.signalEnd = signalEnd
+        this.points = 0;
+        this.signalEnd = signalEnd;
+        this.signalPoints = signalPoints;
+        this.signalHearts = signalHearts;
     }
-    launcher() {
-        // Mounts canvas and build the arena
+    canvasSizeCalibrator() {
+        // TODO: - Determine best canvasSize dynamically
+        this.canvasSize = window.innerWidth > 768 ? 450 : 380;
+        // Important game logic fr
+        this.canvasWidth = this.canvas.clientWidth;
+        this.canvasHeight = this.canvas.clientHeight;
+        // % of canvas and equals 1 square
+        this.BLOCKS_WIDE = this.canvasWidth * 0.05;
+        this.BLOCKS_TALL = this.canvasWidth * 0.04;
+    }
+    canvasFormatter() {
+        // Mounts canvas, use as callback optionally
+        document.documentElement.style.setProperty('--menu-width', `${this.canvasSize}px`);
         this.canvas.width = this.canvasSize;
         this.canvas.height = this.canvasSize * 1.25;
+        console.log('Canvas size:', this.canvasSize);
+    }
+    launcher() {
+        this.canvasSizeCalibrator();
+        this.canvasFormatter();
+        // Build the arena and run game loop
+        this.canvasSizeCalibrator();
         Entity.setProperties(this);
-        mapBuilder(levelOne, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
+        mapBuilder(levelTwo, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
         this.codeRunner();
     }
     launchEventListeners() {
         this.canvas.addEventListener('mousemove', (eventObj) => {
             this.Game.paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
         }, false);
+        this.canvas.addEventListener('touchmove', (eventObj) => {
+            // Prevents scrolling the web page
+            eventObj.preventDefault();
+            const rect = this.canvas.getBoundingClientRect();
+            const touch = eventObj.touches[0];
+            this.Game.paddle.x = (touch.clientX - rect.left) - Paddle.WIDTH / 2 * 1.5;
+        }, false);
     }
     codeRunner() {
         // Launches new instance, initializes paddle and ball, and runs the loop
-        this.Game = new GAME(this, this.signalEnd);
+        this.Game = new GAME(this, this.signalEnd, this.signalPoints, this.signalHearts);
         this.launchEventListeners();
         this.Game.init();
         // No longer needed, gameLoop will be initialized by the React component
@@ -95,30 +116,32 @@ class gfxRenderer {
 
 /* LEVELS LEVELS LEVELS LEVELS LEVELS */
 
+/* TODO: - Move levels to config */
+
 const levelOne = [
     /* Row */
-    'x________x', /* Col */
-    'xx______xx',
-    'x________x',
-    'x__x__x__x',
-    '___x__x___',
-    '_x______x_',
-    '_x__xx__x_',
-    '_x_x__x_x_',
-    '__x____x__',
+    'x________x', /* Col 1 */
+    'xx______xx', /* Col 2 */
+    'x________x', /* Col 3 */
+    'x__x__x__x', /* Col 4 */
+    '___x__x___', /* Col 5 */
+    '_x______x_', /* Col 6 */
+    '_x__xx__x_', /* Col 7 */
+    '_x_x__x_x_', /* Col 8 */
+    '__x____x__', /* Col 9 */
 ];
 
 const levelTwo = [
     /* Row */
-    '_______x__', /* Col */
-    '__________',
-    '__________',
-    '__________',
-    '__________',
-    '__________',
-    '__________',
-    '__________',
-    '__________',
+    '_x______x_', /* Col 1 */
+    'x_x____x_x', /* Col 2 */
+    'x_x_xx_x_x', /* Col 3 */
+    'x________x', /* Col 4 */
+    'x_x____x_x', /* Col 5 */
+    'x_x____x_x', /* Col 6 */
+    'x___xx___x', /* Col 7 */
+    'x________x', /* Col 8 */
+    '_xxxxxxxx_', /* Col 9 */
 ];
 
 /* Classes */
@@ -127,7 +150,7 @@ const levelTwo = [
 
 class GAME {
     // Declare entities
-    constructor(gameVroomVroom, signalEnd) {
+    constructor(gameVroomVroom, signalEnd, signalPoints, signalHearts) {
         // gameVroomVroom reference
         this.ref = gameVroomVroom;
         // Init
@@ -141,10 +164,15 @@ class GAME {
         this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 2.75 * this.BLOCKS_TALL);
         this.ball = new Ball();
         this.lives = this.ref.lives;
+        this.points = this.ref.points;
+        this.multiplier = 1;
         this.signalEnd = signalEnd;
+        this.signalPoints = signalPoints;
+        this.signalHearts = signalHearts;
         // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
         /*this.gameMode = '';*/
     }
+    // Point system, use as callback when detecting collisions
     // Helper method for cleaner game mode setting
     setGameMode(mode) {
         // Declare mode received from outside sources
@@ -166,8 +194,7 @@ class GAME {
                 break;
         }
         if (this.signalEnd)
-            this.signalEnd(mode)
-        console.info('Set mode:', this.gameMode);
+            this.signalEnd(mode);
     }
     deductLives() {
         this.lives--;
@@ -193,22 +220,43 @@ class GAME {
             if (entity instanceof Target && collisionDetection(this.ball, [entity])) {
                 entity.selfDestruct(this.gameEntities);
                 this.ball.targetHitBounce(collisionDirection(this.ball, entity));
+                // Point incrementor, uses a multiplier to encourage hit streaks for higher scores! Resets if the consequent hit inst a target
+                this.points += 800 * this.multiplier;
+                this.multiplier += .25;
+                if (this.signalPoints)
+                    this.signalPoints(this.points);
             }
         });
 
-        if (collisionDetection(this.ball, [this.paddle]))
+        if (collisionDetection(this.ball, [this.paddle])) {
             this.paddle.bounceAngle(this.ball);
+            this.multiplier = 1;
+        }
+
+        // Send lives information to React to display the heart container properly
+        if (this.signalHearts)
+            this.signalHearts(this.lives);
 
         /*setTimeout(gameLoop, gameTick);*/
         // TODO: Remove (this.ball.y < canvasHeight) and implement 3 lives system ✅
         // this.gameEntities.some(instance => instance instanceof Target)
-        if (this.gameMode === 'play' && (this.lives > 0)) {
+        if (this.gameMode === 'play' && (this.lives > 0) && this.ref.gameEntities.some(entity => entity instanceof Target)) {
             (new gfxRenderer).render(this, this.gameMode);
             requestAnimationFrame(() => this.gameLoop());
-        } else {
+            //                          Check for no targets left
+        } else if ((this.lives < 1) || !this.ref.gameEntities.some(entity => entity instanceof Target)) {
             console.log('It is over!!');
             // Signal that the game has ended
             this.setGameMode('over');
+            // Add points to player if lives remain as a bonus!
+            if (this.lives > 0) {
+                this.points += 500 * this.lives;
+                console.info(this.points += 500 * this.lives);
+                if (this.signalPoints)
+                    this.signalPoints(this.points);
+            }
+        } else {
+            console.log('Paused');
         }
     }
 }
@@ -327,7 +375,7 @@ class Ball extends Entity {
     }
     // Wall collision handler
     wallCollision(ball) {
-        if (ball.x > Entity.canvasWidth || ball.x < 0)
+        if (ball.x + Ball.WIDTH > Entity.canvasWidth || ball.x < 0)
             ball.dx = -ball.dx;
         if (ball.y > Entity.canvasHeight || ball.y < 0)
             ball.dy = -ball.dy;
@@ -370,7 +418,6 @@ class Target extends Entity {
     }
 
     selfDestruct() {
-        console.log(Entity.ref.gameEntities);
         Entity.ref.gameEntities = Entity.ref.gameEntities.filter(Entity => Entity !== this);
     }
 }

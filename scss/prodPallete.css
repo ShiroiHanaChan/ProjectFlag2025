@@ -45,11 +45,17 @@ html {
   --border-glass-primary: var(--outer-space);
   --border-glass-secondary: var(--slate-gray);
 }
-:root body {
-  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-light-bg.svg");
-}
-:root .card {
-  box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(255, 255, 255, 0.15) 0px -36px 30px 0px inset, rgba(255, 255, 255, 0.1) 0px -79px 40px 0px inset, rgba(255, 255, 255, 0.06) 0px 2px 1px, rgba(255, 255, 255, 0.09) 0px 4px 2px, rgba(255, 255, 255, 0.09) 0px 8px 4px, rgba(255, 255, 255, 0.09) 0px 16px 8px, rgba(255, 255, 255, 0.09) 0px 32px 16px;
+:root .theme-picker::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 200px; /* Set your desired max size */
+  height: 2em;
+  padding-bottom: 50%; /* Adjust based on your image aspect ratio */
+  background-image: url("/gameArt/moon-o.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -93,15 +99,23 @@ html {
     --border-glass-primary: var(--slate-gray);
     --border-glass-secondary: var(--outer-space);
   }
-  :root body {
-    background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-dark-bg.svg");
-  }
-  :root .card {
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  :root .theme-picker::after {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: 2em;
+    padding-bottom: 50%;
+    background-image: url("/gameArt/moon-o.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
 
-:root:has(#theme [value=light]:checked) {
+/*:root:has(#theme [value="light"]:checked)*/
+/*:root:has(#themer:checked)*/
+:root[data-theme=light] {
   color-scheme: light;
   /* Light */
   --primary-100: var(--seasalt);
@@ -143,14 +157,22 @@ html {
   --border-glass-primary: var(--outer-space);
   --border-glass-secondary: var(--slate-gray);
 }
-:root:has(#theme [value=light]:checked) body {
-  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-light-bg.svg");
-}
-:root:has(#theme [value=light]:checked) .card {
-  box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(255, 255, 255, 0.15) 0px -36px 30px 0px inset, rgba(255, 255, 255, 0.1) 0px -79px 40px 0px inset, rgba(255, 255, 255, 0.06) 0px 2px 1px, rgba(255, 255, 255, 0.09) 0px 4px 2px, rgba(255, 255, 255, 0.09) 0px 8px 4px, rgba(255, 255, 255, 0.09) 0px 16px 8px, rgba(255, 255, 255, 0.09) 0px 32px 16px;
+:root[data-theme=light] .theme-picker::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: 2em;
+  padding-bottom: 50%;
+  background-image: url("/gameArt/sun-o.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-:root:has(#theme [value=dark]:checked) {
+/*:root:has(#theme [value="dark"]:checked)*/
+/*:root:has(#themer:unchecked)*/
+:root[data-theme=dark] {
   color-scheme: dark;
   /* Dark */
   --primary-100: var(--eerie-black);
@@ -192,11 +214,17 @@ html {
   --border-glass-primary: var(--slate-gray);
   --border-glass-secondary: var(--outer-space);
 }
-:root:has(#theme [value=dark]:checked) body {
-  background-image: linear-gradient(hsl(from var(--bg-neutral-primary) h s l/0.2) 0 0), url("/assets/svg/pattern-dark-bg.svg");
-}
-:root:has(#theme [value=dark]:checked) .card {
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+:root[data-theme=dark] .theme-picker::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: 2em;
+  padding-bottom: 50%;
+  background-image: url("/gameArt/moon-o.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /*# sourceMappingURL=prodPallete.css.map */

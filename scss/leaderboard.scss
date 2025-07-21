@@ -1,0 +1,83 @@
+@use 'scssMixins' as *;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&display=swap');
+
+
+img {
+  height: 200px;
+}
+
+.leaderboard-ul {
+  font-size: 1.2em;
+  font-weight: 1.1;
+  border-radius: 0 0 var(--radius-200) var(--radius-200);
+  background-color: var(--bg-neutral-primary);
+  list-style: none;
+  padding: 2rem;
+  & > * {
+    text-align: center;
+  }
+}
+
+
+
+/* Behold the mighty power of SASS!!!!!! Gives the 3 best scores a color of gold -> silver -> bronze! */
+@for $_ from 1 through 3 {
+    .leaderboard-ul > :nth-child(#{$_}) {
+      color: hsl(calc(45 - 15 * ($_ - 1)), calc(65% - 65% * ($_ - 1)), calc(52% + 23% * ($_ - 1)));
+  }
+}
+
+.score-card {
+  @include display-flex();
+}
+
+.leaderboard {
+  border: 2px solid var(--bg-neutral-primary);
+  border-radius: var(--radius-200);
+  display: flex;
+  flex-direction: column;
+  @media screen and (width <= 825px) {
+    width: var(--menu-width);
+    margin: auto;
+  }
+
+  & h3 {
+    font-family: "Press Start 2P", "VT323", "Pixel Operator", "04b03", "Silkscreen", "Courier New", "Lucida Console", "Monaco", "Consolas", monospace;
+    font-weight: bold;
+    padding: var(--spacing-200);
+    flex-shrink: 0;
+    margin: auto;
+  }
+}
+
+
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin:15px auto;
+  position: relative;
+  color: #FFF;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  25% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
+  }
+  50% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
+  }
+  75% {
+    box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  100% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+}

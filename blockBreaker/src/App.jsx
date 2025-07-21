@@ -6,6 +6,8 @@ import {useEffect} from "react";
 import {leaderboardDataFetch} from "./redux/blockSlice.js";
 import HeroSection from "./sections/HeroSection.jsx";
 import Footer from "./sections/Footer.jsx";
+import WaveSectionTop from "./waveComponents/WaveSectionTop.jsx";
+import WaveSectionBottom from "./waveComponents/WaveSectionBottom.jsx";
 
 /*
 * TODO:
@@ -94,15 +96,12 @@ function App() {
     if (reduxState.blockStore.scores) {
         return (
             <>
-                <HeroSection/>
                 <article className="game-component">
                         <Canvas/>
-                        {/*{scoreName ? <Canvas onSubmit={handleNewEntry} /> : <Canvas/>}*/}
                         <Leaderboard
                             lbScores={reduxState.blockStore.scores}
                         />
                 </article>
-                <Footer/>
             </>
         )
     } else {

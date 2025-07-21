@@ -1,0 +1,29 @@
+.wave-container {
+  --container-height: 70px;
+  height: var(--container-height);
+  background: transparent;
+  overflow: hidden;
+}
+.wave-container > svg {
+  fill: var(--bg-neutral-secondary);
+  width: 181%;
+  height: var(--container-height);
+}
+
+.wave-svg-rotated {
+  transform: rotate(180deg);
+}
+
+.wave-path-1 {
+  opacity: 0.25;
+}
+
+.wave-path-2 {
+  opacity: 0.5;
+}
+
+.wave-path-3 {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=waveEffects.css.map */

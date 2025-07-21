@@ -1,4 +1,3 @@
-
 export const menuStates = {
     new: [
         {id: 'new', txt: "Let's play!", action: 'play'},
@@ -6,8 +5,8 @@ export const menuStates = {
         {id: 'leaderboard', txt: 'Leaderboard', action: 'leaderboard'},
     ],
     pause: [
-        {id: 'quit', txt: 'Quit', jsx: () => console.info('Clicked')},
-        {id: 'retry', txt: 'Retry', action: 'new'},
+        {id: 'quit', txt: 'Quit', action: 'over'},
+        {id: 'retry', txt: 'Retry',},
         {id: 'continue', txt: 'Continue', action: 'play'},
     ],
     over: [

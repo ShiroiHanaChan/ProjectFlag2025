@@ -1,9 +1,45 @@
-nav {
-  position: sticky;
-  top: 20px;
-  z-index: 100;
+@use 'scssMixins' as *;
+
+.theme-picker {
+  & > input {
+    display: block;
+    opacity: 0;
+    height: 0;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-body {
-  margin-block: 500px;
+/* Increase specificity */
+header nav.liquify {
+  --offset: 20px;
+  padding: 0;
+  border-radius: 0 0 var(--spacing-100) var(--spacing-100);
+  background-color: var(--bg-neutral-primary);
+
+  margin-bottom: var(--offset);
+  z-index: 999999999999999999999999999999999;
+}
+
+.nav-ul {
+  @include display-flex();
+  padding: var(--spacing-075);
+
+  & label::after {
+    @include display-flex($gap: 0);
+  }
+
+  & label::after:hover {
+    cursor: pointer;
+  }
+
+  & img {
+    height: 2.5em;
+  }
+
+  & button {
+    background-color: transparent;
+    padding: var(--spacing-075);
+  }
 }

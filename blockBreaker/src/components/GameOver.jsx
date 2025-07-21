@@ -14,8 +14,8 @@ function GameOver(props) {
         //
         eventObj.preventDefault();
         // Tests if scores has changed, if the name input is 3 characters long and letters and if there's no duplicates present
-        if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value, Score, reduxState.blockStore.scores) ) {
-            const updateEntries = [...reduxState.blockStore.scores, new Entry(scoreName.value.toUpperCase(), Score)];
+        if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value.toUpperCase(), props.points, reduxState.blockStore.scores) ) {
+            const updateEntries = [...reduxState.blockStore.scores, new Entry(scoreName.value.toUpperCase(), props.points)];
             // TODO: - Serialize the lastUpdated
             updateEntries.lastUpdated = Date.now();
             dispatch(submitScore(updateEntries));
@@ -31,15 +31,16 @@ function GameOver(props) {
 
     return (
         <>
-            <section className="game-ui visible liquify content-grid">
+            <section className="game-ui visible content-grid">
                 <img src={"/src/assets/gameArt/logo.png"} alt=""/>
-                <div>Score: 23855</div>
-                <p key={'retry'} onClick={() => props.function('new')}>Retry</p>
-                <form action="">
+                <div>Score: {props.points}</div>
+                {props.bonus > 0 ? <div>Bonus: {props.bonus} * 500!</div> : <div>No bonus :c</div>}
+                <form action="" className="score-submit">
                     <label form="scoreName">Name:</label>
                     <input type="text" name="name" id="scoreName" placeholder="Input 3 characters!" />
-                    <button type="submit">Bombs Away!!</button>
+                    <button type="submit">Submit</button>
                 </form>
+                <p key={'retry'} onClick={() => props.rebuild('new')}>Play again!</p>
             </section>
         </>
     );

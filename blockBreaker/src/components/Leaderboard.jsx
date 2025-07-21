@@ -1,21 +1,26 @@
 import React from 'react';
 import ScoreCard from "./ScoreCard.jsx";
+import WaveSectionTop from "../waveComponents/WaveSectionTop.jsx";
 
 function Leaderboard({lbScores}) {
     const sortedEntries = [...lbScores].sort((a, b) => b.score - a.score);
 
     return (
         <>
-            <ul className={'leaderboard-ul'}>
-                {
-                    [...sortedEntries.slice(0, 8)].map(entry =>
-                        <ScoreCard
-                            key={entry.id}
-                            name={entry.name}
-                            score={entry.score}
-                        />)
-                }
-            </ul>
+            <article className="leaderboard pretendo-background-inverse">
+                <h3>Top 10 players!</h3>
+                <WaveSectionTop/>
+                <ul className={'leaderboard-ul'}>
+                    {
+                        [...sortedEntries.slice(0, 10)].map(entry =>
+                            <ScoreCard
+                                key={entry.id}
+                                name={entry.name}
+                                score={entry.score}
+                            />)
+                    }
+                </ul>
+            </article>
         </>
     );
 }

@@ -1,38 +1,110 @@
 /* Fonts */
 .game-component {
   display: grid;
-  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 20px;
+}
+@media screen and (min-width: 825px) {
+  .game-component {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
 }
 .game-component > ul {
   justify-self: center;
 }
 
+.game-status {
+  z-index: 100;
+  width: var(--menu-width);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: baseline;
+  gap: 20px;
+  align-items: center;
+  font-size: 1.325em;
+  padding: var(--spacing-050);
+  background-color: var(--bg-neutral-primary);
+  border-radius: var(--radius-200) var(--radius-200) 0 0;
+  /* Align hearts */
+  /* Scoreboard */
+}
+.game-status section:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.25em;
+}
+.game-status section:nth-child(2):has(span) {
+  line-height: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 0;
+  flex-direction: column;
+}
+.game-status img {
+  height: 1.325em;
+}
+
+.game-status-settings {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 0px;
+}
+.game-status-settings > section {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  align-content: center;
+  gap: 0px;
+  flex: 2;
+}
+.game-status-settings > button:has(> img) {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 20px;
+  border-radius: var(--radius-full);
+  aspect-ratio: 1/1;
+  cursor: url("/gameArt/pointer-o.png"), pointer;
+  padding: var(--spacing-050);
+  background-color: var(--bg-neutral-secondary);
+  height: 40px;
+}
+
 .game-ui {
+  border-radius: 0 0 var(--radius-200) var(--radius-200);
   text-align: center;
-  width: 450px;
-  height: 562.5px;
+  width: var(--menu-width);
+  height: calc(var(--menu-width) * 1.25);
   position: relative;
   top: 0;
   margin: 0;
   font-weight: 700;
   padding: var(--spacing-100);
+  background: hsl(from var(--primary-100) h s l/0.65);
+  backdrop-filter: blur(4px);
 }
 .game-ui > p {
-  border: 1px solid var(--text-neutral-primary);
+  border: 1px solid var(--primary-100);
   border-radius: var(--radius-200);
   margin: var(--spacing-150);
-  background-color: var(--);
+  background-color: var(--primary-300);
 }
 .game-ui > p:last-child {
-  background-color: var(--);
+  background-color: var(--brand);
 }
 .game-ui > p:hover {
-  cursor: pointer;
-  background-color: var(--text-neutral-secondary);
+  cursor: url("/gameArt/pointer-o.png"), pointer;
+  background-color: var(--primary-500);
 }
-.game-ui > * {
+.game-ui > *:not(.score-submit) {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -42,6 +114,33 @@
 .game-ui img {
   height: 200px;
   margin: auto;
+}
+
+.score-submit {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  align-content: center;
+  gap: 5px;
+}
+.score-submit :last-child {
+  /* Button */
+  margin-left: auto;
+  background-color: var(--bg-neutral-secondary);
+}
+.score-submit > input {
+  border: 1px solid transparent;
+  background-color: var(--bg-neutral-secondary);
+  border-radius: var(--radius-200);
+  padding: var(--spacing-100);
+  max-width: 18ch;
+}
+.score-submit > input::placeholder {
+  font-size: 0.85em;
+}
+.score-submit > input:focus {
+  outline: none;
+  border: 1px solid var(--brand);
 }
 
 /*# sourceMappingURL=gameUI.css.map */

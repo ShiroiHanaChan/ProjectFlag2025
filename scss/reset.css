@@ -1,3 +1,8 @@
+/* Global vars */
+:root {
+    --menu-width: 350px
+}
+
 img {
     /* The reset */
     max-width: 100%;
@@ -51,7 +56,11 @@ button, a {
     text-decoration: none; /* no underline */
 }
 
-body > :is(header, footer), main, section, article {
+/*body > :is(header, footer), main, section, article {
+    container-type: inline-size;
+}*/
+
+body > header, footer, main, section, article {
     container-type: inline-size;
 }
 

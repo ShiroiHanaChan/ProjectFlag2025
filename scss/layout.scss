@@ -2,7 +2,10 @@
 
 .content-grid,
 .full-width {
-  --padding-inline: 2rem;
+  --padding-inline: 0.4em;
+  @media (width > 768px) {
+    --padding-inline: 0.5rem;
+  }
   --content-max-width: 110ch;
   --breakout-max-width: 130ch;
 

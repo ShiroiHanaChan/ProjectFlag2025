@@ -1,11 +1,47 @@
-nav {
-  position: sticky;
-  top: 20px;
-  z-index: 100;
+/* Fonts */
+.theme-picker > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+}
+.theme-picker:hover {
+  cursor: pointer;
 }
 
-body {
-  margin-block: 500px;
+/* Increase specificity */
+header nav.liquify {
+  --offset: 20px;
+  padding: 0;
+  border-radius: 0 0 var(--spacing-100) var(--spacing-100);
+  background-color: var(--bg-neutral-primary);
+  margin-bottom: var(--offset);
+  z-index: 1000000000000000000000000000000000;
+}
+
+.nav-ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 20px;
+  padding: var(--spacing-075);
+}
+.nav-ul label::after {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 0;
+}
+.nav-ul label::after:hover {
+  cursor: pointer;
+}
+.nav-ul img {
+  height: 2.5em;
+}
+.nav-ul button {
+  background-color: transparent;
+  padding: var(--spacing-075);
 }
 
 /*# sourceMappingURL=nav.css.map */

@@ -5,9 +5,16 @@
   align-items: baseline;
   gap: 20px;
 }
-@container (width > 75ch) {
+.form-contact .form-group:has(svg) {
+  grid-column: span 2;
+}
+@container (min-width: 90ch) {
   .form-contact {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+  .form-contact .form-group:has(svg) {
+    background-color: lightblue;
+    grid-column: span 1;
   }
 }
 
@@ -16,7 +23,6 @@ footer form {
   grid-template-columns: 1fr;
   align-items: baseline;
   gap: 20px;
-  padding: var(--spacing-200);
 }
 footer form input {
   /* For checkbox and input border */
@@ -25,7 +31,7 @@ footer form input {
 }
 footer form input:not([type=checkbox]) {
   border: 1px solid transparent;
-  background-color: var(--bg-neutral-secondary);
+  background-color: var(--bg-neutral-primary);
   border-radius: var(--radius-200);
   padding: var(--spacing-150);
   margin-top: var(--spacing-075);
@@ -66,7 +72,6 @@ label {
   gap: 0.25em;
   justify-items: center;
 }
-@container (width > 50ch) {}
 .experienced-grid article > .form-group {
   display: flex;
   justify-content: space-evenly;
@@ -74,11 +79,12 @@ label {
   align-content: center;
   gap: 0.5em;
   flex-direction: column;
-  grid-column: span 2;
+  /*grid-column: span 2;*/
+  /* Select the previous form group of the last child if the article has a last child present which is an odd nth child, CSS is awesome! (This is purely an ego thing) */
 }
-@container (width > 50ch) {
+@container (width > 100ch) {
   .experienced-grid article > .form-group {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 }
 .experienced-grid article > .form-group > p {
@@ -88,9 +94,8 @@ label {
   height: 4.5em;
   fill: var(--text-neutral-primary);
 }
-.experienced-grid article > .form-group:last-child:nth-child(odd) {
-  background-color: lightblue;
-  grid-column: -4/-2;
+.experienced-grid article > .form-group:nth-last-child(2):has(:last-child:nth-child(odd)) {
+  grid-column: 2/4;
 }
 
 /*# sourceMappingURL=form.css.map */

@@ -1,0 +1,34 @@
+@import "../../../scss/prodPallete.css";
+
+:root {
+    --padding-inline: 0rem;
+    --content-max-width: 100%;
+    --breakout-max-width: 100%;
+}
+
+
+.container {
+    overflow: hidden;
+}
+
+.svg {
+    fill: var(--bg-neutral-primary);
+    width: 181%;
+    height: 70px;
+}
+
+.path {
+    fill: var(--bg-neutral-primary);
+}
+
+.pathLayer1 {
+    opacity: 0.25;
+}
+
+.pathLayer2 {
+    opacity: 0.5;
+}
+
+.pathLayer3 {
+    opacity: 1;
+}

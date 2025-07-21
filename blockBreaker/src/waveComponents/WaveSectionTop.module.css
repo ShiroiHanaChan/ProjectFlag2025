@@ -1,0 +1,29 @@
+@import "../../../scss/prodPallete.css";
+
+.container {
+    overflow: hidden;
+    height: 70px;
+}
+
+.svg {
+    fill: var(--bg-neutral-primary);
+    width: 181%;
+    height: 70px;
+    transform: rotate(180deg);
+}
+
+.path {
+    fill: var(--bg-neutral-primary);
+}
+
+.pathLayer1 {
+    opacity: 0.25;
+}
+
+.pathLayer2 {
+    opacity: 0.5;
+}
+
+.pathLayer3 {
+    opacity: 1;
+}

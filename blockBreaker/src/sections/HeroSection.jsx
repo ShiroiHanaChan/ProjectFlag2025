@@ -5,12 +5,11 @@ function HeroSection() {
         <>
             <section className="hero-section liquify">
                 <article className="">
-                    <h2>Hey there! I’m Marina!</h2>
+                    <h1>Hey there! I’m Marina!</h1>
                     <br/>
-                    <p>Currently residing in Portugal, I am a passionate front-end developer who is dedicated to creating accessible web applications that users love.</p>
+                    <p>Currently residing in Portugal, I am a passionate front-end developer who is dedicated to creating accessible web applications that users love. Come check out my work! ₍⑅ᐢ..ᐢ₎</p>
                     <br/>
-                    <p>Introducing my latest project, a game inspired by the classic Arkanoid. This thrilling arcade-style game retains the original's charm while introducing fresh mechanics, vivid graphics, and engaging gameplay. It challenges reflexes and strategy, offering an exciting twist on a beloved classic. Get ready to break bricks and set
-                        new high scores!</p>
+                    <p>Introducing my latest project, a game inspired by the classic Arkanoid. Get ready to break bricks and set new high scores in this beloved classic with all new fresh mechanics, vivid graphics, and engaging gameplay!</p>
                     <br/>
                     <button>Let's play!</button>
                 </article>
