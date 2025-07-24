@@ -16,17 +16,25 @@ img {
   text-align: center;
 }
 
-/* Behold the mighty power of SASS!!!!!! Gives the 3 best scores a color of gold -> silver -> bronze! */
 .leaderboard-ul > :nth-child(1) {
-  color: hsl(45, 65%, 52%);
+  color: hsl(46, 89%, 56%);
+}
+.leaderboard-ul > :nth-child(1) :nth-child(odd)::before {
+  /*content: url("/assets/svg/trophy-solid-full.svg");*/
 }
 
 .leaderboard-ul > :nth-child(2) {
-  color: hsl(30, 0%, 75%);
+  color: hsl(0, 0%, 75%);
+}
+.leaderboard-ul > :nth-child(2) :nth-child(odd)::before {
+  /*content: url("/assets/svg/trophy-solid-full.svg");*/
 }
 
 .leaderboard-ul > :nth-child(3) {
-  color: hsl(15, 0%, 98%);
+  color: hsl(25, 58%, 38%);
+}
+.leaderboard-ul > :nth-child(3) :nth-child(odd)::before {
+  /*content: url("/assets/svg/trophy-solid-full.svg");*/
 }
 
 .score-card {

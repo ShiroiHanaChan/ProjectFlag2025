@@ -66,7 +66,7 @@ function Footer() {
                         </div>
 
                         <div className="form-group">
-                            <label>I agree that your website is <span className="text-warning">Really Cool!</span></label>
+                            <label>I agree that your website is <span className="text-success">Really Cool!</span></label>
                             <input type="checkbox" name="" id=""/>
                         </div>
 

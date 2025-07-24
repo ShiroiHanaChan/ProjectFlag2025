@@ -1,4 +1,4 @@
-@use 'scssMixins' as *;
+@use '../scssMixins' as *;
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&display=swap');
 
 
@@ -20,11 +20,24 @@ img {
 
 
 
-/* Behold the mighty power of SASS!!!!!! Gives the 3 best scores a color of gold -> silver -> bronze! */
-@for $_ from 1 through 3 {
-    .leaderboard-ul > :nth-child(#{$_}) {
-      color: hsl(calc(45 - 15 * ($_ - 1)), calc(65% - 65% * ($_ - 1)), calc(52% + 23% * ($_ - 1)));
+$leaderboard-keys: (gold, silver, copper);
+
+@for $_ from 1 through length($leaderboard-keys) {
+
+  $leaderboard-colors: (
+          gold: hsl(46, 89%, 56%),
+          silver: hsl(0, 0%, 75%),
+          copper: hsl(25, 58%, 38%)
+  );
+  $key: nth($leaderboard-keys, $_);
+  $color: map-get($leaderboard-colors, $key);
+  .leaderboard-ul > :nth-child(#{$_}) {
+    color: $color;
+    :nth-child(odd)::before {
+      /*content: url("/assets/svg/trophy-solid-full.svg");*/
+    }
   }
+
 }
 
 .score-card {

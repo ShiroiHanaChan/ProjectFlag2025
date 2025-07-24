@@ -1,8 +1,8 @@
 export const menuStates = {
     new: [
-        {id: 'new', txt: "Let's play!", action: 'play'},
-        {id: 'instruction', txt: 'How to play', action: 'instructions'},
         {id: 'leaderboard', txt: 'Leaderboard', action: 'leaderboard'},
+        {id: 'instruction', txt: 'How to play', action: 'instructions'},
+        {id: 'new', txt: "Let's play!", action: 'play'},
     ],
     pause: [
         {id: 'quit', txt: 'Quit', action: 'over'},
@@ -13,3 +13,5 @@ export const menuStates = {
 
     ],
 }
+
+/* Organize by least important to most important, most relevant option should be at the bottom to be more accessible in mobile */

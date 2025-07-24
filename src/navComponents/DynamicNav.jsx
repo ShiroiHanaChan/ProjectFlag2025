@@ -6,23 +6,28 @@ function DynamicNav() {
     const navigate = useNavigate();
 
     /* Checked -> Light theme */
-    const [theme, setTheme] = useState(true);
+    /* Theming works with a boolean value, true means light and false means dark
+    * When the page is loading, a constant is set to either true or false depending
+    * on the user's preference, if it is dark the state is set to truth and vice versa */
+    const [theme, setTheme] = useState(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
 
     const handleTheme = () => {
+        /* Theme handler set the boolean to the inverse, and the data-theme is set
+        * to white if the boolean is true, or dark if the boolean is false */
         setTheme(!theme);
         document.documentElement.setAttribute('data-theme', theme ? 'light' : 'dark');
-        console.info('Theme changed!', theme ? 'light' : 'dark');
     }
 
     return (
         <>
             <nav className={'liquify full-width'}>
                 <ul className="nav-ul">
-                    <li><img src="/logo.png" alt=""/></li>
+                    <li><a href="" aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></a></li>
                     <li><button onClick={() => navigate('/instructions')}>Instructions</button></li>
                     <li><button onClick={() => navigate('/game')}>Let's play!</button></li>
                     <li>
-                        <label className="theme-picker" alt="Theme selector">
+                        <label className="theme-picker" aria-label="Pick either a light or dark theme, take care of your eyes!">
                             <input
                                 onChange={handleTheme}
                                 data-theme-picker

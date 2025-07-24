@@ -9,7 +9,8 @@
 
 // constructor needs to receive level -> constructor(canvas, level), placeholder is temporary
 
-import {sC} from "../config.js";
+import {levels, sC} from "./config.js";
+import AudioEngine from "./audioEngine.js";
 
 export class gameVroomVroom {
     constructor(canvas, signalEnd, signalPoints, signalHearts) {
@@ -21,6 +22,8 @@ export class gameVroomVroom {
         this.lives = 3;
         this.gameEntities = [];
         this.points = 0;
+        this.sfxPlayer = new AudioEngine();
+        this.mute = false;
         this.signalEnd = signalEnd;
         this.signalPoints = signalPoints;
         this.signalHearts = signalHearts;
@@ -45,16 +48,19 @@ export class gameVroomVroom {
     launcher() {
         this.canvasSizeCalibrator();
         this.canvasFormatter();
+        this.sfxPlayer.loadMP3();
         // Build the arena and run game loop
         this.canvasSizeCalibrator();
         Entity.setProperties(this);
-        mapBuilder(levelTwo, this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
+        mapBuilder(levels[Math.floor(Math.random() * levels.length)], this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
         this.codeRunner();
     }
     launchEventListeners() {
+        // Mouse controls
         this.canvas.addEventListener('mousemove', (eventObj) => {
             this.Game.paddle.x = eventObj.offsetX - Paddle.WIDTH / 2 * 1.5;
         }, false);
+        // Touchscreen controls
         this.canvas.addEventListener('touchmove', (eventObj) => {
             // Prevents scrolling the web page
             eventObj.preventDefault();
@@ -114,36 +120,6 @@ class gfxRenderer {
 
 /* GFX HANDLER GFX HANDLER GFX HANDLER GFX HANDLER */
 
-/* LEVELS LEVELS LEVELS LEVELS LEVELS */
-
-/* TODO: - Move levels to config */
-
-const levelOne = [
-    /* Row */
-    'x________x', /* Col 1 */
-    'xx______xx', /* Col 2 */
-    'x________x', /* Col 3 */
-    'x__x__x__x', /* Col 4 */
-    '___x__x___', /* Col 5 */
-    '_x______x_', /* Col 6 */
-    '_x__xx__x_', /* Col 7 */
-    '_x_x__x_x_', /* Col 8 */
-    '__x____x__', /* Col 9 */
-];
-
-const levelTwo = [
-    /* Row */
-    '_x______x_', /* Col 1 */
-    'x_x____x_x', /* Col 2 */
-    'x_x_xx_x_x', /* Col 3 */
-    'x________x', /* Col 4 */
-    'x_x____x_x', /* Col 5 */
-    'x_x____x_x', /* Col 6 */
-    'x___xx___x', /* Col 7 */
-    'x________x', /* Col 8 */
-    '_xxxxxxxx_', /* Col 9 */
-];
-
 /* Classes */
 
 // TODO: Build codeRunner (game) and gameUI classes
@@ -198,7 +174,7 @@ class GAME {
     }
     deductLives() {
         this.lives--;
-        setTimeout('', 1000);
+        setTimeout('', 2000);
         this.ball.init();
     }
     // Methods
@@ -218,6 +194,8 @@ class GAME {
             this.deductLives();
         Entity.ref.gameEntities.slice(0, -2).forEach(entity => {
             if (entity instanceof Target && collisionDetection(this.ball, [entity])) {
+                if (!this.ref.mute)
+                    this.ref.sfxPlayer.playSFX();
                 entity.selfDestruct(this.gameEntities);
                 this.ball.targetHitBounce(collisionDirection(this.ball, entity));
                 // Point incrementor, uses a multiplier to encourage hit streaks for higher scores! Resets if the consequent hit inst a target
@@ -229,6 +207,8 @@ class GAME {
         });
 
         if (collisionDetection(this.ball, [this.paddle])) {
+            if (!this.ref.mute)
+                this.ref.sfxPlayer.playSFX();
             this.paddle.bounceAngle(this.ball);
             this.multiplier = 1;
         }
@@ -364,9 +344,9 @@ class Ball extends Entity {
     // Init
     init() {
         this.x = Ball.canvasWidth / 2;
-        this.y = 22 * Ball.BLOCKS_TALL;
-        this.dx = Ball.BLOCKS_WIDE * .05;
-        this.dy = Ball.BLOCKS_TALL * -.225;
+        this.y = 20 * Ball.BLOCKS_TALL;
+        this.dx = 0;
+        this.dy = Ball.BLOCKS_TALL * .09;
     }
     // Ball position updater
     update() {
@@ -375,7 +355,7 @@ class Ball extends Entity {
     }
     // Wall collision handler
     wallCollision(ball) {
-        if (ball.x + Ball.WIDTH > Entity.canvasWidth || ball.x < 0)
+        if (ball.x + Ball.WIDTH * 1.25 > Entity.canvasWidth || ball.x - Ball.WIDTH * .25 < 0)
             ball.dx = -ball.dx;
         if (ball.y > Entity.canvasHeight || ball.y < 0)
             ball.dy = -ball.dy;

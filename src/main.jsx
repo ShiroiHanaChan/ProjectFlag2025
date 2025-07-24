@@ -3,79 +3,102 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import store from "./redux/store.js";
 import {Provider} from "react-redux";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import DynamicNav from "./navComponents/DynamicNav.jsx";
-import Footer from "./sections/Footer.jsx";
-import HeroSection from "./sections/HeroSection.jsx";
-import SocialLinks from "./sections/SocialLinks.jsx";
+import Footer from "./htmlSections/Footer.jsx";
+import HeroSection from "./htmlSections/HeroSection.jsx";
+import SocialLinks from "./htmlSections/SocialLinks.jsx";
+import {createPortal} from "react-dom";
 
 const rootHeader = createRoot(document.getElementById('rootHeader'));
+
+const routerConfig = {
+    '/': {
+        // Return following components
+        header: () => (
+            <>
+                <DynamicNav />
+                <HeroSection />
+            </>
+        ),
+        main: () => (
+            <>
+                <App />
+            </>
+        ),
+        footer: () => (
+            <>
+                <Footer />
+                <SocialLinks />
+            </>
+        ),
+    },
+    '/game': {
+        // Return following components
+        header: () => (
+            <>
+                <DynamicNav />
+            </>
+        ),
+        main: () => (
+            <>
+                <App />
+            </>
+        ),
+        footer: () => (
+            <>
+                <SocialLinks />
+            </>
+        ),
+    },
+};
+
+function Wrapper({section}) {
+    return (
+        /*<StrictMode>
+            <Provider store={store}>
+                <BrowserRouter>*/
+                    <Render section={section} />
+                /*</BrowserRouter>
+            </Provider>
+        </StrictMode>*/
+    )
+}
+
+function Render({section}) {
+    const location = useLocation();
+    const config = routerConfig[location.pathname];
+    if (config && config[section]) {
+        return config[section]();
+    }
+    return console.error('This URL is not valid!')
+}
+
 rootHeader.render(
     <StrictMode>
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/'
+                    <Route path="/"
                            element={
-                                <>
-                                    <DynamicNav />
-                                    <HeroSection />
-                                </>
+                               <>
+                                   {createPortal(<Wrapper section="header" />, document.getElementById('rootHeader'))}
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('root'))}
+                                   {createPortal(<Wrapper section="footer" />, document.getElementById('rootFooter'))}
+                               </>
                            }
-                    >
-                    </Route>
-                    <Route path='/game'
-                            element={<DynamicNav />}
-                    >
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-
-        </Provider>
-    </StrictMode>,
-)
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-      <Provider store={store}>
-          <BrowserRouter>
-              <Routes>
-                  <Route path='/'
-                         element={
-                            <>
-                                <App />
-                            </>
-                  }
-                  ></Route>
-                  <Route path='/game'
-                         element={<App />}
-                  ></Route>
-              </Routes>
-          </BrowserRouter>
-      </Provider>
-  </StrictMode>,
-)
-
-const rootFooter = createRoot(document.getElementById('rootFooter'));
-rootFooter.render(
-    <StrictMode>
-        <Provider store={store}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/'
+                    ></Route>
+                    <Route path="/game"
                            element={
-                                <>
-                                    <Footer />
-                                    <SocialLinks />
-                                </>
-                            }
-                    ></Route>
-                    <Route path='/game'
-                           element={<SocialLinks />}
+                               <>
+                                   {createPortal(<Wrapper section="header" />, document.getElementById('rootHeader'))}
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('root'))}
+                                   {createPortal(<Wrapper section="footer" />, document.getElementById('rootFooter'))}
+                               </>
+                           }
                     ></Route>
                 </Routes>
             </BrowserRouter>
         </Provider>
-    </StrictMode>,
-)
-
+    </StrictMode>
+);

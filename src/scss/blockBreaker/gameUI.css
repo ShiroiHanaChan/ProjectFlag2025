@@ -78,6 +78,21 @@
   height: 40px;
 }
 
+.mute-button {
+  position: relative;
+}
+.mute-button::after {
+  content: "";
+  position: absolute;
+  width: 65%;
+  height: 65%;
+  background-image: url("/gameArt/no.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0;
+}
+
 .game-ui {
   border-radius: 0 0 var(--radius-200) var(--radius-200);
   text-align: center;

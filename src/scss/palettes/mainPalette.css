@@ -13,8 +13,10 @@
   /* Calls */
   --rose-pompadour: hsl(345, 95%, 71%); /* Brand */
   --icterine: hsl(58, 96%, 68%);
+  --citrine: hsl(58, 96%, 44%);
   --red-munsell: hsl(345, 100%, 47%);
   --emerald: hsl(140, 52%, 55%);
+  --dark-spring-green: hsl(140, 53%, 31%);
   /* Gradients */
   --gradient-top: linear-gradient(0deg, #f8f9faff, #e9ecefff, #dee2e6ff, #ced4daff, #adb5bdff, #6c757dff, #495057ff, #343a40ff, #212529ff);
   --gradient-right: linear-gradient(90deg, #f8f9faff, #e9ecefff, #dee2e6ff, #ced4daff, #adb5bdff, #6c757dff, #495057ff, #343a40ff, #212529ff);

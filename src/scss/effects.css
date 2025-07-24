@@ -26,6 +26,10 @@
   color: var(--warning);
 }
 
+.text-success {
+  color: var(--success);
+}
+
 body { /*
 background-size: cover;
 background-color: var(--bg-neutral-primary);

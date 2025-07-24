@@ -1,4 +1,4 @@
-@use 'scssMixins' as *;
+@use '../scssMixins' as *;
 
 .form-contact {
   @include display-grid($grid-columns: 1fr);
@@ -50,7 +50,7 @@ footer form {
   > div:has([type="checkbox"]) {
     @include display-flex($justify-content: space-between);
     > input {
-      height: 100%;
+      height: 1.2em;
     }
   }
 }

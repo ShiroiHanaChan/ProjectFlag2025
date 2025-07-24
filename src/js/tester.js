@@ -1,4 +1,4 @@
-import {sC} from "../config.js";
+import {sC} from "./config.js";
 
 export class Tester {
     constructor(canvas) {

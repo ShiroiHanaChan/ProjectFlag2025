@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {gameVroomVroom} from "../js/blockBreakerJS.js";
-import BlockMenu from "./BlockMenu.jsx";
-import GameOver from "./GameOver.jsx";
+import BlockMenu from "./Menu/BlockMenu.jsx";
+import GameOver from "./Menu/GameOver.jsx";
 // import {Tester} from "../js/tester.js";
 
 
@@ -28,8 +28,6 @@ function Canvas() {
 
     const canvasRef = useRef(null);
     const gameRef = useRef(null);
-
-
 
     useEffect(() => {
         // Bootstrapper for Block Breaker!
@@ -75,7 +73,9 @@ function Canvas() {
                     {/* Score display */}
                     <section><span>Score</span> {points}</section>
                     <section className="game-status-settings">
-                        <button><img src="/public/gameArt/sound-o.png" alt="Turn off sound"/></button>
+                        <button className="mute-button" onClick={() => {
+                            gameRef.current.mute = !gameRef.current.mute;
+                        }}><img src="/public/gameArt/sound-o.png" alt="Turn off sound"/></button>
                         <button onClick={() => {
                             if (gameRef.current && gameRef.current.Game) {
                                 gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';

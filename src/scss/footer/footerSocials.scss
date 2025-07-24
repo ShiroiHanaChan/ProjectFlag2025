@@ -1,10 +1,10 @@
-@use 'scssMixins' as *;
+@use '../scssMixins' as *;
 
 footer .footer-social-links {
-  @include display-flex();
-  margin-bottom: var(--spacing-200);
+  @include display-flex($gap: 0);
   & figure {
     @include display-flex();
+    margin-inline: 0;
   }
   & a:hover {
     color: var(--text-accent-primary);

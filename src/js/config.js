@@ -19,6 +19,35 @@ export function verifyDuplicates(name, score, array) {
     )
 }
 
+// Levels
+
+export const levels = [
+    [
+        /* Row */
+        'x________x', /* Col 1 */
+        'xx______xx', /* Col 2 */
+        'x________x', /* Col 3 */
+        'x__x__x__x', /* Col 4 */
+        '___x__x___', /* Col 5 */
+        '_x______x_', /* Col 6 */
+        '_x__xx__x_', /* Col 7 */
+        '_x_x__x_x_', /* Col 8 */
+        '__x____x__', /* Col 9 */
+    ],
+    [
+        /* Row */
+        '_x______x_', /* Col 1 */
+        'x_x____x_x', /* Col 2 */
+        'x_x_xx_x_x', /* Col 3 */
+        'x________x', /* Col 4 */
+        'x_x____x_x', /* Col 5 */
+        'x_x____x_x', /* Col 6 */
+        'x___xx___x', /* Col 7 */
+        'x________x', /* Col 8 */
+        '_xxxxxxxx_', /* Col 9 */
+    ]
+];
+
 // Sprite coordinates
 
 export const sC = [

@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "blockBreaker/node_modules/.bin/vite",
-    "build": "blockBreaker/node_modules/.bin/vite build",
-    "lint": "blockBreaker/node_modules/.bin/eslint .",
-    "preview": "blockBreaker/node_modules/.bin/vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "history": "^5.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",

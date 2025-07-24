@@ -2,7 +2,7 @@
 reducers object with functions for the actions [add, delete, clear] ) */
 
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {dataURL} from "../config.js";
+import {dataURL} from "../js/config.js";
 
 export const leaderboardDataFetch = createAsyncThunk(
     'blockSlice/fetchData',

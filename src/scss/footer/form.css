@@ -56,7 +56,7 @@ footer form > div:has([type=checkbox]) {
   gap: 20px;
 }
 footer form > div:has([type=checkbox]) > input {
-  height: 100%;
+  height: 1.2em;
 }
 
 label {

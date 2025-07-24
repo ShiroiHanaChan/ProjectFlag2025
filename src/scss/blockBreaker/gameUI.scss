@@ -1,4 +1,4 @@
-@use 'scssMixins' as *;
+@use '../scssMixins' as *;
 
 .game-component {
   @include display-grid($align-items: center, $grid-columns: 1fr);
@@ -60,7 +60,21 @@
     background-color: var(--bg-neutral-secondary);
     height: 40px;
   }
+}
 
+.mute-button {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 65%;
+    height: 65%;
+    background-image: url('/gameArt/no.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0;
+  }
 }
 
 .game-ui {

@@ -16,8 +16,8 @@ html {
   --primary-800: var(--onyx);
   --primary-900: var(--eerie-black);
   --brand: var(--rose-pompadour);
-  --sucess: var(--emerald);
-  --warning: var(--icterine);
+  --success: var(--dark-spring-green);
+  --warning: var(--citrine);
   --danger: var(--red-munsell);
   /* Text */
   --text-neutral-primary: var(--eerie-black);
@@ -52,7 +52,7 @@ html {
   max-width: 200px; /* Set your desired max size */
   height: 2em;
   padding-bottom: 50%; /* Adjust based on your image aspect ratio */
-  background-image: url("/gameArt/moon-o.png");
+  background-image: url("/gameArt/sun-o.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -70,7 +70,7 @@ html {
     --primary-800: var(--antiflash-white);
     --primary-900: var(--seasalt);
     --brand: var(--rose-pompadour);
-    --sucess: var(--emerald);
+    --success: var(--emerald);
     --warning: var(--icterine);
     --danger: var(--red-munsell);
     /* Text */
@@ -128,7 +128,7 @@ html {
   --primary-800: var(--onyx);
   --primary-900: var(--eerie-black);
   --brand: var(--rose-pompadour);
-  --sucess: var(--emerald);
+  --success: var(--dark-spring-green);
   --warning: var(--icterine);
   --danger: var(--red-munsell);
   /* Text */
@@ -185,8 +185,8 @@ html {
   --primary-800: var(--antiflash-white);
   --primary-900: var(--seasalt);
   --brand: var(--rose-pompadour);
-  --sucess: var(--emerald);
-  --warning: var(--icterine);
+  --success: var(--emerald);
+  --warning: var(--citrine);
   --danger: var(--red-munsell);
   /* Text */
   --text-neutral-primary: var(--seasalt);
