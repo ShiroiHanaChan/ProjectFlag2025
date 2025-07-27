@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {gameVroomVroom} from "../js/blockBreakerJS.js";
 import BlockMenu from "./Menu/BlockMenu.jsx";
 import GameOver from "./Menu/GameOver.jsx";
+import LeaderboardMenu from "./Menu/LeaderboardMenu.jsx";
+import Instructions from "./Instructions.jsx";
 // import {Tester} from "../js/tester.js";
 
 
@@ -66,8 +68,8 @@ function Canvas() {
                     */}
                     {/* Lives display*/}
                     <section>
-                        {Array.from({length: hearts}, () => (
-                            <img src="/public/gameArt/heart-o.png" alt=""/>
+                        {Array.from({length: hearts}, (_, index) => (
+                            <img key={index} src="/public/gameArt/heart-o.png" alt=""/>
                         ))}
                     </section>
                     {/* Score display */}
@@ -95,9 +97,17 @@ function Canvas() {
                 <section className="breaker-section">
                     <canvas className="block-breaker" ref={canvasRef} width={0} height={0}></canvas>
 
+                    {/* Pause menu component */}
                     {gameRef.current && gameRef.current.Game && (mode === 'pause' || mode === 'new') ? <BlockMenu key="menu" mode={mode} function={handleMode} rebuild={buildCanvas} /> : null}
 
+                    {/* Game over menu component */}
                     {gameRef.current && gameRef.current.Game && mode === 'over' ? <GameOver key="gameOver" mode={mode} bonus={hearts} function={handleMode} rebuild={buildCanvas} points={points} /> : null}
+
+                    {/* Leaderboard menu component */}
+                    {gameRef.current && gameRef.current.Game && mode === 'leaderboard' ? <LeaderboardMenu key="leaderBoard" mode={mode} bonus={hearts} function={handleMode} /> : null}
+
+                    {/* Instructions menu component */}
+                    {gameRef.current && gameRef.current.Game && mode === 'instructions' ? <Instructions key="leaderBoard" mode={mode} hearts={hearts} function={handleMode} /> : null}
                 </section>
             </section>
         </>

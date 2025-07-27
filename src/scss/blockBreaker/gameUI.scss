@@ -89,7 +89,7 @@
   padding: var(--spacing-100);
   background: hsl(from var(--primary-100) h s l / .65);
   backdrop-filter: blur(4px);
-  & > p {
+  & > button {
     border: 1px solid var(--primary-100);
     border-radius: var(--radius-200);
     margin: var(--spacing-150);
@@ -110,6 +110,7 @@
     height: 200px;
     margin: auto;
   }
+
 }
 
 .score-submit {

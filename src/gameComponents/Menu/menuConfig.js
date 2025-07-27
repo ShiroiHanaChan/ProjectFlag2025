@@ -1,7 +1,7 @@
 export const menuStates = {
     new: [
         {id: 'leaderboard', txt: 'Leaderboard', action: 'leaderboard'},
-        {id: 'instruction', txt: 'How to play', action: 'instructions'},
+        {id: 'instructions', txt: 'How to play', action: 'instructions'},
         {id: 'new', txt: "Let's play!", action: 'play'},
     ],
     pause: [

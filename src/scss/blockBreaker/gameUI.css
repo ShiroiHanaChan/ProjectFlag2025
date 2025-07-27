@@ -106,16 +106,16 @@
   background: hsl(from var(--primary-100) h s l/0.65);
   backdrop-filter: blur(4px);
 }
-.game-ui > p {
+.game-ui > button {
   border: 1px solid var(--primary-100);
   border-radius: var(--radius-200);
   margin: var(--spacing-150);
   background-color: var(--primary-300);
 }
-.game-ui > p:last-child {
+.game-ui > button:last-child {
   background-color: var(--brand);
 }
-.game-ui > p:hover {
+.game-ui > button:hover {
   cursor: url("/gameArt/pointer-o.png"), pointer;
   background-color: var(--primary-500);
 }

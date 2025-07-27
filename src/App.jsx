@@ -1,13 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
 import Leaderboard from "./gameComponents/Leaderboard.jsx";
 import Canvas from "./gameComponents/Canvas.jsx";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {leaderboardDataFetch} from "./redux/blockSlice.js";
 
 /*
 * TODO:
 *  - Make sure score name and exact same score do not duplicate ✅
 * */
+
+export const breakerContext = React.createContext(undefined);
 
 function App() {
 
@@ -91,12 +93,14 @@ function App() {
     if (reduxState.blockStore.scores) {
         return (
             <>
+                <breakerContext.Provider value={ { reduxState } }>
                 <article className="game-component">
                         <Canvas/>
                         <Leaderboard
                             lbScores={reduxState.blockStore.scores}
                         />
                 </article>
+                </breakerContext.Provider>
             </>
         )
     } else {

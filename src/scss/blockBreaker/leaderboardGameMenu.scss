@@ -1,0 +1,43 @@
+@use '../scssMixins' as *;
+
+.leaderboard-game-menu {
+  margin-block: var(--spacing-100);
+  flex-direction: column;
+  overflow-y: scroll;
+  & > *::before {
+    content: attr(index-data)' -';
+    margin-right: var(--spacing-100);
+  }
+}
+
+$leaderboard-keys: (gold, silver, copper);
+
+@for $_ from 1 through length($leaderboard-keys) {
+
+  $leaderboard-colors: (
+          gold: hsl(46, 89%, 56%),
+          silver: hsl(0, 0%, 75%),
+          copper: hsl(25, 58%, 38%)
+  );
+  $key: nth($leaderboard-keys, $_);
+  $color: map-get($leaderboard-colors, $key);
+  .leaderboard-game-menu > :nth-child(#{$_}) {
+    @include display-flex();
+    color: $color;
+    background-color: hsl(from var(--outer-space) h s l / .5);
+    padding-inline: var(--spacing-075);
+    border-radius: var(--radius-200);
+    font-weight: bold;
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: $color;
+      mask: url("/assets/svg/trophy-solid-full.svg") no-repeat center;
+      mask-size: contain;
+      margin-right: var(--spacing-050);
+    }
+  }
+
+}

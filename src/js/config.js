@@ -24,6 +24,7 @@ export function verifyDuplicates(name, score, array) {
 export const levels = [
     [
         /* Row */
+      /* 1234567890 */
         'x________x', /* Col 1 */
         'xx______xx', /* Col 2 */
         'x________x', /* Col 3 */
@@ -36,6 +37,7 @@ export const levels = [
     ],
     [
         /* Row */
+      /* 1234567890 */
         '_x______x_', /* Col 1 */
         'x_x____x_x', /* Col 2 */
         'x_x_xx_x_x', /* Col 3 */
@@ -45,7 +47,7 @@ export const levels = [
         'x___xx___x', /* Col 7 */
         'x________x', /* Col 8 */
         '_xxxxxxxx_', /* Col 9 */
-    ]
+    ],
 ];
 
 // Sprite coordinates
