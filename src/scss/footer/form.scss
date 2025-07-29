@@ -27,7 +27,7 @@ footer form {
     color: inherit;
   }
 
-  & input:not([type="checkbox"]) {
+  & input:not([type="checkbox"]), textarea {
     border: 1px solid transparent;
     background-color: var(--bg-neutral-primary);
     border-radius: var(--radius-200);
@@ -38,6 +38,12 @@ footer form {
       outline: none;
       border: 1px solid var(--brand);
     }
+  }
+
+  & textarea {
+    height: 9ch;
+    resize: none;
+    overflow-y: hidden;
   }
 
   & input[type="checkbox"]:hover {

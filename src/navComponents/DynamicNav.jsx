@@ -25,7 +25,7 @@ function DynamicNav() {
         <>
             <nav className={'liquify full-width'}>
                 <ul className="nav-ul">
-                    <li><button href="" aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button></li>
+                    <li><button aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button></li>
                     <li><button onClick={() => {
                         navigate('/');
                         // Setting a timeout gives the router enough time to finish loading so scrolling is consistent

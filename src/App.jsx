@@ -3,6 +3,8 @@ import Leaderboard from "./gameComponents/Leaderboard.jsx";
 import Canvas from "./gameComponents/Canvas.jsx";
 import React, {useEffect} from "react";
 import {leaderboardDataFetch} from "./redux/blockSlice.js";
+import SkeletonGrid from "./skeletonLoaders/SkeletonNav.jsx";
+import SkeletonHero from "./skeletonLoaders/SkeletonHero.jsx";
 
 /*
 * TODO:
@@ -21,7 +23,7 @@ function App() {
     }, [dispatch]);
 
     // Fetch state
-    const reduxState = useSelector(state => state);
+    const reduxState = useSelector(state => state.blockStore);
 
     // TODO: Fix event handler to prevent event duplication on renders, causing major lag ✅
     /*
@@ -90,14 +92,16 @@ function App() {
         )();
     }, []);*/
 
-    if (reduxState.blockStore.scores) {
+    console.log(reduxState);
+
+    if (reduxState.scores && !reduxState.loading) {
         return (
             <>
                 <breakerContext.Provider value={ { reduxState } }>
                 <article className="game-component">
                         <Canvas/>
                         <Leaderboard
-                            lbScores={reduxState.blockStore.scores}
+                            lbScores={reduxState.scores}
                         />
                 </article>
                 </breakerContext.Provider>
@@ -106,7 +110,10 @@ function App() {
     } else {
         return (
             <>
-                <span className="loader"></span>
+                <section className="skeleton-grid">
+                    <SkeletonHero />
+                    <SkeletonHero />
+                </section>
             </>
         )
     }

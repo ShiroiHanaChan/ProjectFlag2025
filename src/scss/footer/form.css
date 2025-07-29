@@ -33,7 +33,7 @@ footer form input {
   accent-color: var(--brand);
   color: inherit;
 }
-footer form input:not([type=checkbox]) {
+footer form input:not([type=checkbox]), footer form textarea {
   border: 1px solid transparent;
   background-color: var(--bg-neutral-primary);
   border-radius: var(--radius-200);
@@ -41,9 +41,14 @@ footer form input:not([type=checkbox]) {
   margin-top: var(--spacing-075);
   width: 100%;
 }
-footer form input:not([type=checkbox]):focus {
+footer form input:not([type=checkbox]):focus, footer form textarea:focus {
   outline: none;
   border: 1px solid var(--brand);
+}
+footer form textarea {
+  height: 9ch;
+  resize: none;
+  overflow-y: hidden;
 }
 footer form input[type=checkbox]:hover {
   cursor: pointer;

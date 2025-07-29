@@ -62,7 +62,7 @@ function Footer() {
 
                         <div className="form-group">
                             <label htmlFor="messageInput">Message</label>
-                            <input type="text" name="" id="messageInput" placeholder="Share your thoughts!"/>
+                            <textarea  name="" id="messageInput" placeholder="Share your thoughts!"></textarea>
                         </div>
 
                         <div className="form-group">

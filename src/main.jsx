@@ -13,14 +13,7 @@ import NotFound from "./htmlSections/NotFound.jsx";
 import SkeletonGrid from "./skeletonLoaders/SkeletonGrid.jsx";
 import SkeletonHero from "./skeletonLoaders/SkeletonHero.jsx";
 import SkeletonNav from "./skeletonLoaders/SkeletonNav.jsx";
-
-function spookySkeletonLoaders() {
-    const loading = useSelector((state => state.block.loading));
-
-    if (loading) {
-
-    }
-}
+import WaveSectionTop from "./waveComponents/WaveSectionTop.jsx";
 
 const rootHeader = createRoot(document.getElementById('rootHeader'));
 
@@ -101,7 +94,6 @@ function Render({section}) {
         <NotFound />
     )
 }
-
 
 rootHeader.render(
     <StrictMode>

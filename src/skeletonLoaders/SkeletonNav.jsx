@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SkeletonGrid() {
+function SkeletonNav() {
     return (
         <>
             <section className="skeleton-section">
@@ -10,4 +10,4 @@ function SkeletonGrid() {
     );
 }
 
-export default SkeletonGrid;
+export default SkeletonNav;
