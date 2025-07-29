@@ -14,5 +14,7 @@
 @import "heroSection.css";
 @import "blockBreaker/canvas.css";
 @import "blockBreaker/leaderboard.css";
-@import "blockBreaker/leaderboardGameMenu.scss";
+@import "blockBreaker/leaderboardGameMenu.css";
+@import "notFound.css";
+@import "skeletonLoaders.css";
 @import "nav.css";

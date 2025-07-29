@@ -10,7 +10,7 @@
 
 /* Increase specificity */
 header nav.liquify {
-  --offset: 20px;
+  --offset: var(--spacing-200);
   padding: 0;
   border-radius: 0 0 var(--spacing-100) var(--spacing-100);
   background-color: var(--bg-neutral-primary);

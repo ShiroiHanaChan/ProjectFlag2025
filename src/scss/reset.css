@@ -35,10 +35,6 @@ ol, ul {
     list-style: none;
 }
 
-/** + * {
-  margin-top: var(--spacing-100);
-}*/
-
 input {
     border-radius: 0;
 }

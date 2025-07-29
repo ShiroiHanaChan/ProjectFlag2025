@@ -2,7 +2,7 @@
 
 .game-component {
   @include display-grid($align-items: center, $grid-columns: 1fr);
-  @media screen and (min-width: 825px) {
+  @media screen and (min-width: 920px) {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
   & > ul {
@@ -63,17 +63,19 @@
 }
 
 .mute-button {
+  --opacity: 0;
+  --size: 75%;
   position: relative;
   &::after {
     content: "";
     position: absolute;
-    width: 65%;
-    height: 65%;
+    width: var(--size);
+    height: var(--size);
     background-image: url('/gameArt/no.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    opacity: 0;
+    opacity: var(--opacity);
   }
 }
 

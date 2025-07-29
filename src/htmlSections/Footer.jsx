@@ -6,7 +6,7 @@ function Footer() {
                 <section className="form-contact">
                     <section>
                         <article>
-                            <h2>Let's get in touch!</h2>
+                            <h1>Let's get in touch!</h1>
                             <p>Do you have exciting ideas that you’d like to turn into reality? Let’s make them happen!</p>
                         </article>
 

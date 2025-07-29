@@ -14,6 +14,10 @@
   }
 }
 
+.form-contact > section > * {
+  margin-block: var(--spacing-150);
+}
+
 footer form {
   @include display-grid($grid-columns: 1fr);
 

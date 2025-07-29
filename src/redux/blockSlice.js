@@ -23,7 +23,7 @@ const blockSlice = createSlice ({
        scores: [],
        sortedScores: [],
        gameState: [],
-       loading: false,
+       loading: true,
        error: null,
    },
     reducers: { // AKA methods

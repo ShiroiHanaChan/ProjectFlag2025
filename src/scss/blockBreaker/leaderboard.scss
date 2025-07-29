@@ -32,16 +32,35 @@ $leaderboard-keys: (gold, silver, copper);
   $key: nth($leaderboard-keys, $_);
   $color: map-get($leaderboard-colors, $key);
   .leaderboard-ul > :nth-child(#{$_}) {
+    @include display-flex(
+            $gap: 0,
+            $justify-content: center
+    );
     color: $color;
-    :nth-child(odd)::before {
-      /*content: url("/assets/svg/trophy-solid-full.svg");*/
+    background-color: hsl(from var(--outer-space) h s l / .5);
+    padding-inline: var(--spacing-075);
+    border-radius: var(--radius-200);
+    font-weight: bold;
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: $color;
+      mask: url("/assets/svg/trophy-solid-full.svg") no-repeat center;
+      mask-size: contain;
+      margin-left: var(--spacing-075);
     }
   }
 
 }
 
 .score-card {
-  @include display-flex();
+  margin-block: var(--spacing-100);
+  & > *::before {
+    content: attr(index-data);
+    margin-right: var(--spacing-100);
+  }
 }
 
 .leaderboard {
@@ -49,7 +68,7 @@ $leaderboard-keys: (gold, silver, copper);
   border-radius: var(--radius-200);
   display: flex;
   flex-direction: column;
-  @media screen and (width <= 825px) {
+  @media screen and (width < 920px) {
     width: var(--menu-width);
     margin: auto;
   }

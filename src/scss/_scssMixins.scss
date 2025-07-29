@@ -31,6 +31,20 @@
   line-height: $line-height;
 }
 
+@function suffixThisEntry ($number) {
+  @if(str-slice($number, -2) == '11') {
+    @return 'th';
+  } @else if(str-slice($number, -1) == '1') {
+    @return 'st';
+  } @else if(str-slice($number, -1) == '2') {
+    @return 'nd';
+  } @else if(str-slice($number, -1) == '3') {
+    @return 'rd';
+  } @else {
+    @return 'th';
+  }
+}
+
 // This function changes the positioning of the developer icons in .form-contact
 @function changeFooterIcons($grid-columns) {
   $columns: inspect($grid-columns);

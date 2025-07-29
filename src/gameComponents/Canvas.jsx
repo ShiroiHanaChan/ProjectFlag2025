@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {gameVroomVroom} from "../js/blockBreakerJS.js";
+import {gameLauncher} from "../js/blockBreakerJS.js";
 import BlockMenu from "./Menu/BlockMenu.jsx";
 import GameOver from "./Menu/GameOver.jsx";
 import LeaderboardMenu from "./Menu/LeaderboardMenu.jsx";
@@ -13,17 +13,24 @@ function Canvas() {
     const [points, setPoints] = useState(0);
     const [hearts, setHearts] = useState(3);
 
+    const resetAudio = () => {
+        document.querySelectorAll('.mute-button').forEach((el) => {
+            el.style.setProperty('--opacity', 0);
+        });
+    };
+
     const handleMode = (mode) => {
         gameRef.current.Game.setGameMode(mode);
         setMode(mode);
     }
 
     const buildCanvas = (mode) => {
-        gameRef.current = new gameVroomVroom(canvasRef.current, setMode, setPoints, setHearts);
+        gameRef.current = new gameLauncher(canvasRef.current, setMode, setPoints, setHearts);
         gameRef.current.launcher();
         if (gameRef.current.Game)
             gameRef.current.Game.setGameMode(mode);
         setPoints(0);
+        resetAudio();
     };
 
     // Create canvas, and bootstrap the game
@@ -76,8 +83,11 @@ function Canvas() {
                     <section><span>Score</span> {points}</section>
                     <section className="game-status-settings">
                         <button className="mute-button" onClick={() => {
+                            document.querySelectorAll('.mute-button').forEach((el) => {
+                                el.style.setProperty('--opacity', gameRef.current.mute ? 0 : 1);
+                            });
                             gameRef.current.mute = !gameRef.current.mute;
-                        }}><img src="/public/gameArt/sound-o.png" alt="Turn off sound"/></button>
+                        }}><img src="/public/gameArt/sound-o.png" alt="Turn sound on or off"/></button>
                         <button onClick={() => {
                             if (gameRef.current && gameRef.current.Game) {
                                 gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';
@@ -98,7 +108,7 @@ function Canvas() {
                     <canvas className="block-breaker" ref={canvasRef} width={0} height={0}></canvas>
 
                     {/* Pause menu component */}
-                    {gameRef.current && gameRef.current.Game && (mode === 'pause' || mode === 'new') ? <BlockMenu key="menu" mode={mode} function={handleMode} rebuild={buildCanvas} /> : null}
+                    {gameRef.current && gameRef.current.Game && (mode === 'pause' || mode === 'new') ? <BlockMenu key="menu" mode={mode} function={handleMode} rebuild={buildCanvas} setLives={setHearts} /> : null}
 
                     {/* Game over menu component */}
                     {gameRef.current && gameRef.current.Game && mode === 'over' ? <GameOver key="gameOver" mode={mode} bonus={hearts} function={handleMode} rebuild={buildCanvas} points={points} /> : null}

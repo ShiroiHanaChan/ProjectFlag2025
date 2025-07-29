@@ -15,6 +15,10 @@ function BlockMenu(props) {
                                 props.rebuild('new');
                                 props.function('play');
                             } : undefined) ||
+                            (entry.id === 'quit' ? () => {
+                                props.setLives(0);
+                                props.function(entry.action);
+                            } : undefined) ||
                             (entry.action ? () => props.function(entry.action) : undefined)}
                         >{entry.txt}</button>
                     )

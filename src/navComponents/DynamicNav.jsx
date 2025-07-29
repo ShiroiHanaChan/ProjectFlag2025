@@ -19,12 +19,19 @@ function DynamicNav() {
         document.documentElement.setAttribute('data-theme', theme ? 'light' : 'dark');
     }
 
+
+
     return (
         <>
             <nav className={'liquify full-width'}>
                 <ul className="nav-ul">
-                    <li><a href="" aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></a></li>
-                    <li><button onClick={() => navigate('/instructions')}>Instructions</button></li>
+                    <li><button href="" aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button></li>
+                    <li><button onClick={() => {
+                        navigate('/');
+                        // Setting a timeout gives the router enough time to finish loading so scrolling is consistent
+                        setTimeout(() => document.getElementById('rootFooter').scrollIntoView({behavior: "smooth", block: "end"}),20);
+
+                    }}>Contact!</button></li>
                     <li><button onClick={() => navigate('/game')}>Let's play!</button></li>
                     <li>
                         <label className="theme-picker" aria-label="Pick either a light or dark theme, take care of your eyes!">

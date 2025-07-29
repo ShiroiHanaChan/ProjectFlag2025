@@ -21,10 +21,14 @@ export default class AudioEngine {
             this.audioCtx.resume();
         }
         const src = this.audioCtx.createBufferSource();
+        const gainNode = this.audioCtx.createGain();
         src.buffer = this.audioBuffer;
         // Return a randomized pitch so sound effects don't get annoying!
         src.playbackRate.value = Math.floor(Math.random() * (4 - 1) ) + 1;
-        src.connect(this.audioCtx.destination);
+        // Set volume
+        gainNode.gain.value = 0.2;
+        src.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
         src.start();
 
         return src

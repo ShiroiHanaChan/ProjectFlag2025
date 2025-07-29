@@ -12,7 +12,7 @@
 import {levels, sC} from "./config.js";
 import AudioEngine from "./audioEngine.js";
 
-export class gameVroomVroom {
+export class gameLauncher {
     constructor(canvas, signalEnd, signalPoints, signalHearts) {
         // Build canvas
         this.canvas = canvas;
@@ -127,7 +127,7 @@ class gfxRenderer {
 class GAME {
     // Declare entities
     constructor(gameVroomVroom, signalEnd, signalPoints, signalHearts) {
-        // gameVroomVroom reference
+        // gameLauncher reference
         this.ref = gameVroomVroom;
         // Init
         this.canvasWidth = this.ref.canvasWidth;
@@ -137,7 +137,7 @@ class GAME {
         this.ctx = this.ref.ctx;
         this.gameEntities = this.ref.gameEntities;
         // Spawn entities
-        this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 2.75 * this.BLOCKS_TALL);
+        this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 4 * this.BLOCKS_TALL);
         this.ball = new Ball();
         this.lives = this.ref.lives;
         this.points = this.ref.points;

@@ -12,11 +12,12 @@ function Leaderboard({lbScores}) {
                 <WaveSectionTop/>
                 <ul className={'leaderboard-ul'}>
                     {
-                        [...sortedEntries.slice(0, 10)].map(entry =>
+                        [...sortedEntries.slice(0, 10)].map((entry, index) =>
                             <ScoreCard
                                 key={entry.id}
                                 name={entry.name}
                                 score={entry.score}
+                                index={index}
                             />)
                     }
                 </ul>

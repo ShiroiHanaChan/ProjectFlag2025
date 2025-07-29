@@ -10,8 +10,12 @@
   height: var(--container-height);
 }
 
+.wave-svg {
+  margin-bottom: var(--spacing-200);
+}
 .wave-svg-rotated {
   transform: rotate(180deg);
+  margin-top: var(--spacing-200);
 }
 
 .wave-path-1 {

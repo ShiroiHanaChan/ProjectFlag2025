@@ -2,13 +2,25 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import store from "./redux/store.js";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import DynamicNav from "./navComponents/DynamicNav.jsx";
 import Footer from "./htmlSections/Footer.jsx";
 import HeroSection from "./htmlSections/HeroSection.jsx";
 import SocialLinks from "./htmlSections/SocialLinks.jsx";
 import {createPortal} from "react-dom";
+import NotFound from "./htmlSections/NotFound.jsx";
+import SkeletonGrid from "./skeletonLoaders/SkeletonGrid.jsx";
+import SkeletonHero from "./skeletonLoaders/SkeletonHero.jsx";
+import SkeletonNav from "./skeletonLoaders/SkeletonNav.jsx";
+
+function spookySkeletonLoaders() {
+    const loading = useSelector((state => state.block.loading));
+
+    if (loading) {
+
+    }
+}
 
 const rootHeader = createRoot(document.getElementById('rootHeader'));
 
@@ -51,17 +63,30 @@ const routerConfig = {
             </>
         ),
     },
+    '/skeleton': {
+        // Return following components
+        header: () => (
+            <>
+                <SkeletonNav />
+                <SkeletonHero />
+            </>
+        ),
+        main: () => (
+            <>
+                <SkeletonGrid />
+            </>
+        ),
+        footer: () => (
+            <>
+                <SkeletonGrid />
+            </>
+        ),
+    },
 };
 
 function Wrapper({section}) {
     return (
-        /*<StrictMode>
-            <Provider store={store}>
-                <BrowserRouter>*/
-                    <Render section={section} />
-                /*</BrowserRouter>
-            </Provider>
-        </StrictMode>*/
+        <Render section={section} />
     )
 }
 
@@ -71,8 +96,12 @@ function Render({section}) {
     if (config && config[section]) {
         return config[section]();
     }
-    return console.error('This URL is not valid!')
+    // 404 Fallback c:
+    return (
+        <NotFound />
+    )
 }
+
 
 rootHeader.render(
     <StrictMode>
@@ -83,7 +112,7 @@ rootHeader.render(
                            element={
                                <>
                                    {createPortal(<Wrapper section="header" />, document.getElementById('rootHeader'))}
-                                   {createPortal(<Wrapper section="main" />, document.getElementById('root'))}
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('rootMain'))}
                                    {createPortal(<Wrapper section="footer" />, document.getElementById('rootFooter'))}
                                </>
                            }
@@ -92,8 +121,24 @@ rootHeader.render(
                            element={
                                <>
                                    {createPortal(<Wrapper section="header" />, document.getElementById('rootHeader'))}
-                                   {createPortal(<Wrapper section="main" />, document.getElementById('root'))}
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('rootMain'))}
                                    {createPortal(<Wrapper section="footer" />, document.getElementById('rootFooter'))}
+                               </>
+                           }
+                    ></Route>
+                    <Route path="/skeleton"
+                           element={
+                               <>
+                                   {createPortal(<Wrapper section="header" />, document.getElementById('rootHeader'))}
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('rootMain'))}
+                                   {createPortal(<Wrapper section="footer" />, document.getElementById('rootFooter'))}
+                               </>
+                           }
+                    ></Route>
+                    <Route path="*"
+                           element={
+                               <>
+                                   {createPortal(<Wrapper section="main" />, document.getElementById('rootMain'))}
                                </>
                            }
                     ></Route>
