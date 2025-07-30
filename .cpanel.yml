@@ -3,8 +3,8 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/$(whoami)/public_html/
     - export NODEJS_VERSION=18
-    - ln -s /opt/alt/alt-nodejs$NODEJS_VERSION/root/usr/bin/node ~/bin/node
-    - ln -s /opt/alt/alt-nodejs$NODEJS_VERSION/root/usr/bin/npm ~/bin/npm
+    - ln -s /opt/alt/alt-nodejs$NODEJS_VERSION/root/usr/bin/node ~/bin/node || true
+    - ln -s /opt/alt/alt-nodejs$NODEJS_VERSION/root/usr/bin/npm ~/bin/npm || true
     - npm ci --production=false
     - npm run build
     - /bin/rm -rf $DEPLOYPATH/*
