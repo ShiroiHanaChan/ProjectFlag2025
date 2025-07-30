@@ -8,5 +8,5 @@ deployment:
     - npm ci --production=false
     - npm run build
     - /bin/rm -rf $DEPLOYPATH/*
-    - /bin/cp -R dist/* $DEPLOYPATH
+    - /bin/cp -R build/* $DEPLOYPATH
     - find $DEPLOYPATH -name "*.map" -delete
