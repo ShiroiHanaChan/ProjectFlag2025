@@ -7,7 +7,7 @@ function BlockMenu(props) {
     return (
         <>
             <section className="game-ui visible content-grid">
-                <img src={"/src/assets/gameArt/logo.png"} alt=""/>
+                <img src={"/gameArt/logo.png"} alt=""/>
                 {menuStates[props.mode].map(
                         entry => <button key={entry.id}
                         onClick={entry.jsx ||

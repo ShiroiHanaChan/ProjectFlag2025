@@ -29,7 +29,7 @@ function DynamicNav() {
                 <nav className={'liquify full-width'}>
                     <ul className="nav-ul">
                         <li>
-                            <button aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button>
+                            <button aria-label="Go to landing page!"><img src="/assets/logo.png" alt="" onClick={() => navigate('/')}/></button>
                         </li>
                         <li>
                             <button onClick={() => {

@@ -76,7 +76,7 @@ function Canvas() {
                     {/* Lives display*/}
                     <section>
                         {Array.from({length: hearts}, (_, index) => (
-                            <img key={index} src="/public/gameArt/heart-o.png" alt=""/>
+                            <img key={index} src="/gameArt/heart-o.png" alt=""/>
                         ))}
                     </section>
                     {/* Score display */}
@@ -87,7 +87,7 @@ function Canvas() {
                                 el.style.setProperty('--opacity', gameRef.current.mute ? 0 : 1);
                             });
                             gameRef.current.mute = !gameRef.current.mute;
-                        }}><img src="/public/gameArt/sound-o.png" alt="Turn sound on or off"/></button>
+                        }}><img src="/gameArt/sound-o.png" alt="Turn sound on or off"/></button>
                         <button onClick={() => {
                             if (gameRef.current && gameRef.current.Game) {
                                 gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';
@@ -100,7 +100,7 @@ function Canvas() {
                                         break;
                                 }
                             }
-                        }} ><img src="/public/gameArt/config-o.png" alt="Menu"/></button>
+                        }} ><img src="/gameArt/config-o.png" alt="Menu"/></button>
                     </section>
                 </article>
 
