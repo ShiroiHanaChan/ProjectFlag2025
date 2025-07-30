@@ -85,7 +85,7 @@ export class gameLauncher {
 class gfxRenderer {
     constructor() {
         this.spritesheet = new Image();
-        this.spritesheet.src = '/spriteSheet.png';
+        this.spritesheet.src = '/gameArt/spriteSheet.png';
         // sC = sprite coordinates
         this.sC = sC;
     }
@@ -125,9 +125,9 @@ class gfxRenderer {
 
 class GAME {
     // Declare entities
-    constructor(gameVroomVroom, signalEnd, signalPoints, signalHearts) {
+    constructor(gameLauncher, signalEnd, signalPoints, signalHearts) {
         // gameLauncher reference
-        this.ref = gameVroomVroom;
+        this.ref = gameLauncher;
         // Init
         this.canvasWidth = this.ref.canvasWidth;
         this.canvasHeight = this.ref.canvasHeight;

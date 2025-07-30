@@ -82,12 +82,15 @@ function Canvas() {
                     {/* Score display */}
                     <section><span>Score</span> {points}</section>
                     <section className="game-status-settings">
+
                         <button className="mute-button" onClick={() => {
                             document.querySelectorAll('.mute-button').forEach((el) => {
                                 el.style.setProperty('--opacity', gameRef.current.mute ? 0 : 1);
                             });
                             gameRef.current.mute = !gameRef.current.mute;
-                        }}><img src="/gameArt/sound-o.png" alt="Turn sound on or off"/></button>
+                        }}>
+                            <img src="/gameArt/sound-o.png" alt="Turn sound on or off"/></button>
+
                         <button onClick={() => {
                             if (gameRef.current && gameRef.current.Game) {
                                 gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';
