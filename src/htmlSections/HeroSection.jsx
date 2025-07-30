@@ -13,8 +13,8 @@ function HeroSection() {
         return (
             <>
                 <section className="hero-section liquify">
-                    <article className="">
-                        <h1>Hey there! I’m Marina!</h1>
+                    <article>
+                        <h1 className="annoying-h1">Hey there! I’m Marina!</h1>
                         <br/>
                         <p>Currently residing in Portugal, I am a passionate front-end developer who is dedicated to creating accessible web applications that users love. Come check out my work! ₍⑅ᐢ..ᐢ₎</p>
                         <br/>

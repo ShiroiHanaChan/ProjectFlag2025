@@ -48,7 +48,6 @@ export class gameLauncher {
     launcher() {
         this.canvasSizeCalibrator();
         this.canvasFormatter();
-        this.sfxPlayer.loadMP3();
         // Build the arena and run game loop
         this.canvasSizeCalibrator();
         Entity.setProperties(this);
@@ -145,6 +144,8 @@ class GAME {
         this.signalEnd = signalEnd;
         this.signalPoints = signalPoints;
         this.signalHearts = signalHearts;
+        this.ref.sfxPlayer.initAudioContext();
+        this.ref.sfxPlayer.loadMP3();
         // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
         /*this.gameMode = '';*/
     }

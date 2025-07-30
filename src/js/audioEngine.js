@@ -3,7 +3,6 @@
 export default class AudioEngine {
     #mp3URL = "/sfx/hit-fx.mp3";
     constructor() {
-        this.audioCtx = new AudioContext();
         this.audioBuffer = null;
     }
     async loadMP3() {
@@ -16,9 +15,14 @@ export default class AudioEngine {
             console.error('An error has occurred while trying to load and decode MP3', error);
         }
     }
+    initAudioContext() {
+        if (!this.audioCtx) {
+            this.audioCtx = new AudioContext();
+        }
+    }
     playSFX() {
         if (this.audioCtx.state === 'suspended') {
-            this.audioCtx.resume();
+            this.audioCtx.resume().then(r => null);
         }
         const src = this.audioCtx.createBufferSource();
         const gainNode = this.audioCtx.createGain();
