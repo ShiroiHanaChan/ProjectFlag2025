@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import SkeletonNav from "../skeletonLoaders/SkeletonNav.jsx";
 
 function DynamicNav() {
 
     const navigate = useNavigate();
+    const reduxState = useSelector(state => state.blockStore);
 
     /* Checked -> Light theme */
     /* Theming works with a boolean value, true means light and false means dark
@@ -20,33 +23,47 @@ function DynamicNav() {
     }
 
 
+    if (!reduxState.loading) {
+        return (
+            <>
+                <nav className={'liquify full-width'}>
+                    <ul className="nav-ul">
+                        <li>
+                            <button aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button>
+                        </li>
+                        <li>
+                            <button onClick={() => {
+                                navigate('/');
+                                // Setting a timeout gives the router enough time to finish loading so scrolling is consistent
+                                setTimeout(() => document.getElementById('rootFooter').scrollIntoView({behavior: "smooth", block: "end"}), 20);
 
-    return (
-        <>
-            <nav className={'liquify full-width'}>
-                <ul className="nav-ul">
-                    <li><button aria-label="Go to landing page!"><img src="/logo.png" alt="" onClick={() => navigate('/')}/></button></li>
-                    <li><button onClick={() => {
-                        navigate('/');
-                        // Setting a timeout gives the router enough time to finish loading so scrolling is consistent
-                        setTimeout(() => document.getElementById('rootFooter').scrollIntoView({behavior: "smooth", block: "end"}),20);
-
-                    }}>Contact!</button></li>
-                    <li><button onClick={() => navigate('/game')}>Let's play!</button></li>
-                    <li>
-                        <label className="theme-picker" aria-label="Pick either a light or dark theme, take care of your eyes!">
-                            <input
-                                onChange={handleTheme}
-                                data-theme-picker
-                                type="checkbox"
-                                name="themer"
-                                id="themer"/>
-                        </label>
-                    </li>
-                </ul>
-            </nav>
-        </>
-    );
+                            }}>Contact!
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() => navigate('/game')}>Let's play!</button>
+                        </li>
+                        <li>
+                            <label className="theme-picker" aria-label="Pick either a light or dark theme, take care of your eyes!">
+                                <input
+                                    onChange={handleTheme}
+                                    data-theme-picker
+                                    type="checkbox"
+                                    name="themer"
+                                    id="themer"/>
+                            </label>
+                        </li>
+                    </ul>
+                </nav>
+            </>
+        );
+    } else {
+        return (
+            <>
+                <SkeletonNav/>
+            </>
+        )
+    }
 }
 
 export default DynamicNav;

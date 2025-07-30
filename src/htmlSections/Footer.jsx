@@ -1,8 +1,15 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import SkeletonHero from "../skeletonLoaders/SkeletonHero.jsx";
 
 function Footer() {
-    return (
-        <>
+
+
+    const reduxState = useSelector(state => state.blockStore);
+
+    if (!reduxState.loading) {
+        return (
+            <>
                 <section className="form-contact">
                     <section>
                         <article>
@@ -62,7 +69,7 @@ function Footer() {
 
                         <div className="form-group">
                             <label htmlFor="messageInput">Message</label>
-                            <textarea  name="" id="messageInput" placeholder="Share your thoughts!"></textarea>
+                            <textarea name="" id="messageInput" placeholder="Share your thoughts!"></textarea>
                         </div>
 
                         <div className="form-group">
@@ -70,11 +77,20 @@ function Footer() {
                             <input type="checkbox" name="" id=""/>
                         </div>
 
-                        <button className="" onClick={(eventObj) => eventObj.preventDefault() }>Send message</button>
+                        <button className="" onClick={(eventObj) => eventObj.preventDefault()}>Send message</button>
                     </form>
                 </section>
-        </>
-    );
+            </>
+        );
+    } else {
+        return (
+            <>
+                <section className="skeleton-grid">
+                    <SkeletonHero/>
+                    <SkeletonHero/>
+                </section>
+            </>
+        )
+    }
 }
-
 export default Footer;

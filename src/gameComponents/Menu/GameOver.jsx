@@ -1,23 +1,33 @@
 import React, {useCallback, useEffect} from 'react';
 import "../../scss/scssFile.css"
 import {useDispatch, useSelector} from "react-redux";
-import {Entry, Score, verifyDuplicates} from "../../js/config.js";
+import {verifyDuplicates} from "../../js/config.js";
 import {submitScore} from "../../redux/blockSlice.js";
 
 function GameOver(props) {
 
-    const reduxState = useSelector(state => state);
+    const reduxState = useSelector(state => state.blockStore.scores);
     const dispatch = useDispatch();
+
+    console.info('redux GO', reduxState);
 
     const handleNewEntry = useCallback((eventObj) => {
         const scoreName = document.querySelector('#scoreName');
         //
         eventObj.preventDefault();
         // Tests if scores has changed, if the name input is 3 characters long and letters and if there's no duplicates present
-        if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value.toUpperCase(), props.points, reduxState.blockStore.scores) ) {
-            const updateEntries = [...reduxState.blockStore.scores, new Entry(scoreName.value.toUpperCase(), props.points)];
-            // TODO: - Serialize the lastUpdated
-            updateEntries.lastUpdated = Date.now();
+        if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value.toUpperCase(), props.points, reduxState) ) {
+
+            const updateEntries = [
+                ...reduxState,
+                {
+                    id: Math.floor(Math.random() * Date.now()),
+                    name: scoreName.value.toUpperCase(),
+                    score: props.points,
+                    timestamp: Date.now()
+                },
+            ];
+            // TODO: - Serialize the lastUpdated ✅
             dispatch(submitScore(updateEntries));
         } else {
             console.error('Input err');

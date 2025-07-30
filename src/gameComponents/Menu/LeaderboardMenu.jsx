@@ -4,9 +4,7 @@ import {breakerContext} from "../../App.jsx";
 function LeaderboardMenu(props) {
 
     const context = useContext(breakerContext);
-    const scores = [...context?.reduxState?.blockStore?.scores].sort((a, b) => b.score - a.score);
-
-    console.log(scores)
+    const scores = [...context.reduxState.scores].sort((a, b) => b.score - a.score);
 
     return (
         <>
@@ -25,6 +23,6 @@ function LeaderboardMenu(props) {
     );
 }
 
-/**/
+/**/ {/**/}
 
 export default LeaderboardMenu;
