@@ -23,6 +23,7 @@ export class gameLauncher {
         this.gameEntities = [];
         this.points = 0;
         this.sfxPlayer = new AudioEngine();
+        this.gfxRenderer = new gfxRenderer();
         this.mute = false;
         this.signalEnd = signalEnd;
         this.signalPoints = signalPoints;
@@ -37,6 +38,7 @@ export class gameLauncher {
         // % of canvas and equals 1 square
         this.BLOCKS_WIDE = this.canvasWidth * 0.05;
         this.BLOCKS_TALL = this.canvasWidth * 0.04;
+        console.log('Engine test', this.sfxPlayer)
     }
     canvasFormatter() {
         // Mounts canvas, use as callback optionally
@@ -45,13 +47,14 @@ export class gameLauncher {
         this.canvas.height = this.canvasSize * 1.25;
         console.log('Canvas size:', this.canvasSize);
     }
-    launcher() {
+    async launcher() {
         this.canvasSizeCalibrator();
         this.canvasFormatter();
         // Build the arena and run game loop
         this.canvasSizeCalibrator();
         Entity.setProperties(this);
         mapBuilder(levels[Math.floor(Math.random() * levels.length)], this.BLOCKS_WIDE, this.BLOCKS_TALL, this.gameEntities);
+        await this.gfxRenderer.loadSpriteSheet();
         this.codeRunner();
     }
     launchEventListeners() {
@@ -85,11 +88,17 @@ export class gameLauncher {
 class gfxRenderer {
     constructor() {
         this.spritesheet = new Image();
-        this.spritesheet.src = '/gameArt/spriteSheet.png';
-        // sC = sprite coordinates
+        // sC = sprite coordinates array
         this.sC = sC;
     }
-
+    // Async method to counter the fact the spritesheet needs to be loaded upon game start, otherwise game logic runs before sprites are rendered and makes for a confusing experience under lag
+    loadSpriteSheet() {
+        new Promise((resolve, reject) => {
+            this.spritesheet.onload = resolve;
+            this.spritesheet.onerror = reject;
+            this.spritesheet.src = '/gameArt/spriteSheet.png';
+        }).catch(error => console.error(error));
+    };
     // Render canvas and entities
     render(gameClass, gameState) {
 
@@ -109,7 +118,7 @@ class gfxRenderer {
             } else if (entity instanceof Paddle) {
                 entity.render(gameClass.ctx, this.spritesheet, this.sC[this.sC.length -1]);
             } else {
-                console.log('Error in gfxRenderer')
+                console.error('Error in gfxRenderer')
             }
         });
         // Canvas rendering -> temp: entity.render(gameClass.ctx);
@@ -138,6 +147,7 @@ class GAME {
         // Spawn entities
         this.paddle = new Paddle(this.canvasWidth / 2 - this.BLOCKS_WIDE * 1.5, this.canvasHeight - 4 * this.BLOCKS_TALL);
         this.ball = new Ball();
+        this.gfxRenderer = this.ref.gfxRenderer;
         this.lives = this.ref.lives;
         this.points = this.ref.points;
         this.multiplier = 1;
@@ -145,7 +155,7 @@ class GAME {
         this.signalPoints = signalPoints;
         this.signalHearts = signalHearts;
         this.ref.sfxPlayer.initAudioContext();
-        this.ref.sfxPlayer.loadMP3();
+        this.ref.sfxPlayer.loadMP3().catch(error => console.error(error));
         // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
         /*this.gameMode = '';*/
     }
@@ -222,7 +232,7 @@ class GAME {
         // TODO: Remove (this.ball.y < canvasHeight) and implement 3 lives system ✅
         // this.gameEntities.some(instance => instance instanceof Target)
         if (this.gameMode === 'play' && (this.lives > 0) && this.ref.gameEntities.some(entity => entity instanceof Target)) {
-            (new gfxRenderer).render(this, this.gameMode);
+            this.gfxRenderer.render(this, this.gameMode);
             requestAnimationFrame(() => this.gameLoop());
             //                          Check for no targets left
         } else if ((this.lives < 1) || !this.ref.gameEntities.some(entity => entity instanceof Target)) {

@@ -9,7 +9,7 @@ import Instructions from "./Instructions.jsx";
 
 function Canvas() {
 
-    const [mode, setMode] = useState('pause');
+    const [mode, setMode] = useState('new');
     const [points, setPoints] = useState(0);
     const [hearts, setHearts] = useState(3);
 
@@ -39,13 +39,10 @@ function Canvas() {
     const gameRef = useRef(null);
 
     useEffect(() => {
+        setMode('new');
         // Bootstrapper for Block Breaker!
         if (canvasRef.current)
             buildCanvas(mode);
-    }, []);
-
-    useEffect(() => {
-        setMode('new');
     }, []);
 
     return (

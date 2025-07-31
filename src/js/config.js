@@ -48,6 +48,17 @@ export const levels = [
         'x________x', /* Col 8 */
         '_xxxxxxxx_', /* Col 9 */
     ],
+    [
+        '__x____x__', /* Col 1 */
+        '_x_x__x_x_', /* Col 2 */
+        'x__xxxx__x', /* Col 3 */
+        'x________x', /* Col 4 */
+        'x__x__x__x', /* Col 6 */
+        'x__xxxx__x', /* Col 5 */
+        '_x__xx__x_', /* Col 7 */
+        '__x____x__', /* Col 8 */
+        '___xxxx___', /* Col 9 */
+    ]
 ];
 
 // Sprite coordinates
