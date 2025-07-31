@@ -11,8 +11,8 @@ function BlockMenu(props) {
                 {menuStates[props.mode].map(
                         entry => <button key={entry.id}
                         onClick={entry.jsx ||
-                            (entry.id === 'retry' ? () => {
-                                props.rebuild('new');
+                            (entry.id === 'retry' ? async () => {
+                                await props.rebuild('new');
                                 props.function('play');
                             } : undefined) ||
                             (entry.id === 'quit' ? () => {

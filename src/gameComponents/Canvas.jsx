@@ -13,6 +13,11 @@ function Canvas() {
     const [points, setPoints] = useState(0);
     const [hearts, setHearts] = useState(3);
 
+    // Create canvas, and bootstrap the game
+
+    const canvasRef = useRef(null);
+    const gameRef = useRef(null);
+
     const resetAudio = () => {
         document.querySelectorAll('.mute-button').forEach((el) => {
             el.style.setProperty('--opacity', 0);
@@ -20,29 +25,29 @@ function Canvas() {
     };
 
     const handleMode = (mode) => {
-        gameRef.current.Game.setGameMode(mode);
+        console.log('gameref', gameRef.current.Game);
+        if (gameRef.current.Game)
+            gameRef.current.Game.setGameMode(mode);
         setMode(mode);
     }
 
-    const buildCanvas = (mode) => {
+    const buildCanvas = async (mode) => {
         gameRef.current = new gameLauncher(canvasRef.current, setMode, setPoints, setHearts);
-        gameRef.current.launcher();
+        await gameRef.current.launcher();
         if (gameRef.current.Game)
             gameRef.current.Game.setGameMode(mode);
         setPoints(0);
         resetAudio();
     };
 
-    // Create canvas, and bootstrap the game
-
-    const canvasRef = useRef(null);
-    const gameRef = useRef(null);
 
     useEffect(() => {
         setMode('new');
         // Bootstrapper for Block Breaker!
         if (canvasRef.current)
-            buildCanvas(mode);
+            (async () => {
+                await buildCanvas(mode)
+            })();
     }, []);
 
     return (

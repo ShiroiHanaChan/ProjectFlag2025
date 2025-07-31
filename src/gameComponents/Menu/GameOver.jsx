@@ -55,7 +55,7 @@ function GameOver(props) {
                     <input type="text" name="name" id="scoreName" placeholder="Input 3 characters!" />
                     <button type="submit">Submit</button>
                 </form>
-                <button key={'retry'} onClick={() => props.rebuild('new')}>Play again!</button>
+                <button key={'retry'} onClick={() => props.rebuild('new')}>No submit</button>
             </section>
         </>
     );
