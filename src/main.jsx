@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import store from "./redux/store.js";
-import {Provider, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import DynamicNav from "./navComponents/DynamicNav.jsx";
 import Footer from "./htmlSections/Footer.jsx";
@@ -13,7 +13,6 @@ import NotFound from "./htmlSections/NotFound.jsx";
 import SkeletonGrid from "./skeletonLoaders/SkeletonGrid.jsx";
 import SkeletonHero from "./skeletonLoaders/SkeletonHero.jsx";
 import SkeletonNav from "./skeletonLoaders/SkeletonNav.jsx";
-import WaveSectionTop from "./waveComponents/WaveSectionTop.jsx";
 
 const rootHeader = createRoot(document.getElementById('rootHeader'));
 

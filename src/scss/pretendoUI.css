@@ -17,10 +17,6 @@
   animation: none;
 }
 
-.pretendo-radial-bg {
-  background: radial-gradient(var(--primary-300), var(--primary-500));
-}
-
 .pretendo-fade-out {
   background: radial-gradient(circle, transparent 75%, var(--bg-neutral-primary));
   position: relative;

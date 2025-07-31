@@ -4,7 +4,6 @@ import BlockMenu from "./Menu/BlockMenu.jsx";
 import GameOver from "./Menu/GameOver.jsx";
 import LeaderboardMenu from "./Menu/LeaderboardMenu.jsx";
 import Instructions from "./Instructions.jsx";
-// import {Tester} from "../js/tester.js";
 
 
 function Canvas() {
@@ -25,7 +24,6 @@ function Canvas() {
     };
 
     const handleMode = (mode) => {
-        console.log('gameref', gameRef.current.Game);
         if (gameRef.current.Game)
             gameRef.current.Game.setGameMode(mode);
         setMode(mode);
@@ -53,31 +51,12 @@ function Canvas() {
     return (
         <>
             <section className="game-render">
-                {/*<div className="dev-help">
-                    <button onClick={() => {
-                        if (gameRef.current && gameRef.current.Game) {
-                            gameRef.current.Game.gameMode = gameRef.current.Game.gameMode === 'pause' ? 'play' : 'pause';
-                            switch (gameRef.current.Game.gameMode) {
-                                case 'play':
-                                    handleMode('play')
-                                    break;
-                                case 'pause':
-                                    handleMode('pause')
-                                    break;
-                            }
-                        }
-                    }}>+</button>
-                    <button onClick={() => {
-                        gameRef.current.Game.setGameMode('over');
-                    }}>-</button>
-                </div>*/}
-
                 <article className="game-status">
                     {/*TODO:
-                            - Add heart container
-                            - Add score tab
-                            - Add cog for settings
-                            - Add sound switch
+                            - Add heart container ✅
+                            - Add score tab ✅
+                            - Add cog for settings ✅
+                            - Add sound switch ✅
                     */}
                     {/* Lives display*/}
                     <section>

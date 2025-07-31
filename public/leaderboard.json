@@ -1,0 +1,98 @@
+{
+  "leaderboard": {
+    "title": "Game Leaderboard",
+    "lastUpdated": 1719233381,
+    "entries": [
+      {
+        "id": 1,
+        "name": "ABC",
+        "score": 21547,
+        "timestamp": 1719233000
+      },
+      {
+        "id": 2,
+        "name": "XYZ",
+        "score": 19832,
+        "timestamp": 1719232800
+      },
+      {
+        "id": 3,
+        "name": "QWE",
+        "score": 24651,
+        "timestamp": 1719232600
+      },
+      {
+        "id": 4,
+        "name": "RTY",
+        "score": 12385,
+        "timestamp": 1719232400
+      },
+      {
+        "id": 5,
+        "name": "MNO",
+        "score": 8762,
+        "timestamp": 1719232200
+      },
+      {
+        "id": 6,
+        "name": "JKL",
+        "score": 15690,
+        "timestamp": 1719232000
+      },
+      {
+        "id": 7,
+        "name": "PQR",
+        "score": 5437,
+        "timestamp": 1719231800
+      },
+      {
+        "id": 8,
+        "name": "STU",
+        "score": 18923,
+        "timestamp": 1719231600
+      },
+      {
+        "id": 9,
+        "name": "VWX",
+        "score": 3246,
+        "timestamp": 1719231400
+      },
+      {
+        "id": 10,
+        "name": "DEF",
+        "score": 22756,
+        "timestamp": 1719231200
+      },
+      {
+        "id": 11,
+        "name": "GHI",
+        "score": 9875,
+        "timestamp": 1719231000
+      },
+      {
+        "id": 12,
+        "name": "ZAB",
+        "score": 17432,
+        "timestamp": 1719230800
+      },
+      {
+        "id": 13,
+        "name": "CDF",
+        "score": 1547,
+        "timestamp": 1719230600
+      },
+      {
+        "id": 14,
+        "name": "EGH",
+        "score": 24998,
+        "timestamp": 1719230400
+      },
+      {
+        "id": 15,
+        "name": "IJK",
+        "score": 11235,
+        "timestamp": 1719230200
+      }
+    ]
+  }
+}

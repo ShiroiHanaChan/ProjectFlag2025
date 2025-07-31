@@ -9,9 +9,6 @@ export const menuStates = {
         {id: 'retry', txt: 'Retry',},
         {id: 'continue', txt: 'Continue', action: 'play'},
     ],
-    over: [
-
-    ],
 }
 
 /* Organize by least important to most important, most relevant option should be at the bottom to be more accessible in mobile */

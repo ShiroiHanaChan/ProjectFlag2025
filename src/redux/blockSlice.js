@@ -27,16 +27,9 @@ const blockSlice = createSlice ({
        error: null,
    },
     reducers: { // AKA methods
-        /*importData: (state, action) => {
-            state.leaderboardData = [... action.payload];
-            state.scores = [... state.leaderboardData.entries];
-        },*/
         submitScore: (state, action) => {
             state.leaderboardData = action.payload;
             state.scores = state.leaderboardData.entries;
-        },
-        changeGamemode: (state, action) => {
-            state.gameState = ['', ...action.payload];
         },
     },
     extraReducers: (builder) => {
@@ -59,7 +52,5 @@ const blockSlice = createSlice ({
 
         // Reducers
 export const {
-    importData,
-    submitScore,
-    changeGamemode} = blockSlice.actions;
+    submitScore} = blockSlice.actions;
 export default blockSlice.reducer;

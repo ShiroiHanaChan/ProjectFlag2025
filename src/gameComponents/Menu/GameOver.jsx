@@ -35,7 +35,7 @@ function GameOver(props) {
             dispatch(submitScore(updateEntries));
             props.rebuild('new');
         } else {
-            console.error('Input err, this Name and Score combination already exists!');
+            console.error('Input err!');
         }
     }, [reduxState]);
 

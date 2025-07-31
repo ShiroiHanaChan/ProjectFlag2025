@@ -29,7 +29,7 @@ export class gameLauncher {
         this.signalHearts = signalHearts;
     }
     canvasSizeCalibrator() {
-        // TODO: - Determine best canvasSize dynamically
+        // TODO: - Determine best canvasSize dynamically ✅
         this.canvasSize = window.innerWidth > 768 ? 450 : 380;
         // Important game logic fr
         this.canvasWidth = this.canvas.clientWidth;
@@ -73,8 +73,6 @@ export class gameLauncher {
         this.Game = new GAME(this, this.signalEnd, this.signalPoints, this.signalHearts);
         this.launchEventListeners();
         this.Game.init();
-        // No longer needed, gameLoop will be initialized by the React component
-        /*this.Game.gameLoop();*/
     }
 }
 
@@ -101,10 +99,6 @@ class gfxRenderer {
 
         gameClass.ctx.clearRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);
 
-        // Fallback for canvas gfx rendering
-        /*gameClass.ctx.fillStyle = 'black';
-        gameClass.ctx.fillRect(0, 0, gameClass.canvasWidth, gameClass.canvasHeight);*/
-
         // Entity renderer
         Entity.ref.gameEntities.forEach(entity => {
             // Switch compares values directly, not expressions, use if statement for type checking
@@ -118,8 +112,6 @@ class gfxRenderer {
                 console.error('Error in gfxRenderer')
             }
         });
-        // Canvas rendering -> temp: entity.render(gameClass.ctx);
-
     }
 }
 
@@ -151,8 +143,6 @@ class GAME {
         this.signalEnd = signalEnd;
         this.signalPoints = signalPoints;
         this.signalHearts = signalHearts;
-        // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
-        /*this.gameMode = '';*/
     }
     async loadAudioEngine() {
         this.sfxPlayer = new AudioEngine();
@@ -161,6 +151,7 @@ class GAME {
     }
     // Point system, use as callback when detecting collisions
     // Helper method for cleaner game mode setting
+    // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
     setGameMode(mode) {
         // Declare mode received from outside sources
         switch (mode) {
@@ -184,7 +175,6 @@ class GAME {
     }
     deductLives() {
         this.lives--;
-        setTimeout('', 2000);
         this.ball.init();
     }
     // Methods
@@ -226,7 +216,6 @@ class GAME {
 
         /*setTimeout(gameLoop, gameTick);*/
         // TODO: Remove (this.ball.y < canvasHeight) and implement 3 lives system ✅
-        // this.gameEntities.some(instance => instance instanceof Target)
         if (this.gameMode === 'play' && (this.lives > 0) && this.ref.gameEntities.some(entity => entity instanceof Target)) {
             this.gfxRenderer.render(this, this.gameMode);
             requestAnimationFrame(() => this.gameLoop());
@@ -339,7 +328,6 @@ class Ball extends Entity {
     }
 
     // TODO: remove DeltaX and find fix to use exclusively this.dx ✅
-    // static DeltaX = BLOCKS_WIDE * .1;
 
     constructor() {
         super(0, 0, Ball.WIDTH, Ball.HEIGHT);

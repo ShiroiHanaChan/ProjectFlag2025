@@ -4,9 +4,7 @@
   position: relative;
   padding: var(--spacing-200);
   background: hsl(from var(--primary-400) h s l/0.25);
-  /* Keep at 8px */
   backdrop-filter: blur(6px);
-  /*box-shadow: var(--primary-300) 0px 0px 32px;*/
   z-index: 100099999;
 }
 
@@ -30,27 +28,8 @@
   color: var(--success);
 }
 
-body { /*
-background-size: cover;
-background-color: var(--bg-neutral-primary);
-background-position: center center;
-background-image: url("/assets/svg/pattern-dark-bg.svg");*/
-  /*background-image: url("https://images.unsplash.com/photo-1535408190508-be4c21946da6?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDc3NTcyOTB8&ixlib=rb-4.1.0&q=85");*/
-  /*background-size: 150%;*/
-}
-
 main {
   background-color: var(--bg-neutral-secondary);
 }
-
-/*https://images.unsplash.com/photo-1535408190508-be4c21946da6?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDc3NTcyOTB8&ixlib=rb-4.1.0&q=85*/
-/*:root {
-  --primary-700: hsl(243, 26%, 15%);
-  --primary-600: hsl(252, 9%, 22%);
-  --primary-500: hsl(259, 13%, 28%);
-  --surface-3: var(--primary-700);
-  --border-1: var(--primary-500); !* top *!
-  --border-2: var(--primary-600); !* bottom *!
-}*/
 
 /*# sourceMappingURL=effects.css.map */

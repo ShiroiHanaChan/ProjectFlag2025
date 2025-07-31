@@ -11,9 +11,6 @@
   width: var(--menu-width);
   margin-inline: auto;
   border-radius: var(--radius-200) var(--radius-200) 0 0;
-  /*& > section > section > p:hover {
-    cursor: url("/gameArt/pointer-o.png"), pointer;
-  }*/
 }
 .game-render:hover {
   cursor: url("/gameArt/cursor-o.png"), auto;

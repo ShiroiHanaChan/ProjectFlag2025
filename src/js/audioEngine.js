@@ -10,7 +10,6 @@ export default class AudioEngine {
             const response = await fetch(this.#mp3URL);
             const arrayBuffer = await response.arrayBuffer();
             this.audioBuffer = await this.audioCtx.decodeAudioData(arrayBuffer);
-            console.info('MP3 loaded');
         } catch (error) {
             console.error('An error has occurred while trying to load and decode MP3', error);
         }
@@ -22,7 +21,7 @@ export default class AudioEngine {
     }
     playSFX() {
         if (this.audioCtx.state === 'suspended') {
-            this.audioCtx.resume().then(r => null);
+            this.audioCtx.resume().then(_ => null);
         }
         const src = this.audioCtx.createBufferSource();
         const gainNode = this.audioCtx.createGain();
