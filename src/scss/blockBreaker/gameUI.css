@@ -145,6 +145,19 @@
   margin-left: auto;
   background-color: var(--bg-neutral-secondary);
 }
+.score-submit > button {
+  border: 1px solid var(--primary-100);
+  border-radius: var(--radius-200);
+  margin: var(--spacing-150);
+  background-color: var(--primary-300);
+}
+.score-submit > button:last-child {
+  background-color: var(--brand);
+}
+.score-submit > button:hover {
+  cursor: url("/gameArt/pointer-o.png"), pointer;
+  background-color: var(--primary-500);
+}
 .score-submit > input {
   border: 1px solid transparent;
   background-color: var(--bg-neutral-secondary);
@@ -158,6 +171,9 @@
 .score-submit > input:focus {
   outline: none;
   border: 1px solid var(--brand);
+}
+.score-submit > input:hover, .score-submit label:hover {
+  cursor: url("/gameArt/cursor-o.png"), pointer;
 }
 
 /*# sourceMappingURL=gameUI.css.map */

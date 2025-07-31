@@ -88,7 +88,7 @@ function Canvas() {
                                         break;
                                 }
                             }
-                        }} ><img src="/gameArt/config-o.png" alt="Menu"/></button>
+                        }} ><img src={"/gameArt/config-o.png"} alt="Menu"/></button>
                     </section>
                 </article>
 

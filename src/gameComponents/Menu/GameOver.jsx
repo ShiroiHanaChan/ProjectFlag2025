@@ -47,7 +47,7 @@ function GameOver(props) {
     return (
         <>
             <section className="game-ui visible content-grid">
-                <img src={"/assets/gameArt/logo.png"} alt=""/>
+                <img src={"/gameArt/logo.png"} alt=""/>
                 <div>Score: {props.points}</div>
                 {props.bonus > 0 ? <div>Bonus: {props.bonus} * 500!</div> : <div>No bonus :c</div>}
                 <form action="" className="score-submit">
