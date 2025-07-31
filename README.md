@@ -2,7 +2,7 @@
 
 Final assignment for my Front End Developer course.
 
-**Block Breaker!** is a web application featuring a game developed as the final assignment for a Front End Developer course, made with fellow developers and game fans as to create something that interesses both.
+**Block Breaker!** is a web application featuring a game developed as the final assignment for a Front End Developer course, made with fellow developers and game fans in mind as to create something that interesses both.
 
 ## Tech Stack
 
