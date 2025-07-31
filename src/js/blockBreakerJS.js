@@ -22,7 +22,6 @@ export class gameLauncher {
         this.lives = 3;
         this.gameEntities = [];
         this.points = 0;
-        this.sfxPlayer = new AudioEngine();
         this.gfxRenderer = new gfxRenderer();
         this.mute = false;
         this.signalEnd = signalEnd;
@@ -38,14 +37,12 @@ export class gameLauncher {
         // % of canvas and equals 1 square
         this.BLOCKS_WIDE = this.canvasWidth * 0.05;
         this.BLOCKS_TALL = this.canvasWidth * 0.04;
-        console.log('Engine test', this.sfxPlayer)
     }
     canvasFormatter() {
         // Mounts canvas, use as callback optionally
         document.documentElement.style.setProperty('--menu-width', `${this.canvasSize}px`);
         this.canvas.width = this.canvasSize;
         this.canvas.height = this.canvasSize * 1.25;
-        console.log('Canvas size:', this.canvasSize);
     }
     async launcher() {
         this.canvasSizeCalibrator();
@@ -154,23 +151,25 @@ class GAME {
         this.signalEnd = signalEnd;
         this.signalPoints = signalPoints;
         this.signalHearts = signalHearts;
-        this.ref.sfxPlayer.initAudioContext();
-        this.ref.sfxPlayer.loadMP3().catch(error => console.error(error));
         // Game modes: 0 -> New, 1 -> Play, 2 -> Paused, 3 -> Game over,
         /*this.gameMode = '';*/
+    }
+    async loadAudioEngine() {
+        this.sfxPlayer = new AudioEngine();
+        this.sfxPlayer.initAudioContext();
+        await this.sfxPlayer.loadMP3().catch(error => console.error(error));
     }
     // Point system, use as callback when detecting collisions
     // Helper method for cleaner game mode setting
     setGameMode(mode) {
         // Declare mode received from outside sources
-        console.info('Setting...', mode);
         switch (mode) {
             case 'new':
                 this.gameMode = 'new';
-                console.info('New instance has been propped!');
                 break;
             case 'play':
                 this.gameMode = 'play';
+                this.loadAudioEngine().catch(error => console.error(error));
                 this.gameLoop();
                 break;
             case 'pause':
@@ -190,15 +189,12 @@ class GAME {
     }
     // Methods
     init() {
-        console.log('Paddle:', this.paddle);
-        console.log('Ball:', this.ball);
-
         this.gameEntities.push(this.paddle);
         this.gameEntities.push(this.ball);
+
     }
     gameLoop() {
         //gfxRenderer(gameEntities);
-        console.debug('Debug game mode:', this.gameMode);
         this.ball.update();
         this.ball.wallCollision(this.ball);
         if (this.ball.y > this.canvasHeight)
@@ -206,7 +202,7 @@ class GAME {
         Entity.ref.gameEntities.slice(0, -2).forEach(entity => {
             if (entity instanceof Target && collisionDetection(this.ball, [entity])) {
                 if (!this.ref.mute)
-                    this.ref.sfxPlayer.playSFX();
+                    this.sfxPlayer.playSFX();
                 entity.selfDestruct(this.gameEntities);
                 this.ball.targetHitBounce(collisionDirection(this.ball, entity));
                 // Point incrementor, uses a multiplier to encourage hit streaks for higher scores! Resets if the consequent hit inst a target
@@ -219,7 +215,7 @@ class GAME {
 
         if (collisionDetection(this.ball, [this.paddle])) {
             if (!this.ref.mute)
-                this.ref.sfxPlayer.playSFX();
+                this.sfxPlayer.playSFX();
             this.paddle.bounceAngle(this.ball);
             this.multiplier = 1;
         }
@@ -236,18 +232,15 @@ class GAME {
             requestAnimationFrame(() => this.gameLoop());
             //                          Check for no targets left
         } else if ((this.lives < 1) || !this.ref.gameEntities.some(entity => entity instanceof Target)) {
-            console.log('It is over!!');
             // Signal that the game has ended
             this.setGameMode('over');
             // Add points to player if lives remain as a bonus!
             if (this.lives > 0) {
                 this.points += 500 * this.lives;
-                console.info(this.points += 500 * this.lives);
                 if (this.signalPoints)
                     this.signalPoints(this.points);
             }
         } else {
-            console.log('Paused');
         }
     }
 }
@@ -387,7 +380,7 @@ class Ball extends Entity {
                 this.dx = Math.abs(this.dx);
                 break;
             default:
-                console.log('Error occurred with targetHitBounce()');
+                console.error('Error occurred with targetHitBounce()');
         }
     }
 }
