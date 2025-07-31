@@ -93,6 +93,7 @@ function App() {
     }, []);*/
 
     console.log(reduxState);
+    console.log('V3');
 
     if (reduxState.scores && !reduxState.loading) {
         return (

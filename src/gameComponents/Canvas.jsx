@@ -9,7 +9,7 @@ import Instructions from "./Instructions.jsx";
 
 function Canvas() {
 
-    const [mode, setMode] = useState('new');
+    const [mode, setMode] = useState('pause');
     const [points, setPoints] = useState(0);
     const [hearts, setHearts] = useState(3);
 
@@ -42,6 +42,10 @@ function Canvas() {
         // Bootstrapper for Block Breaker!
         if (canvasRef.current)
             buildCanvas(mode);
+    }, []);
+
+    useEffect(() => {
+        setMode('new');
     }, []);
 
     return (
@@ -111,7 +115,7 @@ function Canvas() {
                     <canvas className="block-breaker" ref={canvasRef} width={0} height={0}></canvas>
 
                     {/* Pause menu component */}
-                    {gameRef.current && gameRef.current.Game && (mode === 'pause' || mode === 'new') ? <BlockMenu key="menu" mode={mode} function={handleMode} rebuild={buildCanvas} setLives={setHearts} /> : null}
+                    {mode === 'new' || (gameRef.current && gameRef.current.Game && mode === 'pause') ? <BlockMenu key="menu" mode={mode} function={handleMode} rebuild={buildCanvas} setLives={setHearts} /> : null}
 
                     {/* Game over menu component */}
                     {gameRef.current && gameRef.current.Game && mode === 'over' ? <GameOver key="gameOver" mode={mode} bonus={hearts} function={handleMode} rebuild={buildCanvas} points={points} /> : null}

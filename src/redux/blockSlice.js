@@ -32,8 +32,8 @@ const blockSlice = createSlice ({
             state.scores = [... state.leaderboardData.entries];
         },*/
         submitScore: (state, action) => {
-            state.leaderboardData = [...action.payload];
-            state.scores = [...action.payload];
+            state.leaderboardData = action.payload;
+            state.scores = state.leaderboardData.entries;
         },
         changeGamemode: (state, action) => {
             state.gameState = ['', ...action.payload];

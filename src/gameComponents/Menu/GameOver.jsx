@@ -6,10 +6,10 @@ import {submitScore} from "../../redux/blockSlice.js";
 
 function GameOver(props) {
 
-    const reduxState = useSelector(state => state.blockStore.scores);
+    const reduxLeaderboard = useSelector(state => state.blockStore.leaderboardData);
+    // Derived state
+    const reduxState = reduxLeaderboard.entries;
     const dispatch = useDispatch();
-
-    console.info('redux GO', reduxState);
 
     const handleNewEntry = useCallback((eventObj) => {
         const scoreName = document.querySelector('#scoreName');
@@ -18,19 +18,24 @@ function GameOver(props) {
         // Tests if scores has changed, if the name input is 3 characters long and letters and if there's no duplicates present
         if ( reduxState && (scoreName.value.length === 3 && [...scoreName.value].every(ch => /^[a-zA-Z]$/.test(ch))) && verifyDuplicates(scoreName.value.toUpperCase(), props.points, reduxState) ) {
 
-            const updateEntries = [
-                ...reduxState,
-                {
-                    id: Math.floor(Math.random() * Date.now()),
-                    name: scoreName.value.toUpperCase(),
-                    score: props.points,
-                    timestamp: Date.now()
-                },
-            ];
+            const updateEntries = {
+                title: "Game Leaderboard",
+                lastUpdated: Date.now(),
+                entries: [
+                    ...reduxState,
+                    {
+                        id: Math.floor(Math.random() * Date.now()),
+                        name: scoreName.value.toUpperCase(),
+                        score: props.points,
+                        timestamp: Date.now()
+                    },
+                ],
+            };
             // TODO: - Serialize the lastUpdated ✅
             dispatch(submitScore(updateEntries));
+            props.rebuild('new');
         } else {
-            console.error('Input err');
+            console.error('Input err, this Name and Score combination already exists!');
         }
     }, [reduxState]);
 
@@ -42,7 +47,7 @@ function GameOver(props) {
     return (
         <>
             <section className="game-ui visible content-grid">
-                <img src={"/src/assets/gameArt/logo.png"} alt=""/>
+                <img src={"/assets/gameArt/logo.png"} alt=""/>
                 <div>Score: {props.points}</div>
                 {props.bonus > 0 ? <div>Bonus: {props.bonus} * 500!</div> : <div>No bonus :c</div>}
                 <form action="" className="score-submit">
